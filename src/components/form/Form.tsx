@@ -53,7 +53,7 @@ const Form = () => {
     }
   };
 
-  const handleClick = (e: React.MouseEvent<HTMLButtonElement>): void => {
+  const handleClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
     if (
       formValue.email === "" ||
       formValue.password === "" ||
@@ -62,7 +62,11 @@ const Form = () => {
     ) {
       return console.log("null");
     }
-    console.log("ok");
+    await fetch("http://localhost:5000/app/reg_user", {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formValue),
+    });
   };
 
   return (
