@@ -30,7 +30,7 @@ const Form = () => {
     email: "",
   });
 
-  const handleRadioChange = (
+  const handleInputChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ): void => {
     event.preventDefault();
@@ -51,6 +51,18 @@ const Form = () => {
       default:
         break;
     }
+  };
+
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>): void => {
+    if (
+      formValue.email === "" ||
+      formValue.password === "" ||
+      formValue.firstName === "" ||
+      formValue.lastName === ""
+    ) {
+      return console.log("null");
+    }
+    console.log("ok");
   };
 
   return (
@@ -88,13 +100,15 @@ const Form = () => {
               id={idName}
               name={idName}
               type={type}
-              onChange={handleRadioChange}
+              onChange={handleInputChange}
               value={value}
             />
           </InoutBox>
         ))}
       </>
-      <button type="button">Registration</button>
+      <button type="button" onClick={(e) => handleClick(e)}>
+        Registration
+      </button>
     </FormBox>
   );
 };
