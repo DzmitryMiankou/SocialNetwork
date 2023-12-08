@@ -1,18 +1,35 @@
 import React from "react";
 import styled from "styled-components";
 
+const Box = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  height: 100vh;
+`;
+
 const FormBox = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
   gap: 5px;
 `;
 
 const InoutBox = styled.div`
   display: flex;
   flex-direction: column;
+`;
+
+const MessageBox = styled.div`
+  height: 30px;
+`;
+
+const Message = styled.div<{ $color: string }>`
+  height: 30px;
+  color: ${(prop) => prop.$color};
 `;
 
 interface FurmValue<T extends string> {
@@ -22,18 +39,20 @@ interface FurmValue<T extends string> {
   email: T;
 }
 
-const Form = () => {
+const Form: React.FC = () => {
   const [formValue, setFormValue] = React.useState<FurmValue<string>>({
     firstName: "",
     lastName: "",
     password: "",
     email: "",
   });
+  const [messages, setMessages] = React.useState<string>("");
 
   const handleInputChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ): void => {
     event.preventDefault();
+    setMessages("");
     const target = event.target as HTMLInputElement;
     switch (target.name) {
       case "firstName":
@@ -53,67 +72,112 @@ const Form = () => {
     }
   };
 
-  const handleClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClick = async (
+    event: React.MouseEvent<HTMLButtonElement>
+  ): Promise<void> => {
+    event.preventDefault();
     if (
       formValue.email === "" ||
       formValue.password === "" ||
       formValue.firstName === "" ||
       formValue.lastName === ""
-    ) {
-      return console.log("null");
-    }
-    await fetch("http://localhost:5000/app/reg_user", {
-      method: "post",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formValue),
-    });
+    )
+      return setMessages("please fill all fields");
+
+    if (
+      /^[A-ZА-ЯЁ]+$/i.test(formValue.firstName) !== true ||
+      formValue.firstName.length < 2
+    )
+      return setMessages("wrong name");
+
+    if (
+      /^[A-ZА-ЯЁ]+$/i.test(formValue.lastName) !== true ||
+      formValue.lastName.length < 2
+    )
+      return setMessages("wrong lastname");
+
+    if (
+      /^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i.test(formValue.email) !== true
+    )
+      return setMessages("wrong email");
+
+    if (
+      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/.test(formValue.password) !== true
+    )
+      return setMessages("easy password");
+
+    const response: Response = await fetch(
+      "http://localhost:5000/app/reg_user",
+      {
+        method: "post",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formValue),
+      }
+    );
+    const responseStr: string = await response.json();
+    if (responseStr === "ER_DUP_ENTRY")
+      return setMessages("email address already exists");
+    if (response.ok) return setMessages("save user data");
   };
 
   return (
-    <FormBox>
-      <>
-        {[
-          {
-            label: "First name:",
-            idName: "firstName",
-            type: "text",
-            value: formValue.firstName,
-          },
-          {
-            label: "Last name:",
-            idName: "lastName",
-            type: "text",
-            value: formValue.lastName,
-          },
-          {
-            label: "Email:",
-            idName: "email",
-            type: "email",
-            value: formValue.email,
-          },
-          {
-            label: "Password:",
-            idName: "password",
-            type: "password",
-            value: formValue.password,
-          },
-        ].map(({ label, idName, type, value }) => (
-          <InoutBox key={label}>
-            <label htmlFor={idName}>{label}</label>
-            <input
-              id={idName}
-              name={idName}
-              type={type}
-              onChange={handleInputChange}
-              value={value}
-            />
-          </InoutBox>
-        ))}
-      </>
-      <button type="button" onClick={(e) => handleClick(e)}>
+    <Box>
+      <FormBox method="post" id="reg">
+        <>
+          {[
+            {
+              label: "First name:",
+              idName: "firstName",
+              type: "text",
+              value: formValue.firstName,
+            },
+            {
+              label: "Last name:",
+              idName: "lastName",
+              type: "text",
+              value: formValue.lastName,
+            },
+            {
+              label: "Email:",
+              idName: "email",
+              type: "email",
+              value: formValue.email,
+            },
+            {
+              label: "Password:",
+              idName: "password",
+              type: "password",
+              value: formValue.password,
+            },
+          ].map(({ label, idName, type, value }) => (
+            <InoutBox key={label}>
+              <label htmlFor={idName}>{label}</label>
+              <input
+                id={idName}
+                name={idName}
+                type={type}
+                onChange={handleInputChange}
+                value={value}
+              />
+            </InoutBox>
+          ))}
+        </>
+      </FormBox>
+      <button type="submit" form="reg" onClick={(e) => handleClick(e)}>
         Registration
       </button>
-    </FormBox>
+      <MessageBox>
+        {messages !== "" ? (
+          <Message
+            $color={messages !== "save user data" ? "#b50000" : "#00821a"}
+          >
+            {messages}
+          </Message>
+        ) : (
+          <></>
+        )}
+      </MessageBox>
+    </Box>
   );
 };
 
