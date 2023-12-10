@@ -97,7 +97,9 @@ const Form: React.FC = () => {
       return setMessages("wrong lastname");
 
     if (
-      /^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i.test(formValue.email) !== true
+      /^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i.test(formValue.email) !==
+        true ||
+      formValue.email.length < 8
     )
       return setMessages("wrong email");
 
@@ -117,7 +119,7 @@ const Form: React.FC = () => {
     const responseStr: string = await response.json();
     if (responseStr === "ER_DUP_ENTRY")
       return setMessages("email address already exists");
-    if (response.ok) return setMessages("save user data");
+    if (response.ok) return setMessages("ok. open your mail");
   };
 
   return (
@@ -169,7 +171,7 @@ const Form: React.FC = () => {
       <MessageBox>
         {messages !== "" ? (
           <Message
-            $color={messages !== "save user data" ? "#b50000" : "#00821a"}
+            $color={messages !== "ok. open your mail" ? "#b50000" : "#00821a"}
           >
             {messages}
           </Message>
