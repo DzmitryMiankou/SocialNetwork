@@ -11,6 +11,7 @@ const Header = styled.header`
   display: flex;
   align-items: center;
   background: var(--rssssd-color);
+  border-bottom: black 5px solid;
   height: 60px;
 `;
 

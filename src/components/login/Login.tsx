@@ -7,6 +7,7 @@ const FormBox = styled.form`
   align-items: center;
   justify-content: center;
   gap: 5px;
+  height: 80%;
 `;
 
 const InputBox = styled.div`

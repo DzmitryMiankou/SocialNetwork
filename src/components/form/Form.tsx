@@ -7,6 +7,7 @@ const Box = styled.div`
   align-items: center;
   justify-content: center;
   gap: 5px;
+  height: 80%;
 `;
 
 const FormBox = styled.form`
