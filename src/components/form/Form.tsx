@@ -7,7 +7,6 @@ const Box = styled.div`
   align-items: center;
   justify-content: center;
   gap: 5px;
-  height: 100vh;
 `;
 
 const FormBox = styled.form`
@@ -18,7 +17,7 @@ const FormBox = styled.form`
   gap: 5px;
 `;
 
-const InoutBox = styled.div`
+const InputBox = styled.div`
   display: flex;
   flex-direction: column;
 `;
@@ -152,7 +151,7 @@ const Form: React.FC = () => {
               value: formValue.password,
             },
           ].map(({ label, idName, type, value }) => (
-            <InoutBox key={label}>
+            <InputBox key={label}>
               <label htmlFor={idName}>{label}</label>
               <input
                 id={idName}
@@ -161,7 +160,7 @@ const Form: React.FC = () => {
                 onChange={handleInputChange}
                 value={value}
               />
-            </InoutBox>
+            </InputBox>
           ))}
         </>
       </FormBox>
