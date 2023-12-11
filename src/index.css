@@ -1,3 +1,9 @@
+:root {
+  --size-border: 95%;
+  --red-color: rgb(255, 255, 255);
+  --rssssd-color: rgb(224, 119, 21);
+}
+
 * {
   margin: 0;
   padding: 0;
