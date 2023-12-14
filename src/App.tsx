@@ -2,9 +2,11 @@ import React from "react";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 import Routers from "./routers/Routers";
+import SearchTwoToneIcon from "@mui/icons-material/SearchTwoTone";
 
 const AppBox = styled.div`
   height: 100vh;
+  background: #f9e5ff;
 `;
 
 const Header = styled.header`
@@ -13,6 +15,7 @@ const Header = styled.header`
   background: var(--rssssd-color);
   border-bottom: black 5px solid;
   height: 60px;
+  margin-bottom: 40px;
 `;
 
 const HeaderDiv = styled.div`
@@ -21,6 +24,7 @@ const HeaderDiv = styled.div`
   justify-content: space-between;
   width: var(--size-border);
   margin: auto;
+  gap: 40px;
 `;
 
 const Ul = styled.ul`
@@ -47,12 +51,29 @@ const NavLogo = styled(Nav)`
   font-weight: 800;
 `;
 
+const InputBox = styled.div`
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+`;
+
+const Input = styled.input`
+  background: rgb(140, 75, 13);
+  border: none;
+  outline: none;
+  color: white;
+`;
+
 const App: React.FC = () => {
   return (
     <AppBox>
       <Header>
         <HeaderDiv>
-          <NavLogo to="/">MyRound</NavLogo>
+          <NavLogo to="/">MyLine</NavLogo>
+          <InputBox>
+            <SearchTwoToneIcon />
+            <Input type="text" />
+          </InputBox>
           <menu>
             <nav>
               <Ul>
