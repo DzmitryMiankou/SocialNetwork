@@ -55,13 +55,21 @@ const InputBox = styled.div`
   margin-left: auto;
   display: flex;
   align-items: center;
+  background: rgb(140, 75, 13);
 `;
 
 const Input = styled.input`
-  background: rgb(140, 75, 13);
   border: none;
+  background: transparent;
   outline: none;
   color: white;
+  padding: 5px 8px;
+  border-right: 1px solid black;
+`;
+
+const InputButton = styled.button`
+  border: none;
+  background: rgb(105, 56, 11);
 `;
 
 const App: React.FC = () => {
@@ -71,14 +79,22 @@ const App: React.FC = () => {
         <HeaderDiv>
           <NavLogo to="/">MyLine</NavLogo>
           <InputBox>
-            <SearchTwoToneIcon />
             <Input type="text" />
+            <InputButton type="button">
+              <SearchTwoToneIcon
+                sx={{
+                  color: "rgb(255, 169, 89)",
+                  transition: "0.2s",
+                  "&:hover": {
+                    color: "var(--red-color)",
+                  },
+                }}
+              />
+            </InputButton>
           </InputBox>
           <menu>
             <nav>
               <Ul>
-                <Nav to="fdb">Aboout</Nav>
-                <Nav to="fdb">Contact</Nav>
                 <Nav to="auth">Regist</Nav>
                 <Nav to="sign">Sign</Nav>
               </Ul>
