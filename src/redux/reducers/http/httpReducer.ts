@@ -1,5 +1,10 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
+interface AcceptsType {
+  email: string;
+  password: string;
+}
+
 export const httpReducer = createApi({
   reducerPath: "auth",
   baseQuery: fetchBaseQuery({
@@ -10,8 +15,12 @@ export const httpReducer = createApi({
     },
   }),
   endpoints: (build) => ({
-    authUser: build.mutation<any, any>({
-      query: (body) => ({ method: "POST", url: "login", body }),
+    authUser: build.mutation<AcceptsType, AcceptsType>({
+      query: (body: AcceptsType) => ({
+        method: "POST",
+        url: "login",
+        body,
+      }),
     }),
   }),
 });
