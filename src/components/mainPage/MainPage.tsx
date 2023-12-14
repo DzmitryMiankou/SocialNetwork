@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import avatar from "../../img/images.png";
+import React from "react";
 
 const Main = styled.div`
   width: var(--size-border);
@@ -30,7 +31,7 @@ const FriendsText = styled.h2`
   font-size: 20px;
 `;
 
-const Friend = styled.li`
+const Friend = styled.p`
   font-size: 20px;
   margin: 7px 10px;
 `;
@@ -39,6 +40,16 @@ const Line = styled.hr`
   height: 2px;
   background-color: black;
   border: none;
+`;
+
+const AvatarFriendBox = styled.li`
+  display: flex;
+  margin: 0px 10px;
+`;
+
+const AvatarFriend = styled.img`
+  width: 30px;
+  height: 30px;
 `;
 
 const MainPage = () => {
@@ -62,7 +73,10 @@ const MainPage = () => {
             "Ivan Melnic",
             "Ivan Melnic",
           ].map((name, i) => (
-            <Friend key={i}>{name}</Friend>
+            <AvatarFriendBox key={i}>
+              <AvatarFriend src={avatar} alt="avatar" />
+              <Friend key={i}>{name}</Friend>
+            </AvatarFriendBox>
           ))}
         </ul>
       </Friends>

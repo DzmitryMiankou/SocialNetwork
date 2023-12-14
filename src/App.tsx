@@ -64,7 +64,6 @@ const Input = styled.input`
   outline: none;
   color: white;
   padding: 5px 8px;
-  border-right: 1px solid black;
 `;
 
 const InputButton = styled.button`

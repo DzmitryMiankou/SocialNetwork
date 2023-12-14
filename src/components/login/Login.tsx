@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { useAuthUserMutation } from "../../redux/reducers/http/httpReducer";
 
 const FormBox = styled.form`
   display: flex;
@@ -16,6 +17,17 @@ const InputBox = styled.div`
 `;
 
 const Login: React.FC = () => {
+  const [post, result] = useAuthUserMutation();
+
+  const handlerClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    post({
+      email: "gmiankou@gmail.com",
+      password: "miankou14121994A",
+    });
+    console.log(result);
+  };
+
   return (
     <FormBox method="post" id="login">
       {[
@@ -37,6 +49,9 @@ const Login: React.FC = () => {
           </InputBox>
         </React.Fragment>
       ))}
+      <button type={"button"} onClick={handlerClick}>
+        sign
+      </button>
     </FormBox>
   );
 };
