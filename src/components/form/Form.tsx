@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { useRegUserMutation } from "../../redux/reducers/http/httpReducer";
 import { Link } from "react-router-dom";
+import { RegType } from "../../redux/reducers/http/httpReducer";
 
 const Box = styled.div`
   display: flex;
@@ -58,7 +59,9 @@ const Nav = styled(Link)`
 `;
 
 const Form: React.FC = () => {
-  const [regUser, data] = useRegUserMutation() as any;
+  const [regUser, data] = useRegUserMutation<
+    RegType | { code: null; message: string } | any
+  >();
   const [formValue, setFormValue] = React.useState<FurmValue<string>>({
     firstName: "",
     lastName: "",

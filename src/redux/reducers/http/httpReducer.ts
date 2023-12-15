@@ -5,7 +5,7 @@ interface AcceptsType {
   password: string;
 }
 
-interface RegType extends AcceptsType {
+export interface RegType extends AcceptsType {
   firstName: string;
   lastName: string;
 }
@@ -35,7 +35,7 @@ export const httpReducer = createApi({
         body,
       }),
     }),
-    regUser: build.mutation<any, RegType | { code: null; message: string }>({
+    regUser: build.mutation<void, RegType | { code: null; message: string }>({
       query: (body: RegType) => ({
         method: "POST",
         url: "reg_user",
