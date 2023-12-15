@@ -5,6 +5,21 @@ interface AcceptsType {
   password: string;
 }
 
+interface RegType extends AcceptsType {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+}
+
+interface UserDataType {
+  id: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+  access_token: string;
+}
+
 export const httpReducer = createApi({
   reducerPath: "auth",
   baseQuery: fetchBaseQuery({
@@ -15,14 +30,21 @@ export const httpReducer = createApi({
     },
   }),
   endpoints: (build) => ({
-    authUser: build.mutation<AcceptsType, AcceptsType>({
+    authUser: build.mutation<UserDataType, AcceptsType>({
       query: (body: AcceptsType) => ({
         method: "POST",
         url: "login",
         body,
       }),
     }),
+    regUser: build.mutation<any, RegType>({
+      query: (body: RegType) => ({
+        method: "POST",
+        url: "reg_user",
+        body,
+      }),
+    }),
   }),
 });
 
-export const { useAuthUserMutation } = httpReducer;
+export const { useAuthUserMutation, useRegUserMutation } = httpReducer;

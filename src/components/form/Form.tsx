@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { useRegUserMutation } from "../../redux/reducers/http/httpReducer";
 
 const Box = styled.div`
   display: flex;
@@ -40,6 +41,7 @@ interface FurmValue<T extends string> {
 }
 
 const Form: React.FC = () => {
+  const [regUser, result] = useRegUserMutation();
   const [formValue, setFormValue] = React.useState<FurmValue<string>>({
     firstName: "",
     lastName: "",
@@ -108,18 +110,15 @@ const Form: React.FC = () => {
     )
       return setMessages("easy password");
 
-    const response: Response = await fetch(
-      "http://localhost:5000/app/reg_user",
-      {
-        method: "post",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formValue),
-      }
-    );
-    const responseStr: string = await response.json();
+    await regUser({
+      ...formValue,
+    });
+
+    console.log(result);
+    /* const responseStr: string = await response.json();
     if (responseStr === "ER_DUP_ENTRY")
       return setMessages("email address already exists");
-    if (response.ok) return setMessages("ok. open your mail");
+    if (response.ok) return setMessages("ok. open your mail");*/
   };
 
   return (
