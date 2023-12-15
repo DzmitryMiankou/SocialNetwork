@@ -18,15 +18,39 @@ const InputBox = styled.div`
 
 const Login: React.FC = () => {
   const [post, result] = useAuthUserMutation();
+  const [value, setValue] = React.useState<{ email: string; password: string }>(
+    {
+      email: "",
+      password: "",
+    }
+  );
 
-  const handlerClick = (e: React.MouseEvent) => {
+  const handlerClick = async (e: React.MouseEvent): Promise<void> => {
     e.preventDefault();
-    post({
-      email: "gmiankou@gmail.com",
-      password: "miankou14121994A",
+    await post({
+      email: value.email,
+      password: value.password,
     });
-    console.log(result);
   };
+
+  const handleInputChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void => {
+    event.preventDefault();
+    const target = event.target as HTMLInputElement;
+    switch (target.name) {
+      case "email":
+        setValue(() => ({ ...value, email: target.value }));
+        break;
+      case "password":
+        setValue(() => ({ ...value, password: target.value }));
+        break;
+      default:
+        break;
+    }
+  };
+
+  console.log(result?.data);
 
   return (
     <FormBox method="post" id="login">
@@ -35,17 +59,24 @@ const Login: React.FC = () => {
           label: "Email:",
           idName: "email",
           type: "email",
+          value: value.email,
         },
         {
           label: "Password:",
           idName: "password",
           type: "password",
+          value: value.password,
         },
-      ].map(({ label, idName, type }) => (
+      ].map(({ label, idName, type, value }) => (
         <React.Fragment key={idName}>
           <InputBox>
             <label htmlFor={idName}>{label}</label>
-            <input name={idName} type={type} />
+            <input
+              value={value}
+              name={idName}
+              type={type}
+              onChange={handleInputChange}
+            />
           </InputBox>
         </React.Fragment>
       ))}

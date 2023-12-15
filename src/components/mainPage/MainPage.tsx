@@ -32,7 +32,7 @@ const FriendsText = styled.h2`
 `;
 
 const Friend = styled.p`
-  font-size: 20px;
+  font-size: 16px;
   margin: 7px 10px;
 `;
 

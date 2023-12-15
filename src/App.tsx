@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 import Routers from "./routers/Routers";
 import SearchTwoToneIcon from "@mui/icons-material/SearchTwoTone";
+import LoginTwoToneIcon from "@mui/icons-material/LoginTwoTone";
 
 const AppBox = styled.div`
   height: 100vh;
@@ -33,8 +34,10 @@ const Ul = styled.ul`
 `;
 
 const Nav = styled(NavLink)`
+  display: flex;
+  align-items: center;
   text-decoration: none;
-  font-size: 18px;
+  font-size: 20px;
   color: black;
   transition: 0.2s;
   &:hover {
@@ -94,8 +97,9 @@ const App: React.FC = () => {
           <menu>
             <nav>
               <Ul>
-                <Nav to="auth">Regist</Nav>
-                <Nav to="sign">Sign</Nav>
+                <Nav to="auth">
+                  <LoginTwoToneIcon />
+                </Nav>
               </Ul>
             </nav>
           </menu>

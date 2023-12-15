@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useRegUserMutation } from "../../redux/reducers/http/httpReducer";
+import { Link } from "react-router-dom";
 
 const Box = styled.div`
   display: flex;
@@ -40,8 +41,24 @@ interface FurmValue<T extends string> {
   email: T;
 }
 
+const Nav = styled(Link)`
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  font-size: 20px;
+  color: black;
+  transition: 0.2s;
+  &:hover {
+    color: var(--red-color);
+  }
+  &.active {
+    color: var(--red-color);
+    cursor: default;
+  }
+`;
+
 const Form: React.FC = () => {
-  const [regUser, result] = useRegUserMutation();
+  const [regUser, data] = useRegUserMutation() as any;
   const [formValue, setFormValue] = React.useState<FurmValue<string>>({
     firstName: "",
     lastName: "",
@@ -114,7 +131,6 @@ const Form: React.FC = () => {
       ...formValue,
     });
 
-    console.log(result);
     /* const responseStr: string = await response.json();
     if (responseStr === "ER_DUP_ENTRY")
       return setMessages("email address already exists");
@@ -168,16 +184,17 @@ const Form: React.FC = () => {
         Registration
       </button>
       <MessageBox>
-        {messages !== "" ? (
+        {data?.error?.data !== "ok. open your mail" ? (
           <Message
             $color={messages !== "ok. open your mail" ? "#b50000" : "#00821a"}
           >
-            {messages}
+            {data?.error?.data}
           </Message>
         ) : (
           <></>
         )}
       </MessageBox>
+      <Nav to="/sign">Sign</Nav>
     </Box>
   );
 };
