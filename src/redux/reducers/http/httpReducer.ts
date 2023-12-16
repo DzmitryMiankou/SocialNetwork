@@ -28,6 +28,12 @@ export const httpReducer = createApi({
     },
   }),
   endpoints: (build) => ({
+    searchUsers: build.query<
+      { id: number; firstName: string; lastName: string }[],
+      string | number
+    >({
+      query: (params) => ({ url: `allUsers/:${params}` }),
+    }),
     authUser: build.mutation<UserDataType, AcceptsType>({
       query: (body: AcceptsType) => ({
         method: "POST",
@@ -45,4 +51,8 @@ export const httpReducer = createApi({
   }),
 });
 
-export const { useAuthUserMutation, useRegUserMutation } = httpReducer;
+export const {
+  useAuthUserMutation,
+  useRegUserMutation,
+  useLazySearchUsersQuery,
+} = httpReducer;

@@ -2,6 +2,8 @@ import { SxProps } from "@mui/material";
 import React from "react";
 import styled from "styled-components";
 import SearchTwoToneIcon from "@mui/icons-material/SearchTwoTone";
+import { useLazySearchUsersQuery } from "../../../redux/reducers/http/httpReducer";
+import MoadalWindow from "../modalWindow/ModalWindow";
 
 const InputBox = styled.div`
   margin-left: auto;
@@ -34,13 +36,25 @@ const SX: { icon: SxProps } = {
 };
 
 const SearchInput: React.FC = () => {
+  const [value, setValue] = React.useState<string>("");
+  const [trigger, { data }] = useLazySearchUsersQuery();
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    const value = event.target.value;
+    setValue(value);
+    trigger(value);
+  };
+
   return (
-    <InputBox>
-      <Input type="text" />
-      <InputButton type="button">
-        <SearchTwoToneIcon sx={SX.icon} />
-      </InputButton>
-    </InputBox>
+    <>
+      <InputBox>
+        <Input onChange={handleChange} value={value} type="text" />
+        <InputButton type="button">
+          <SearchTwoToneIcon sx={SX.icon} />
+        </InputButton>
+      </InputBox>
+      <MoadalWindow data={data} />
+    </>
   );
 };
 
