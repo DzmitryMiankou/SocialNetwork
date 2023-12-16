@@ -10,11 +10,8 @@ export interface RegType extends AcceptsType {
   lastName: string;
 }
 
-interface UserDataType {
+interface UserDataType extends RegType {
   id: number;
-  firstName: string;
-  lastName: string;
-  email: string;
   access_token: string;
 }
 

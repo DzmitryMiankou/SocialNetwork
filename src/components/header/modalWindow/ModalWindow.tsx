@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const ModalBox = styled.div`
   position: absolute;
@@ -13,9 +13,22 @@ const ModalBox = styled.div`
 
 const UserBox = styled.li`
   border-bottom: black solid 2px;
+  transition: 0.2s;
+  &:hover {
+    background-color: #ffc18f;
+  }
 `;
-const UserLink = styled(Link)`
+const UserLink = styled(NavLink)`
+  display: block;
+  padding: 10px 8px;
   text-decoration: none;
+  color: black;
+  transition: 0.2s;
+  &.active {
+    color: rgb(210, 69, 8);
+    cursor: default;
+    background-color: #ffc18f;
+  }
 `;
 
 const MoadalWindow: React.FC<{
