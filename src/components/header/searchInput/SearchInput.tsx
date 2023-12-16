@@ -4,6 +4,7 @@ import styled from "styled-components";
 import SearchTwoToneIcon from "@mui/icons-material/SearchTwoTone";
 import { useLazySearchUsersQuery } from "../../../redux/reducers/http/httpReducer";
 import MoadalWindow from "../modalWindow/ModalWindow";
+import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
 
 const InputBox = styled.div`
   margin-left: auto;
@@ -21,6 +22,8 @@ const Input = styled.input`
 `;
 
 const InputButton = styled.button`
+  display: flex;
+  align-items: center;
   border: none;
   background: rgb(105, 56, 11);
 `;
@@ -45,15 +48,35 @@ const SearchInput: React.FC = () => {
     trigger(value);
   };
 
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>): void => {
+    setValue("");
+    trigger("");
+  };
+
   return (
     <>
       <InputBox>
+        <>
+          {value === "" ? (
+            <></>
+          ) : (
+            <InputButton onClick={handleClick} type="button">
+              <ClearRoundedIcon sx={SX.icon} />
+            </InputButton>
+          )}
+        </>
         <Input onChange={handleChange} value={value} type="text" />
         <InputButton type="button">
           <SearchTwoToneIcon sx={SX.icon} />
         </InputButton>
       </InputBox>
-      <MoadalWindow data={data} />
+      <>
+        {data?.length !== 0 && data !== null && data !== undefined ? (
+          <MoadalWindow data={data} />
+        ) : (
+          <></>
+        )}
+      </>
     </>
   );
 };

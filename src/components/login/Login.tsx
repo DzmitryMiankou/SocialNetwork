@@ -50,8 +50,6 @@ const Login: React.FC = () => {
     }
   };
 
-  console.log(result?.data);
-
   return (
     <FormBox method="post" id="login">
       {[

@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import avatar from "../../img/images.png";
 import React from "react";
+import { useParams } from "react-router-dom";
 
 const Main = styled.div`
   width: var(--size-border);
@@ -53,11 +54,18 @@ const AvatarFriend = styled.img`
 `;
 
 const MainPage = () => {
+  const user = useParams();
+  const userData: string[] | `` = user?.id?.split(`_`) || ``;
+
   return (
     <Main>
       <AvatarBox>
         <Avatar src={avatar} alt="avatar" />
-        <AvatarText>Dzmitry Miankou</AvatarText>
+        <AvatarText>
+          {userData === ``
+            ? `Dzmitry Miankou`
+            : `${userData[0].replace(`:`, "")} ${userData[2]}`}
+        </AvatarText>
         <Line></Line>
       </AvatarBox>
       <Friends>

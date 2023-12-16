@@ -6,6 +6,7 @@ import MainPage from "../components/mainPage/MainPage";
 const Routers = () => {
   const arrToElem: Array<{ element: JSX.Element; path: string }> = [
     { element: <MainPage />, path: "/" },
+    { element: <MainPage />, path: "/users/:id" },
     { element: <Form />, path: "/auth" },
     { element: <Login />, path: "/sign" },
   ];

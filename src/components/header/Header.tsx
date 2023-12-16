@@ -52,7 +52,7 @@ const Header: React.FC = () => {
   return (
     <HeaderBox>
       <HeaderDiv>
-        <NavLogo to="/">MyLine</NavLogo>
+        <NavLogo to={`/`}>MyLine</NavLogo>
         <SearchInput />
         <menu>
           <nav>
