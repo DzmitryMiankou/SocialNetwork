@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import { useRegUserMutation } from "../../redux/reducers/http/httpReducer";
 import { Link } from "react-router-dom";
-import { RegType } from "../../redux/reducers/http/httpReducer";
 
 const Box = styled.div`
   display: flex;
@@ -43,25 +42,11 @@ interface FurmValue<T extends string> {
 }
 
 const Nav = styled(Link)`
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  font-size: 20px;
   color: black;
-  transition: 0.2s;
-  &:hover {
-    color: var(--red-color);
-  }
-  &.active {
-    color: var(--red-color);
-    cursor: default;
-  }
 `;
 
 const Form: React.FC = () => {
-  const [regUser, data] = useRegUserMutation<
-    RegType | { code: null; message: string } | any
-  >();
+  const [regUser, data] = useRegUserMutation<any>();
   const [formValue, setFormValue] = React.useState<FurmValue<string>>({
     firstName: "",
     lastName: "",
@@ -197,6 +182,7 @@ const Form: React.FC = () => {
           <></>
         )}
       </MessageBox>
+
       <Nav to="/sign">Sign</Nav>
     </Box>
   );

@@ -1,4 +1,5 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { createApi } from "@reduxjs/toolkit/query/react";
+import { baseQueryWithReauth } from "./interceptors";
 
 interface AcceptsType {
   email: string;
@@ -17,14 +18,7 @@ interface UserDataType extends RegType {
 
 export const httpReducer = createApi({
   reducerPath: "auth",
-  baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:5000/app/",
-    credentials: "include",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-  }),
+  baseQuery: baseQueryWithReauth,
   endpoints: (build) => ({
     searchUsers: build.query<
       { id: number; firstName: string; lastName: string }[],
@@ -41,7 +35,7 @@ export const httpReducer = createApi({
         body,
       }),
     }),
-    regUser: build.mutation<void, RegType | { code: null; message: string }>({
+    regUser: build.mutation<void, RegType | { code: number; message: string }>({
       query: (body: RegType) => ({
         method: "POST",
         url: "reg_user",

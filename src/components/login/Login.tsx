@@ -79,7 +79,7 @@ const Login: React.FC = () => {
         </React.Fragment>
       ))}
       <button type={"button"} onClick={handlerClick}>
-        sign
+        sign in
       </button>
     </FormBox>
   );
