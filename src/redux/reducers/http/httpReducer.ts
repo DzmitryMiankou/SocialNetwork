@@ -36,6 +36,7 @@ export const httpReducer = createApi({
         method: "POST",
         url: "login",
         body,
+        credentials: "include",
       }),
     }),
     regUser: build.mutation<void, RegType | { code: null; message: string }>({
