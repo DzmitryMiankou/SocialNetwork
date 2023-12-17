@@ -19,6 +19,7 @@ export const httpReducer = createApi({
   reducerPath: "auth",
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:5000/app/",
+    credentials: "include",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
@@ -29,14 +30,15 @@ export const httpReducer = createApi({
       { id: number; firstName: string; lastName: string }[],
       string | number
     >({
-      query: (params) => ({ url: `allUsers/:${params}` }),
+      query: (params) => ({
+        url: `allUsers/:${params}`,
+      }),
     }),
     authUser: build.mutation<UserDataType, AcceptsType>({
       query: (body: AcceptsType) => ({
         method: "POST",
         url: "login",
         body,
-        credentials: "include",
       }),
     }),
     regUser: build.mutation<void, RegType | { code: null; message: string }>({
