@@ -11,6 +11,7 @@ const baseQuery = fetchBaseQuery({
   headers: {
     Accept: "application/json",
     "Content-Type": "application/json",
+    Authorization: `Bearer=<token>`,
   },
   credentials: "include",
 });
@@ -22,8 +23,6 @@ export const baseQueryWithReauth: BaseQueryFn<
 > = async (args, api, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions);
   if (result.error && result.error.status === 401) {
-    console.log("dsvf");
-
     const refreshResult = await baseQuery("/refreshToken", api, extraOptions);
 
     if (refreshResult.data) {
