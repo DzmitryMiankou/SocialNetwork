@@ -4,14 +4,20 @@ import type {
   FetchArgs,
   FetchBaseQueryError,
 } from "@reduxjs/toolkit/query";
-//import { tokenReceived, loggedOut } from "./authSlice";
+import { RootState } from "../../store";
+import { setDataAction, logAutAction } from "../../loginReducer";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: "http://localhost:5000/app/",
-  headers: {
-    Accept: "application/json",
-    "Content-Type": "application/json",
-    Authorization: `Bearer=<token>`,
+  prepareHeaders: (headers, { getState }) => {
+    const state = getState() as RootState;
+    const token: any = state.login;
+    headers.set("Content-Type", "application/json");
+    headers.set("Accept", "application/json");
+    if (token) {
+      headers.set("authorization", `Bearer${token.token}`);
+    }
+    return headers;
   },
   credentials: "include",
 });
@@ -26,12 +32,10 @@ export const baseQueryWithReauth: BaseQueryFn<
     const refreshResult = await baseQuery("/refreshToken", api, extraOptions);
 
     if (refreshResult.data) {
-      // store the new token
-      //api.dispatch(tokenReceived(refreshResult.data));
-      // retry the initial query
-      //  result = await baseQuery(args, api, extraOptions);
+      api.dispatch(setDataAction(refreshResult?.data));
+      result = await baseQuery(args, api, extraOptions);
     } else {
-      //api.dispatch(loggedOut());
+      api.dispatch(logAutAction());
     }
   }
   return result;

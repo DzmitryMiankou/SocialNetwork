@@ -1,6 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import { useAuthUserMutation } from "../../redux/reducers/http/httpReducer";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../redux/store";
+import { setDataAction } from "../../redux/loginReducer";
 
 const FormBox = styled.form`
   display: flex;
@@ -17,6 +20,7 @@ const InputBox = styled.div`
 `;
 
 const Login: React.FC = () => {
+  const dispatch: AppDispatch = useDispatch();
   const [post, result] = useAuthUserMutation();
   const [value, setValue] = React.useState<{ email: string; password: string }>(
     {
@@ -32,6 +36,10 @@ const Login: React.FC = () => {
       password: value.password,
     });
   };
+
+  React.useEffect(() => {
+    dispatch(setDataAction(result.data));
+  }, [dispatch, result.data]);
 
   const handleInputChange = (
     event: React.ChangeEvent<HTMLInputElement>

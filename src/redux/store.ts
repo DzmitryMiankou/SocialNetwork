@@ -11,6 +11,12 @@ import {
   REGISTER,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import loginReducer from "./loginReducer";
+
+const rootReducers = combineReducers({
+  login: loginReducer as any,
+  [httpReducer.reducerPath]: httpReducer.reducer,
+});
 
 const persistConfig = {
   key: "root",
@@ -18,10 +24,6 @@ const persistConfig = {
   version: 1,
   blacklist: ["auth"],
 };
-
-const rootReducers = combineReducers({
-  [httpReducer.reducerPath]: httpReducer.reducer,
-});
 
 const persistedReducer = persistReducer(persistConfig, rootReducers);
 
@@ -37,5 +39,5 @@ const store = configureStore({
 
 export default store;
 export const persistor = persistStore(store);
-export type RootState = ReturnType<typeof store.getState>;
+export type RootState = ReturnType<typeof rootReducers>;
 export type AppDispatch = typeof store.dispatch;
