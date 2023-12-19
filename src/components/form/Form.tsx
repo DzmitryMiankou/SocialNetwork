@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import { useRegUserMutation } from "../../redux/reducers/http/httpReducer";
-import { Link } from "react-router-dom";
 
 const Box = styled.div`
   display: flex;
@@ -40,10 +39,6 @@ interface FurmValue<T extends string> {
   password: T;
   email: T;
 }
-
-const Nav = styled(Link)`
-  color: black;
-`;
 
 const Form: React.FC = () => {
   const [regUser, data] = useRegUserMutation<any>();
@@ -128,6 +123,7 @@ const Form: React.FC = () => {
   return (
     <Box>
       <FormBox method="post" id="reg">
+        <h1>REGISTER IN THE MYLINE</h1>
         <>
           {[
             {
@@ -182,8 +178,6 @@ const Form: React.FC = () => {
           <></>
         )}
       </MessageBox>
-
-      <Nav to="/sign">Sign</Nav>
     </Box>
   );
 };

@@ -57,7 +57,7 @@ const Header: React.FC = () => {
         <menu>
           <nav>
             <Ul>
-              <Nav to="auth">
+              <Nav to="sign">
                 <LoginTwoToneIcon />
               </Nav>
             </Ul>

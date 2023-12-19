@@ -4,6 +4,7 @@ import { useAuthUserMutation } from "../../redux/reducers/http/httpReducer";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../redux/store";
 import { setDataAction } from "../../redux/loginReducer";
+import { Link } from "react-router-dom";
 
 const FormBox = styled.form`
   display: flex;
@@ -17,6 +18,10 @@ const FormBox = styled.form`
 const InputBox = styled.div`
   display: flex;
   flex-direction: column;
+`;
+
+const Nav = styled(Link)`
+  color: black;
 `;
 
 const Login: React.FC = () => {
@@ -60,6 +65,7 @@ const Login: React.FC = () => {
 
   return (
     <FormBox method="post" id="login">
+      <h1>SIGN IN MYLINE</h1>
       {[
         {
           label: "Email:",
@@ -89,6 +95,7 @@ const Login: React.FC = () => {
       <button type={"button"} onClick={handlerClick}>
         sign in
       </button>
+      <Nav to="/auth">registration</Nav>
     </FormBox>
   );
 };
