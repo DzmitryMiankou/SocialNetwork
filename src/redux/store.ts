@@ -12,6 +12,7 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import loginReducer from "./loginReducer";
+import { InitialStateType } from "./loginReducer";
 
 const rootReducers = combineReducers({
   login: loginReducer as any,

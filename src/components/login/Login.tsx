@@ -4,7 +4,7 @@ import { useAuthUserMutation } from "../../redux/reducers/http/httpReducer";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../redux/store";
 import { setDataAction } from "../../redux/loginReducer";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const FormBox = styled.form`
   display: flex;
@@ -25,6 +25,7 @@ const Nav = styled(Link)`
 `;
 
 const Login: React.FC = () => {
+  const navigate = useNavigate();
   const dispatch: AppDispatch = useDispatch();
   const [post, result] = useAuthUserMutation();
   const [value, setValue] = React.useState<{ email: string; password: string }>(
@@ -40,6 +41,7 @@ const Login: React.FC = () => {
       email: value.email,
       password: value.password,
     });
+    navigate("/");
   };
 
   React.useEffect(() => {

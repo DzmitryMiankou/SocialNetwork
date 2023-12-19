@@ -1,25 +1,12 @@
 import styled from "styled-components";
 import avatar from "../../img/images.png";
 import React from "react";
-import { useParams } from "react-router-dom";
+import UserData from "./userData/UserData";
+import { InitialStateType } from "../../redux/loginReducer";
 
 const Main = styled.div`
   width: var(--size-border);
   margin: auto;
-`;
-
-const AvatarBox = styled.div`
-  max-width: 230px;
-`;
-
-const Avatar = styled.img`
-  border: 3px solid black;
-  min-width: 150px;
-  max-width: 230px;
-`;
-
-const AvatarText = styled.h1`
-  font-size: 24px;
 `;
 
 const Friends = styled.div`
@@ -53,21 +40,10 @@ const AvatarFriend = styled.img`
   height: 30px;
 `;
 
-const MainPage = () => {
-  const user = useParams();
-  const userData: string[] | `` = user?.id?.split(`_`) || ``;
-
+const MainPage: React.FC<{ user: InitialStateType }> = ({ user }) => {
   return (
     <Main>
-      <AvatarBox>
-        <Avatar src={avatar} alt="avatar" />
-        <AvatarText>
-          {userData === ``
-            ? `Dzmitry Miankou`
-            : `${userData[0].replace(`:`, "")} ${userData[2]}`}
-        </AvatarText>
-        <Line></Line>
-      </AvatarBox>
+      <UserData user={user} />
       <Friends>
         <FriendsText>My Friends</FriendsText>
         <Line></Line>

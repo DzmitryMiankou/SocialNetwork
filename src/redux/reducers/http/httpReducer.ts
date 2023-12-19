@@ -1,5 +1,5 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
-import { baseQueryWithReauth } from "./interceptors";
+import { baseQueryWithReauth } from "../../interceptors";
 
 interface AcceptsType {
   email: string;
@@ -28,6 +28,11 @@ export const httpReducer = createApi({
         url: `allUsers/:${params}`,
       }),
     }),
+    logOutUser: build.query({
+      query: () => ({
+        url: `logOut`,
+      }),
+    }),
     authUser: build.mutation<UserDataType, AcceptsType>({
       query: (body: AcceptsType) => ({
         method: "POST",
@@ -49,4 +54,5 @@ export const {
   useAuthUserMutation,
   useRegUserMutation,
   useLazySearchUsersQuery,
+  useLazyLogOutUserQuery,
 } = httpReducer;

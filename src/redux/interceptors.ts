@@ -4,8 +4,8 @@ import type {
   FetchArgs,
   FetchBaseQueryError,
 } from "@reduxjs/toolkit/query";
-import { RootState } from "../../store";
-import { setDataAction, logAutAction } from "../../loginReducer";
+import { RootState } from "./store";
+import { setDataAction, logOutAction } from "./loginReducer";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: "http://localhost:5000/app/",
@@ -35,7 +35,7 @@ export const baseQueryWithReauth: BaseQueryFn<
       api.dispatch(setDataAction(refreshResult?.data));
       result = await baseQuery(args, api, extraOptions);
     } else {
-      api.dispatch(logAutAction());
+      api.dispatch(logOutAction());
     }
   }
   return result;

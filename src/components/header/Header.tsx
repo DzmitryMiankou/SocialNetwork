@@ -2,7 +2,12 @@ import React from "react";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 import LoginTwoToneIcon from "@mui/icons-material/LoginTwoTone";
+import LogoutIcon from "@mui/icons-material/Logout";
 import SearchInput from "./searchInput/SearchInput";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../redux/store";
+import { logOutAction } from "../../redux/loginReducer";
+import { useLazyLogOutUserQuery } from "../../redux/reducers/http/httpReducer";
 
 const HeaderBox = styled.header`
   display: flex;
@@ -22,7 +27,7 @@ const HeaderDiv = styled.div`
   gap: 40px;
 `;
 
-const Ul = styled.ul`
+const Ul = styled.div`
   display: flex;
   gap: 15px;
 `;
@@ -43,12 +48,37 @@ const Nav = styled(NavLink)`
   }
 `;
 
+const Nav2 = styled.div`
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  font-size: 20px;
+  color: black;
+  cursor: pointer;
+  transition: 0.2s;
+  &:hover {
+    color: var(--red-color);
+  }
+  &.active {
+    color: var(--red-color);
+    cursor: default;
+  }
+`;
+
 const NavLogo = styled(Nav)`
   font-size: 25px;
   font-weight: 800;
 `;
 
-const Header: React.FC = () => {
+const Header: React.FC<{ user: any }> = ({ user }) => {
+  const dispatch: AppDispatch = useDispatch();
+  const [trigger] = useLazyLogOutUserQuery();
+
+  const handlerClick = async () => {
+    dispatch(logOutAction());
+    await trigger(0);
+  };
+
   return (
     <HeaderBox>
       <HeaderDiv>
@@ -57,9 +87,15 @@ const Header: React.FC = () => {
         <menu>
           <nav>
             <Ul>
-              <Nav to="sign">
-                <LoginTwoToneIcon />
-              </Nav>
+              {!user.isActive ? (
+                <Nav to="sign">
+                  <LoginTwoToneIcon />
+                </Nav>
+              ) : (
+                <Nav2 onClick={handlerClick}>
+                  <LogoutIcon />
+                </Nav2>
+              )}
             </Ul>
           </nav>
         </menu>

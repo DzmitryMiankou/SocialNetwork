@@ -11,11 +11,11 @@ export interface InitialStateType {
         access_token: string;
       }
     | { access_token?: string };
-  token: null | string;
+  token: undefined | string;
   isActive: boolean;
 }
 
-interface TypeAction {
+export interface TypeAction {
   type: typeof SETDATA | typeof LOGAUT;
   value: {
     id: number;
@@ -28,11 +28,14 @@ interface TypeAction {
 
 const initialState: InitialStateType = {
   user: {},
-  token: null,
+  token: undefined,
   isActive: false,
 };
 
-const loginReducer = (state = initialState, action: TypeAction) => {
+const loginReducer = (
+  state = initialState,
+  action: TypeAction
+): InitialStateType => {
   switch (action.type) {
     case SETDATA: {
       if (action.value) {
@@ -71,7 +74,7 @@ export const setDataAction = (
   value,
 });
 
-export const logAutAction = () => ({
+export const logOutAction = () => ({
   type: LOGAUT,
 });
 

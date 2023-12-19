@@ -3,10 +3,18 @@ import Form from "../components/form/Form";
 import Login from "../components/login/Login";
 import MainPage from "../components/mainPage/MainPage";
 
-const Routers = () => {
+const Routers: React.FC<any> = ({ user }) => {
   const arrToElem: Array<{ element: JSX.Element; path: string }> = [
-    { element: <MainPage />, path: "/" },
-    { element: <MainPage />, path: "/users/:id" },
+    {
+      element:
+        user?.isActive === true ? <MainPage user={user} /> : <div>no</div>,
+      path: "/",
+    },
+    {
+      element:
+        user?.isActive === true ? <MainPage user={user} /> : <div>no</div>,
+      path: "/users/:id",
+    },
     { element: <Form />, path: "/auth" },
     { element: <Login />, path: "/sign" },
   ];
