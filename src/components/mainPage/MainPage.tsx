@@ -5,12 +5,13 @@ import UserData from "./userData/UserData";
 import { InitialStateType } from "../../redux/loginReducer";
 import Posters from "./posters/Posters";
 
-const Main = styled.div`
+const Main = styled.div<{ $select: boolean }>`
   width: var(--size-border);
   display: flex;
   margin: auto;
   position: relative;
   overflow-x: hidden;
+  user-select: ${(prop) => (prop.$select === true ? "none" : "text")};
 `;
 
 const Friends = styled.div`
@@ -69,7 +70,7 @@ const MainPage: React.FC<{ user: InitialStateType }> = ({ user }) => {
 
   React.useEffect(() => {
     if (mousdePos === true) {
-      const handleMouseMove = (event: any) => {
+      const handleMouseMove = (event: MouseEvent) => {
         setMousePos(event.clientX);
       };
 
@@ -83,7 +84,7 @@ const MainPage: React.FC<{ user: InitialStateType }> = ({ user }) => {
   }, [mousdePos, mousePos]);
 
   return (
-    <Main>
+    <Main $select={mousdePos}>
       <div
         style={{ inset: `0% ${windowSize.current - (mousePos - 40)}px 0% 0%` }}
       >

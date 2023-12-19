@@ -9,6 +9,7 @@ const ModalBox = styled.div`
   top: 50px;
   min-width: 200px;
   width: 20vw;
+  z-index: 99;
 `;
 
 const UserBox = styled.li`
