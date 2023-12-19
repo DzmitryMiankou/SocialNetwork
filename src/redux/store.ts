@@ -12,12 +12,6 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import loginReducer from "./loginReducer";
-import { InitialStateType } from "./loginReducer";
-
-const rootReducers = combineReducers({
-  login: loginReducer as any,
-  [httpReducer.reducerPath]: httpReducer.reducer,
-});
 
 const persistConfig = {
   key: "root",
@@ -25,6 +19,11 @@ const persistConfig = {
   version: 1,
   blacklist: ["auth"],
 };
+
+const rootReducers = combineReducers({
+  login: loginReducer as any,
+  [httpReducer.reducerPath]: httpReducer.reducer,
+});
 
 const persistedReducer = persistReducer(persistConfig, rootReducers);
 

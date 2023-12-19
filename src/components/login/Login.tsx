@@ -45,7 +45,7 @@ const Login: React.FC = () => {
   };
 
   React.useEffect(() => {
-    dispatch(setDataAction(result.data));
+    dispatch(setDataAction(result.data ?? {}));
   }, [dispatch, result.data]);
 
   const handleInputChange = (

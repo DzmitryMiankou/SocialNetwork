@@ -1,41 +1,41 @@
 const SETDATA = "SET_DATA_EWSGR__EHD343dfbtr$$_RF_1514";
 const LOGAUT = "LOGAUT_EWSgt%#GR_343d44-%$#fbtr$$_RF_1514";
 
+interface User<N, S> {
+  id: N;
+  firstName: S;
+  lastName: S;
+  email: S;
+  access_token?: S;
+}
+
 export interface InitialStateType {
-  user:
-    | {
-        id: number;
-        firstName: string;
-        lastName: string;
-        email: string;
-        access_token: string;
-      }
-    | { access_token?: string };
-  token: undefined | string;
+  user: User<number | null, string | null>;
+  token: null | string;
   isActive: boolean;
 }
 
 export interface TypeAction {
   type: typeof SETDATA | typeof LOGAUT;
-  value: {
-    id: number;
-    firstName: string;
-    lastName: string;
-    email: string;
-    access_token?: string;
-  };
+  value: User<number, string>;
 }
 
 const initialState: InitialStateType = {
-  user: {},
-  token: undefined,
+  user: {
+    id: null,
+    firstName: null,
+    lastName: null,
+    email: null,
+    access_token: null,
+  },
+  token: null,
   isActive: false,
 };
 
 const loginReducer = (
   state = initialState,
   action: TypeAction
-): InitialStateType => {
+): InitialStateType | {} => {
   switch (action.type) {
     case SETDATA: {
       if (action.value) {
@@ -43,9 +43,9 @@ const loginReducer = (
         delete newData["access_token"];
         return {
           ...state,
-          token: action.value.access_token,
+          token: action.value.access_token ?? null,
           user: "id" in action.value ? { ...newData } : { ...state.user },
-          isActive: true,
+          isActive: "id" in action.value ? true : false,
         };
       }
       return { ...state };
@@ -58,18 +58,7 @@ const loginReducer = (
   }
 };
 
-export const setDataAction = (
-  value:
-    | {
-        id: number;
-        firstName: string;
-        lastName: string;
-        email: string;
-        access_token: string;
-      }
-    | {}
-    | undefined
-) => ({
+export const setDataAction = (value: User<number, string> | {}) => ({
   type: SETDATA,
   value,
 });

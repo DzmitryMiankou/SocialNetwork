@@ -28,7 +28,7 @@ export const httpReducer = createApi({
         url: `allUsers/:${params}`,
       }),
     }),
-    logOutUser: build.query({
+    logOutUser: build.query<void, void>({
       query: () => ({
         url: `logOut`,
       }),

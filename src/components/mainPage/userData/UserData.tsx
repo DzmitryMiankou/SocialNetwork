@@ -33,9 +33,7 @@ const UserData: React.FC<{ user: InitialStateType }> = ({ user }) => {
       <Avatar src={avatar} alt="avatar" />
       <AvatarText>
         {userData === ``
-          ? `${"firstName" in user.user ? user.user.firstName : undefined} ${
-              "lastName" in user.user ? user.user.lastName : undefined
-            }`
+          ? `${user.user?.firstName} ${user.user?.lastName}`
           : `${userData[0].replace(`:`, "")} ${userData[2]}`}
       </AvatarText>
       <Line></Line>

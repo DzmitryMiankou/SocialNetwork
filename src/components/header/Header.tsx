@@ -76,7 +76,7 @@ const Header: React.FC<{ user: any }> = ({ user }) => {
 
   const handlerClick = async () => {
     dispatch(logOutAction());
-    await trigger(0);
+    await trigger();
   };
 
   return (
