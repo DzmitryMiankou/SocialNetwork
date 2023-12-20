@@ -15,7 +15,6 @@ const HeaderBox = styled.header`
   background: var(--rssssd-color);
   border-bottom: black 5px solid;
   height: 60px;
-  margin-bottom: 40px;
 `;
 
 const HeaderDiv = styled.div`

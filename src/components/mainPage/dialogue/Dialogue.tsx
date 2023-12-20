@@ -2,14 +2,21 @@ import React from "react";
 import styled from "styled-components";
 
 const PosterBox = styled.div`
-  padding: 10px;
+  padding: 20px 40px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: calc(100vh - 125px);
 `;
 
-const Posters: React.FC = () => {
+const P = styled.p`
+  min-width: 150px;
+`;
+
+const Dialogue: React.FC = () => {
   return (
     <PosterBox>
-      <h3>Posters</h3>
-      <p>
+      <h3>Dialogue</h3>
+      <P>
         Nest (NestJS) is a framework for building efficient, scalable Node.js
         server-side applications. It uses progressive JavaScript, is built with
         and fully supports TypeScript (yet still enables developers to code in
@@ -22,9 +29,9 @@ const Posters: React.FC = () => {
         directly to the developer. This gives developers the freedom to use the
         myriad of third-party modules which are available for the underlying
         platform.
-      </p>
+      </P>
     </PosterBox>
   );
 };
 
-export default Posters;
+export default Dialogue;
