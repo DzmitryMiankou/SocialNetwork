@@ -5,6 +5,7 @@ import UserData from "./userData/UserData";
 import { InitialStateType } from "../../redux/loginReducer";
 import Messages from "./messages/Messages";
 import Dialogue from "./dialogue/Dialogue";
+import useMousePosition from "../../hooks/useMousePosition";
 
 const Main = styled.div<{ $select: boolean }>`
   padding: 20px 40px;
@@ -60,7 +61,7 @@ const ColResize = styled.div`
 
 const Div = styled.div`
   position: absolute;
-  background-color: #d197e1;
+  background-color: #ffc690;
 `;
 
 const ColResize2 = styled(ColResize)`
@@ -68,37 +69,21 @@ const ColResize2 = styled(ColResize)`
 `;
 
 const Div2 = styled.div`
-  background-color: #e5bdf0;
+  background-color: #fad8b8;
 `;
 
 const MainPage: React.FC<{ user: InitialStateType }> = ({ user }) => {
   const [mousePos, setMousePos] = React.useState<number>(580);
   const [mousUp, setmousUp] = React.useState<boolean>(false);
   const [sizeWind, setSizeWind] = React.useState<number>(window.innerWidth);
+  const mousePosition = useMousePosition();
 
   React.useEffect(() => {
-    const updateSize = (): void => {
-      setSizeWind(window.innerWidth);
-    };
-    if (mousePos > sizeWind - 340) {
-      setMousePos(sizeWind - 340);
-    }
-    if (mousePos < 380) {
-      setMousePos(380);
-    }
     if (mousUp === true) {
-      const handleMouseMove = (event: MouseEvent): void => {
-        setMousePos(event.clientX);
-      };
-      window.addEventListener("resize", updateSize);
-      window.addEventListener("mousemove", handleMouseMove);
-
-      return () => {
-        window.removeEventListener("mousemove", handleMouseMove);
-      };
+      setMousePos(mousePosition.x);
     }
     if (mousUp === false) return setMousePos(mousePos);
-  }, [mousUp, mousePos, sizeWind]);
+  }, [mousePosition.x, mousUp, mousePos, sizeWind]);
 
   return (
     <Main $select={mousUp} onMouseUp={() => setmousUp(false)}>
