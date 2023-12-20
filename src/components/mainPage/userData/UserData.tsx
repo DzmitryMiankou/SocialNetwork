@@ -4,14 +4,10 @@ import avatar from "../../../img/images.png";
 import { useParams } from "react-router-dom";
 import { InitialStateType } from "../../../redux/loginReducer";
 
-const AvatarBox = styled.div`
-  max-width: 230px;
-`;
+const AvatarBox = styled.div``;
 
 const Avatar = styled.img`
   border: 3px solid black;
-  min-width: 150px;
-  max-width: 230px;
 `;
 
 const AvatarText = styled.h1`

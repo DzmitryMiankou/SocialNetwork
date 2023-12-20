@@ -17,7 +17,6 @@ const Main = styled.div<{ $select: boolean }>`
 const Friends = styled.div`
   font-size: 24px;
   margin-top: 10px;
-  max-width: 230px;
 `;
 
 const FriendsText = styled.h2`
@@ -65,29 +64,30 @@ const Div = styled.div`
 
 const MainPage: React.FC<{ user: InitialStateType }> = ({ user }) => {
   const [mousePos, setMousePos] = React.useState<number>(280);
-  const [mousdePos, setMdousePos] = React.useState<boolean>(false);
-  const windowSize = React.useRef<number>(window.innerWidth);
+  const [mousUp, setmousUp] = React.useState<boolean>(false);
+  const [sizeWind, setSizeWind] = React.useState<number>(window.innerWidth);
 
   React.useEffect(() => {
-    if (mousdePos === true) {
+    function updateSize(): void {
+      setSizeWind(window.innerWidth);
+    }
+    if (mousUp === true) {
       const handleMouseMove = (event: MouseEvent) => {
         setMousePos(event.clientX);
       };
-
+      window.addEventListener("resize", updateSize);
       window.addEventListener("mousemove", handleMouseMove);
 
       return () => {
         window.removeEventListener("mousemove", handleMouseMove);
       };
     }
-    if (mousdePos === false) return setMousePos(mousePos);
-  }, [mousdePos, mousePos]);
+    if (mousUp === false) return setMousePos(mousePos);
+  }, [mousUp, mousePos]);
 
   return (
-    <Main $select={mousdePos}>
-      <div
-        style={{ inset: `0% ${windowSize.current - (mousePos - 40)}px 0% 0%` }}
-      >
+    <Main $select={mousUp} onMouseUp={() => setmousUp(false)}>
+      <div style={{ inset: `0% ${100 - (mousePos / sizeWind) * 100}% 0% 0%` }}>
         <UserData user={user} />
         <Friends>
           <FriendsText>My Friends</FriendsText>
@@ -111,11 +111,10 @@ const MainPage: React.FC<{ user: InitialStateType }> = ({ user }) => {
         </Friends>
       </div>
       <ColResize
-        onMouseDown={() => setMdousePos(true)}
-        onMouseUp={() => setMdousePos(false)}
-        style={{ inset: `0% 0% 0% ${mousePos - 40}px` }}
+        onMouseDown={() => setmousUp(true)}
+        style={{ inset: `0% 0% 0% ${(mousePos / sizeWind) * 100}%` }}
       ></ColResize>
-      <Div style={{ inset: `0% 0% 0% ${mousePos - 40}px` }}>
+      <Div style={{ inset: `0% 0% 0% ${(mousePos / sizeWind) * 100}%` }}>
         <Posters />
       </Div>
     </Main>
