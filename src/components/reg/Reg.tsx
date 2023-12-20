@@ -40,7 +40,7 @@ interface FurmValue<T extends string> {
   email: T;
 }
 
-const Form: React.FC = () => {
+const Reg: React.FC = () => {
   const [regUser, data] = useRegUserMutation<any>();
   const [formValue, setFormValue] = React.useState<FurmValue<string>>({
     firstName: "",
@@ -182,4 +182,4 @@ const Form: React.FC = () => {
   );
 };
 
-export default Form;
+export default Reg;

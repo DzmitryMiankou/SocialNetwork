@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import Form from "../components/form/Form";
+import Reg from "../components/reg/Reg";
 import Login from "../components/login/Login";
 import MainPage from "../components/mainPage/MainPage";
 
@@ -15,7 +15,7 @@ const Routers: React.FC<any> = ({ user }) => {
         user?.isActive === true ? <MainPage user={user} /> : <div>no</div>,
       path: "/users/:id",
     },
-    { element: <Form />, path: "/auth" },
+    { element: <Reg />, path: "/auth" },
     { element: <Login />, path: "/sign" },
   ];
 
