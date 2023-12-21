@@ -45,10 +45,10 @@ const loginReducer = (
           ...state,
           token: action.value.access_token ?? null,
           user: "id" in action.value ? { ...newData } : { ...state.user },
-          isActive: "id" in action.value ? true : false,
+          isActive: true,
         };
       }
-      return { ...state };
+      return { ...state, isActive: false };
     }
     case LOGAUT: {
       return { ...initialState };

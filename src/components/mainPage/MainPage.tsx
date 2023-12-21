@@ -30,12 +30,6 @@ const Friend = styled.p`
   margin: 7px 10px;
 `;
 
-const Line = styled.hr`
-  height: 2px;
-  background-color: black;
-  border: none;
-`;
-
 const AvatarFriendBox = styled.li`
   display: flex;
   margin: 0px 10px;
@@ -64,38 +58,30 @@ const Div = styled.div`
   background-color: #ffc690;
 `;
 
-const ColResize2 = styled(ColResize)`
-  position: absolute;
-`;
-
-const Div2 = styled.div`
+const Div2 = styled(Div)`
   background-color: #fad8b8;
 `;
 
-const MainPage: React.FC<{ user: InitialStateType }> = ({ user }) => {
-  const [mousePos, setMousePos] = React.useState<number>(580);
-  const [mousUp, setmousUp] = React.useState<boolean>(false);
-  const [sizeWind, setSizeWind] = React.useState<number>(window.innerWidth);
-  const mousePosition = useMousePosition();
+const Div3 = styled(Div)`
+  position: absolute;
+  padding: 20px 40px;
+  background-color: #fff2e7;
+`;
 
-  React.useEffect(() => {
-    if (mousUp === true) {
-      setMousePos(mousePosition.x);
-    }
-    if (mousUp === false) return setMousePos(mousePos);
-  }, [mousePosition.x, mousUp, mousePos, sizeWind]);
+const MainPage: React.FC<{ user: InitialStateType }> = ({ user }) => {
+  const [mousUp, setmousUp] = React.useState<boolean>(false);
+  const mousePosition = useMousePosition(mousUp);
 
   return (
     <Main $select={mousUp} onMouseUp={() => setmousUp(false)}>
-      <div
+      <Div3
         style={{
-          inset: `0% ${((mousePos / sizeWind) * 100).toFixed(2)}% 0% 0%`,
+          inset: `0% ${mousePosition.mousePosition.percentageX}% 0% 0%`,
         }}
       >
         <UserData user={user} />
         <Friends>
           <FriendsText>My Friends</FriendsText>
-          <Line></Line>
           <ul>
             {[
               "Ivan Melnic",
@@ -113,18 +99,17 @@ const MainPage: React.FC<{ user: InitialStateType }> = ({ user }) => {
             ))}
           </ul>
         </Friends>
-      </div>
-      <ColResize2
+      </Div3>
+      <ColResize
         style={{
           inset: `0% 0% 0% ${300}px`,
         }}
       />
       <Div2
         style={{
-          inset: `0% ${(100 - (mousePos / sizeWind) * 100).toFixed(
-            2
-          )}% 0% ${300}px`,
-          position: "absolute",
+          inset: `0% ${
+            mousePosition.mousePosition.mirrPercentageX
+          }% 0% ${300}px`,
         }}
       >
         <Dialogue />
@@ -132,12 +117,12 @@ const MainPage: React.FC<{ user: InitialStateType }> = ({ user }) => {
       <ColResize
         onMouseDown={() => setmousUp(true)}
         style={{
-          inset: `0% 0% 0% ${((mousePos / sizeWind) * 100).toFixed(2)}%`,
+          inset: `0% 0% 0% ${mousePosition.mousePosition.percentageX}%`,
         }}
       />
       <Div
         style={{
-          inset: `0% 0% 0% ${((mousePos / sizeWind) * 100).toFixed(2)}%`,
+          inset: `0% 0% 0% ${mousePosition.mousePosition.percentageX}%`,
         }}
       >
         <Messages />

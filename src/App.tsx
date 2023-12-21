@@ -8,7 +8,6 @@ import { InitialStateType } from "./redux/loginReducer";
 
 const AppBox = styled.div`
   height: 100vh;
-  background-color: #fff2e7;
 `;
 
 const App: React.FC = () => {

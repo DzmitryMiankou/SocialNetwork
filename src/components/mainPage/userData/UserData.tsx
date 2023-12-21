@@ -14,12 +14,6 @@ const AvatarText = styled.h1`
   font-size: 24px;
 `;
 
-const Line = styled.hr`
-  height: 2px;
-  background-color: black;
-  border: none;
-`;
-
 const UserData: React.FC<{ user: InitialStateType }> = ({ user }) => {
   const users = useParams();
   const userData: string[] | `` = users?.id?.split(`_`) || ``;
@@ -32,7 +26,6 @@ const UserData: React.FC<{ user: InitialStateType }> = ({ user }) => {
           ? `${user.user?.firstName} ${user.user?.lastName}`
           : `${userData[0].replace(`:`, "")} ${userData[2]}`}
       </AvatarText>
-      <Line></Line>
     </AvatarBox>
   );
 };
