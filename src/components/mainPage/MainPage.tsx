@@ -112,7 +112,7 @@ const MainPage: React.FC<{ user: InitialStateType }> = ({ user }) => {
           }% 0% ${300}px`,
         }}
       >
-        <Dialogue />
+        <Dialogue mousUp={mousUp} />
       </Div2>
       <ColResize
         onMouseDown={() => setmousUp(true)}
