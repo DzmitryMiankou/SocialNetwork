@@ -40,7 +40,7 @@ const MoadalWindow: React.FC<{
       <ul>
         {data?.map(({ id, lastName, firstName }) => (
           <UserBox key={id}>
-            <UserLink to={`/users/:${firstName}_${id}_${lastName}`}>
+            <UserLink to={`users/:${firstName}_${id}_${lastName}`}>
               <p>{`${firstName} ${lastName}`}</p>
             </UserLink>
           </UserBox>

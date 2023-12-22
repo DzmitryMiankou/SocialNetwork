@@ -3,9 +3,9 @@ import avatar from "../../img/images.png";
 import React from "react";
 import UserData from "./userData/UserData";
 import { InitialStateType } from "../../redux/loginReducer";
-import Messages from "./messages/Messages";
 import Dialogue from "./dialogue/Dialogue";
 import useMousePosition from "../../hooks/useMousePosition";
+import { Outlet } from "react-router-dom";
 
 const Main = styled.div<{ $select: boolean }>`
   padding: 20px 40px;
@@ -13,16 +13,19 @@ const Main = styled.div<{ $select: boolean }>`
   position: relative;
   overflow: hidden;
   user-select: ${(prop) => (prop.$select === true ? "none" : "text")};
-  height: calc(100vh - 105px);
+  height: var(--hight-blok-noHeader);
 `;
 
 const Friends = styled.div`
   font-size: 24px;
-  margin-top: 10px;
+  margin-top: 20px;
+  border-top: solid 1px black;
+  height: 100%;
 `;
 
 const FriendsText = styled.h2`
   font-size: 20px;
+  padding: 20px 0px 10px 0px;
 `;
 
 const Friend = styled.p`
@@ -42,7 +45,7 @@ const AvatarFriend = styled.img`
 
 const ColResize = styled.div`
   content: '" "';
-  width: 3px;
+  width: 1px;
   background-color: #000000;
   cursor: col-resize;
   position: absolute;
@@ -65,7 +68,7 @@ const Div2 = styled(Div)`
 const Div3 = styled(Div)`
   position: absolute;
   padding: 20px 40px;
-  background-color: #fff2e7;
+  background-color: #ffe6d2;
 `;
 
 const MainPage: React.FC<{ user: InitialStateType }> = ({ user }) => {
@@ -81,7 +84,7 @@ const MainPage: React.FC<{ user: InitialStateType }> = ({ user }) => {
       >
         <UserData user={user} />
         <Friends>
-          <FriendsText>My Friends</FriendsText>
+          <FriendsText>Contacts</FriendsText>
           <ul>
             {[
               "Ivan Melnic",
@@ -125,7 +128,7 @@ const MainPage: React.FC<{ user: InitialStateType }> = ({ user }) => {
           inset: `0% 0% 0% ${mousePosition.mousePosition.percentageX}%`,
         }}
       >
-        <Messages />
+        <Outlet />
       </Div>
     </Main>
   );

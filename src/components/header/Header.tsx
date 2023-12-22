@@ -13,7 +13,7 @@ const HeaderBox = styled.header`
   display: flex;
   align-items: center;
   background: var(--rssssd-color);
-  border-bottom: black 5px solid;
+  border-bottom: black 2px solid;
   height: 60px;
 `;
 
@@ -64,7 +64,7 @@ const Nav2 = styled.div`
   }
 `;
 
-const NavLogo = styled(Nav)`
+const NavLogo = styled.div`
   font-size: 25px;
   font-weight: 800;
 `;
@@ -81,7 +81,7 @@ const Header: React.FC<{ user: any }> = ({ user }) => {
   return (
     <HeaderBox>
       <HeaderDiv>
-        <NavLogo to={`/`}>MyLine</NavLogo>
+        <NavLogo>MyLine</NavLogo>
         <SearchInput />
         <menu>
           <nav>

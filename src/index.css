@@ -2,6 +2,7 @@
   --size-border: 95%;
   --red-color: rgb(255, 255, 255);
   --rssssd-color: rgb(224, 119, 21);
+  --hight-blok-noHeader: calc(100vh - 102px);
 }
 
 * {
