@@ -1,46 +1,18 @@
 import styled from "styled-components";
-import avatar from "../../img/images.png";
 import React from "react";
 import UserData from "./userData/UserData";
 import { InitialStateType } from "../../redux/loginReducer";
 import Dialogue from "./dialogue/Dialogue";
 import useMousePosition from "../../hooks/useMousePosition";
 import { Outlet } from "react-router-dom";
+import Contacts from "./contacts/Contacts";
 
 const Main = styled.div<{ $select: boolean }>`
-  padding: 20px 40px;
   display: flex;
   position: relative;
   overflow: hidden;
   user-select: ${(prop) => (prop.$select === true ? "none" : "text")};
   height: var(--hight-blok-noHeader);
-`;
-
-const Friends = styled.div`
-  font-size: 24px;
-  margin-top: 20px;
-  border-top: solid 1px black;
-  height: 100%;
-`;
-
-const FriendsText = styled.h2`
-  font-size: 20px;
-  padding: 20px 0px 10px 0px;
-`;
-
-const Friend = styled.p`
-  font-size: 16px;
-  margin: 7px 10px;
-`;
-
-const AvatarFriendBox = styled.li`
-  display: flex;
-  margin: 0px 10px;
-`;
-
-const AvatarFriend = styled.img`
-  width: 30px;
-  height: 30px;
 `;
 
 const ColResize = styled.div`
@@ -63,56 +35,39 @@ const Div = styled.div`
 
 const Div2 = styled(Div)`
   background-color: #fad8b8;
+  border-left: 1px black solid;
 `;
 
-const Div3 = styled(Div)`
-  position: absolute;
-  padding: 20px 40px;
+const Div3 = styled.div`
+  width: 230px;
+  padding: 20px 0px 0px 40px;
   background-color: #ffe6d2;
 `;
 
 const MainPage: React.FC<{ user: InitialStateType }> = ({ user }) => {
   const [mousUp, setmousUp] = React.useState<boolean>(false);
-  const mousePosition = useMousePosition(mousUp);
+  const mousePosition = useMousePosition({
+    mouse: mousUp,
+    initial: 45,
+    boarder: 20,
+  });
 
   return (
-    <Main $select={mousUp} onMouseUp={() => setmousUp(false)}>
-      <Div3
-        style={{
-          inset: `0% ${mousePosition.mousePosition.percentageX}% 0% 0%`,
-        }}
-      >
+    <Main
+      $select={Boolean(mousUp)}
+      onMouseUp={() => {
+        setmousUp(false);
+      }}
+    >
+      <Div3>
         <UserData user={user} />
-        <Friends>
-          <FriendsText>Contacts</FriendsText>
-          <ul>
-            {[
-              "Ivan Melnic",
-              "Alex Flerdson",
-              "Alex Flerdson",
-              "Alex Flerdson",
-              "Ivan Melnic",
-              "Ivan Melnic",
-              "Ivan Melnic",
-            ].map((name, i) => (
-              <AvatarFriendBox key={i}>
-                <AvatarFriend src={avatar} alt="avatar" />
-                <Friend key={i}>{name}</Friend>
-              </AvatarFriendBox>
-            ))}
-          </ul>
-        </Friends>
+        <Contacts />
       </Div3>
-      <ColResize
-        style={{
-          inset: `0% 0% 0% ${300}px`,
-        }}
-      />
       <Div2
         style={{
           inset: `0% ${
             mousePosition.mousePosition.mirrPercentageX
-          }% 0% ${300}px`,
+          }% 0% ${270}px`,
         }}
       >
         <Dialogue mousUp={mousUp} />

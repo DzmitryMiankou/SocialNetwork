@@ -3,7 +3,9 @@ import styled from "styled-components";
 import avatar from "../../../img/images.png";
 import { InitialStateType } from "../../../redux/loginReducer";
 
-const AvatarBox = styled.div``;
+const AvatarBox = styled.div`
+  padding: 0 5px 0 0;
+`;
 
 const Avatar = styled.img`
   border: 1px solid black;
@@ -11,7 +13,7 @@ const Avatar = styled.img`
 `;
 
 const AvatarText = styled.h1`
-  font-size: 24px;
+  font-size: 18px;
 `;
 
 const UserData: React.FC<{ user: InitialStateType }> = ({ user }) => {
@@ -21,6 +23,8 @@ const UserData: React.FC<{ user: InitialStateType }> = ({ user }) => {
       <AvatarText>
         {`${user.user?.firstName} ${user.user?.lastName}`}
       </AvatarText>
+      <div>NickName: $Dmitry</div>
+      <div>City: Mensk</div>
     </AvatarBox>
   );
 };

@@ -2,6 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 import avatar from "../../../img/images.png";
+import Modal from "../../modal/Modal";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import CleaningServicesIcon from "@mui/icons-material/CleaningServices";
 
 const PosterBox = styled.div`
   padding: 20px 0px;
@@ -38,16 +41,50 @@ const Avatar = styled.img`
   max-width: 20px;
 `;
 
+const Li = styled.li`
+  position: relative;
+`;
+
+const ModCom = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  height: 100%;
+`;
+
+const Butt = styled.button`
+  background-color: #ffcfa2;
+  border: 1px solid black;
+`;
+
 const ddd = ["", "", "", "", "", "", "", "", "", "", "", "", ""];
 
 const Dialogue: React.FC<{ mousUp: boolean }> = ({ mousUp }) => {
+  const [open, setOpen] = React.useState<boolean>(false);
+  const [id, setId] = React.useState<number>();
+
+  const contextHandler = (
+    e: React.MouseEvent<HTMLElement>,
+    id: number
+  ): void => {
+    e.preventDefault();
+    setOpen(true);
+    setId(id);
+  };
+
+  const contexClousetHandler = (e: React.MouseEvent<HTMLElement>): void => {
+    e.preventDefault();
+    setOpen(false);
+  };
+
   return (
     <PosterBox>
       <H3>Dialogue</H3>
       <ScrollBox>
         <ul>
           {ddd.map((data, i) => (
-            <li key={i}>
+            <Li key={i} onContextMenu={(e) => contextHandler(e, i)}>
               <LinkFrend $mousUp={mousUp} to={`/:${i}`}>
                 <Avatar src={avatar} alt="avatar" />
                 <div style={{ marginRight: "auto" }}>Nikiforov Mikle</div>
@@ -55,7 +92,22 @@ const Dialogue: React.FC<{ mousUp: boolean }> = ({ mousUp }) => {
                   Fr <span>11:43</span>
                 </div>
               </LinkFrend>
-            </li>
+              <Modal
+                open={open}
+                num={id}
+                n={i}
+                component={
+                  <ModCom>
+                    <Butt onClick={contexClousetHandler}>
+                      <CleaningServicesIcon />
+                    </Butt>
+                    <Butt onClick={contexClousetHandler}>
+                      <DeleteOutlineIcon />
+                    </Butt>
+                  </ModCom>
+                }
+              />
+            </Li>
           ))}
         </ul>
       </ScrollBox>
