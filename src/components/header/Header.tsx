@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import LoginTwoToneIcon from "@mui/icons-material/LoginTwoTone";
 import LogoutIcon from "@mui/icons-material/Logout";
 import SearchInput from "./searchInput/SearchInput";
@@ -70,11 +70,13 @@ const NavLogo = styled.div`
 `;
 
 const Header: React.FC<{ user: any }> = ({ user }) => {
+  const navigate = useNavigate();
   const dispatch: AppDispatch = useDispatch();
   const [trigger] = useLazyLogOutUserQuery();
 
-  const handlerClick = async () => {
+  const handlerClick = async (): Promise<void> => {
     dispatch(logOutAction());
+    navigate("/sign");
     await trigger();
   };
 

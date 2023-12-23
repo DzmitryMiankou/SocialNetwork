@@ -31,6 +31,7 @@ const ColResize = styled.div`
 const Div = styled.div`
   position: absolute;
   background-color: #ffc690;
+  height: calc(100vh - 62px);
 `;
 
 const Div2 = styled(Div)`
@@ -48,7 +49,7 @@ const MainPage: React.FC<{ user: InitialStateType }> = ({ user }) => {
   const [mousUp, setmousUp] = React.useState<boolean>(false);
   const mousePosition = useMousePosition({
     mouse: mousUp,
-    initial: 45,
+    initial: 35,
     boarder: 20,
   });
 

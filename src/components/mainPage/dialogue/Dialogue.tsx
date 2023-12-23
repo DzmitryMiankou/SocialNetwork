@@ -4,13 +4,10 @@ import { NavLink } from "react-router-dom";
 import avatar from "../../../img/images.png";
 import Modal from "../../modal/Modal";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import CleaningServicesIcon from "@mui/icons-material/CleaningServices";
+import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 
 const PosterBox = styled.div`
   padding: 20px 0px;
-  overflow-y: scroll;
-  overflow-x: hidden;
-  height: var(--hight-blok-noHeader);
 `;
 
 const ScrollBox = styled.div`
@@ -54,11 +51,36 @@ const ModCom = styled.div`
 `;
 
 const Butt = styled.button`
-  background-color: #ffcfa2;
-  border: 1px solid black;
+  background-color: transparent;
+  border: none;
 `;
 
-const ddd = ["", "", "", "", "", "", "", "", "", "", "", "", ""];
+const Ul = styled.ul`
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: calc(100vh - 106px);
+`;
+
+const ddd = [
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+];
 
 const Dialogue: React.FC<{ mousUp: boolean }> = ({ mousUp }) => {
   const [open, setOpen] = React.useState<boolean>(false);
@@ -82,7 +104,7 @@ const Dialogue: React.FC<{ mousUp: boolean }> = ({ mousUp }) => {
     <PosterBox>
       <H3>Dialogue</H3>
       <ScrollBox>
-        <ul>
+        <Ul>
           {ddd.map((data, i) => (
             <Li key={i} onContextMenu={(e) => contextHandler(e, i)}>
               <LinkFrend $mousUp={mousUp} to={`/:${i}`}>
@@ -99,7 +121,7 @@ const Dialogue: React.FC<{ mousUp: boolean }> = ({ mousUp }) => {
                 component={
                   <ModCom>
                     <Butt onClick={contexClousetHandler}>
-                      <CleaningServicesIcon />
+                      <HighlightOffIcon />
                     </Butt>
                     <Butt onClick={contexClousetHandler}>
                       <DeleteOutlineIcon />
@@ -109,7 +131,7 @@ const Dialogue: React.FC<{ mousUp: boolean }> = ({ mousUp }) => {
               />
             </Li>
           ))}
-        </ul>
+        </Ul>
       </ScrollBox>
     </PosterBox>
   );

@@ -3,12 +3,12 @@ import styled from "styled-components";
 
 const ModalBox = styled.div`
   position: absolute;
-  background-color: #ff9634;
+  background-color: #cead8f;
   z-index: 99;
   top: 0;
   right: 0px;
   height: 100%;
-  padding: 0px 8px;
+  padding: 0px 10px;
 `;
 
 const Modal: React.FC<{
