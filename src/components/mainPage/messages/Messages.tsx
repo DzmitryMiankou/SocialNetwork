@@ -24,15 +24,15 @@ const Butt = styled.button`
 `;
 
 const SendBox = styled.div`
-  width: 100%;
   position: relative;
 `;
 
 const SX: { textArea: SxProps } = {
   textArea: {
+    padding: "10px 80px 0px 30px",
     background: "#ffe2c6",
-    padding: "10px 60px 0px 30px",
-    width: "calc(100% - 80px)",
+    margin: "auto",
+    width: "90%",
   },
 };
 
@@ -86,6 +86,7 @@ const Messages: React.FC = () => {
       <SendBox>
         <TextField
           id="standard-textarea"
+          multiline
           maxRows={10}
           placeholder="send a message"
           variant="standard"

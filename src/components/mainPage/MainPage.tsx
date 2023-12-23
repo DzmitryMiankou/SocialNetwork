@@ -6,6 +6,8 @@ import Dialogue from "./dialogue/Dialogue";
 import useMousePosition from "../../hooks/useMousePosition";
 import { Outlet } from "react-router-dom";
 import Contacts from "./contacts/Contacts";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
 const Main = styled.div<{ $select: boolean }>`
   display: flex;
@@ -45,8 +47,21 @@ const Div3 = styled.div`
   background-color: #ffe6d2;
 `;
 
+const But = styled.button`
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #e2c8af;
+  border: none;
+  padding: 0 0 0 5px;
+  &:hover {
+    background-color: #fcb97a;
+  }
+`;
+
 const MainPage: React.FC<{ user: InitialStateType }> = ({ user }) => {
   const [mousUp, setmousUp] = React.useState<boolean>(false);
+  const [open, setOpen] = React.useState<boolean>(true);
   const mousePosition = useMousePosition({
     mouse: mousUp,
     initial: 35,
@@ -66,11 +81,18 @@ const MainPage: React.FC<{ user: InitialStateType }> = ({ user }) => {
       </Div3>
       <Div2
         style={{
-          inset: `0% ${
-            mousePosition.mousePosition.mirrPercentageX
-          }% 0% ${270}px`,
+          inset: `0% ${mousePosition.mousePosition.mirrPercentageX}% 0% ${
+            open ? 270 : 0
+          }px`,
         }}
       >
+        <But onClick={() => setOpen(!open)}>
+          {open ? (
+            <ArrowBackIosIcon sx={{ fontSize: "18px" }} />
+          ) : (
+            <ArrowForwardIosIcon sx={{ fontSize: "18px" }} />
+          )}
+        </But>
         <Dialogue mousUp={mousUp} />
       </Div2>
       <ColResize
