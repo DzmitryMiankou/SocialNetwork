@@ -59,6 +59,13 @@ export const httpReducer = createApi({
         body,
       }),
     }),
+    newContact: build.mutation<void, any | { code: number; message: string }>({
+      query: (body: { id: number }) => ({
+        method: "POST",
+        url: "new_contact",
+        body,
+      }),
+    }),
   }),
 });
 
@@ -68,4 +75,5 @@ export const {
   useLazySearchUsersQuery,
   useLazyLogOutUserQuery,
   useDataUserQuery,
+  useNewContactMutation,
 } = httpReducer;

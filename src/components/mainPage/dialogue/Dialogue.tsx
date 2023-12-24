@@ -62,30 +62,11 @@ const Ul = styled.ul`
   height: calc(100vh - 106px);
 `;
 
-const ddd = [
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-];
-
 const Dialogue: React.FC<{ mousUp: boolean }> = ({ mousUp }) => {
   const [open, setOpen] = React.useState<boolean>(false);
   const [id, setId] = React.useState<number>();
+
+  const arr = new Array(20).fill("");
 
   const contextHandler = (
     e: React.MouseEvent<HTMLElement>,
@@ -106,7 +87,7 @@ const Dialogue: React.FC<{ mousUp: boolean }> = ({ mousUp }) => {
       <H3>Dialogue</H3>
       <ScrollBox>
         <Ul>
-          {ddd.map((data, i) => (
+          {arr.map((data, i) => (
             <Li key={i} onContextMenu={(e) => contextHandler(e, i)}>
               <LinkFrend $mousUp={mousUp} to={`/:${i}`}>
                 <Avatar src={avatar} alt="avatar" />

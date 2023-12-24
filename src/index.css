@@ -13,6 +13,10 @@
     sans-serif;
 }
 
+body {
+  overflow: hidden;
+}
+
 button {
   cursor: pointer;
 }

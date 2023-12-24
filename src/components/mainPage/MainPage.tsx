@@ -1,13 +1,13 @@
 import styled from "styled-components";
 import React from "react";
 import UserData from "./userData/UserData";
-import { UserDataS } from "../../redux/reducers/http/httpReducer";
 import Dialogue from "./dialogue/Dialogue";
 import useMousePosition from "../../hooks/useMousePosition";
 import { Outlet } from "react-router-dom";
 import Contacts from "./contacts/Contacts";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import { useDataUserQuery } from "../../redux/reducers/http/httpReducer";
 
 const Main = styled.div<{ $select: boolean }>`
   display: flex;
@@ -60,7 +60,8 @@ const But = styled.button`
   }
 `;
 
-const MainPage: React.FC<{ user: UserDataS | undefined }> = ({ user }) => {
+const MainPage: React.FC = () => {
+  const { data } = useDataUserQuery();
   const [mousUp, setmousUp] = React.useState<boolean>(false);
   const [open, setOpen] = React.useState<boolean>(true);
   const mousePosition = useMousePosition({
@@ -77,7 +78,7 @@ const MainPage: React.FC<{ user: UserDataS | undefined }> = ({ user }) => {
       }}
     >
       <Div3>
-        <UserData user={user} />
+        <UserData user={data} />
         <Contacts />
       </Div3>
       <Div2

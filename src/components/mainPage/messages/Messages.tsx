@@ -26,6 +26,7 @@ const Butt = styled.button`
 const SendBox = styled.div`
   display: flex;
   align-items: center;
+  max-height: 200px;
 `;
 
 const ButtSend = styled(Butt)`
@@ -68,7 +69,26 @@ const Div = styled.div`
   height: 100%;
 `;
 
+const MessagesBox = styled.div`
+  padding: 10px 40px 0px 20px;
+  border-bottom: 1px solid black;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+`;
+
+const Message = styled.div`
+  background-color: #fff0dd;
+  padding: 5px 10px;
+  width: fit-content;
+  min-width: 100px;
+`;
+
 const Messages: React.FC = () => {
+  const arr = new Array(20).fill("");
+
   return (
     <PosterBox>
       <Header>
@@ -77,33 +97,18 @@ const Messages: React.FC = () => {
           <MoreVertIcon sx={{ fontSize: "28px" }} />
         </Butt>
       </Header>
-      <div
-        style={{
-          padding: "10px 40px 0px 20px",
-          borderBottom: "1px solid black",
-        }}
-      >
-        Nest (NestJS) is a framework for building efficient, scalable Node.js
-        server-side applications. It uses progressive JavaScript, is built with
-        and fully supports TypeScript (yet still enables developers to code in
-        pure JavaScript) and combines elements of OOP (Object Oriented
-        Programming), FP (Functional Programming), and FRP (Functional Reactive
-        Programming). Under the hood, Nest makes use of robust HTTP Server
-        frameworks like Express (the default) and optionally can be configured
-        to use Fastify as well! Nest provides a level of abstraction above these
-        common Node.js frameworks (Express/Fastify), but also exposes their APIs
-        directly to the developer. This gives developers the freedom to use the
-        myriad of third-party modules which are available for the underlying
-        platform.
-      </div>
+      <MessagesBox>
+        {arr.map((data, i) => (
+          <Message key={i}>
+            <p>Hello!</p>
+          </Message>
+        ))}
+      </MessagesBox>
       <SendBox>
         <Div>
-          <ButtSend2>
-            <AttachFileIcon />
-          </ButtSend2>
-          <ButtSend2>
-            <HighlightOffIcon />
-          </ButtSend2>
+          {[<AttachFileIcon />, <HighlightOffIcon />].map((data, i) => (
+            <ButtSend2 key={`message_icon_${i}`}>{data}</ButtSend2>
+          ))}
         </Div>
         <TextA placeholder="send a message" rows={6}></TextA>
         <Div>
