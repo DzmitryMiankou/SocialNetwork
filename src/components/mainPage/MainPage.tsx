@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import React from "react";
 import UserData from "./userData/UserData";
-import { InitialStateType } from "../../redux/loginReducer";
+import { UserDataS } from "../../redux/reducers/http/httpReducer";
 import Dialogue from "./dialogue/Dialogue";
 import useMousePosition from "../../hooks/useMousePosition";
 import { Outlet } from "react-router-dom";
@@ -60,7 +60,7 @@ const But = styled.button`
   }
 `;
 
-const MainPage: React.FC<{ user: InitialStateType }> = ({ user }) => {
+const MainPage: React.FC<{ user: UserDataS | undefined }> = ({ user }) => {
   const [mousUp, setmousUp] = React.useState<boolean>(false);
   const [open, setOpen] = React.useState<boolean>(true);
   const mousePosition = useMousePosition({

@@ -8,6 +8,7 @@ import { useDataUserQuery } from "../redux/reducers/http/httpReducer";
 
 const Routers: React.FC<any> = ({ user }) => {
   const { data } = useDataUserQuery();
+
   const arrToElem: Array<{
     element: JSX.Element;
     path: string;
@@ -27,7 +28,7 @@ const Routers: React.FC<any> = ({ user }) => {
       <Route
         path="/"
         element={
-          user?.isActive === true ? <MainPage user={user} /> : <div>no</div>
+          user?.isActive === true ? <MainPage user={data} /> : <div>no</div>
         }
       >
         <Route

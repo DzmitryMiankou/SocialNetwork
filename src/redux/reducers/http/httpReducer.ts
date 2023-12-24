@@ -11,6 +11,13 @@ export interface RegType extends AcceptsType {
   lastName: string;
 }
 
+export interface UserDataS {
+  id: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+}
+
 interface UserDataType extends RegType {
   id: number;
   access_token: string;
@@ -33,7 +40,7 @@ export const httpReducer = createApi({
         url: `logOut`,
       }),
     }),
-    dataUser: build.query<void, void>({
+    dataUser: build.query<UserDataS, void>({
       query: () => ({
         url: `user`,
       }),
