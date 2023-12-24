@@ -33,6 +33,11 @@ export const httpReducer = createApi({
         url: `logOut`,
       }),
     }),
+    dataUser: build.query<void, void>({
+      query: () => ({
+        url: `user`,
+      }),
+    }),
     authUser: build.mutation<UserDataType, AcceptsType>({
       query: (body: AcceptsType) => ({
         method: "POST",
@@ -55,4 +60,5 @@ export const {
   useRegUserMutation,
   useLazySearchUsersQuery,
   useLazyLogOutUserQuery,
+  useDataUserQuery,
 } = httpReducer;

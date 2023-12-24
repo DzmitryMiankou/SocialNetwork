@@ -17,6 +17,7 @@ const ScrollBox = styled.div`
 const LinkFrend = styled(NavLink)<{ $mousUp: boolean }>`
   padding: 20px 20px;
   display: flex;
+  font-size: 15px;
   white-space: nowrap;
   gap: 20px;
   transition: 0.1s;

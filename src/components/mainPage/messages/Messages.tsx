@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import { SxProps, TextField } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
+import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 
 const PosterBox = styled.div`
   display: grid;
@@ -24,40 +24,48 @@ const Butt = styled.button`
 `;
 
 const SendBox = styled.div`
-  position: relative;
+  display: flex;
+  align-items: center;
 `;
-
-const SX: { textArea: SxProps } = {
-  textArea: {
-    padding: "10px 80px 0px 30px",
-    background: "#ffe2c6",
-    margin: "auto",
-    width: "90%",
-  },
-};
 
 const ButtSend = styled(Butt)`
   background-color: #cead8d;
   border: none;
-  position: absolute;
-  bottom: 0;
-  right: 0;
   width: 60px;
   transition: 0.1s;
-  height: 43px;
+  height: 100%;
   &:hover {
     background: #d0b9a3;
   }
 `;
 
 const ButtSend2 = styled(ButtSend)`
-  left: 0;
+  display: flex;
+  height: auto;
+  padding: 6px;
+  width: auto;
   background-color: transparent;
-  width: 30px;
-  height: 34px;
   &:hover {
     background-color: transparent;
   }
+`;
+
+const TextA = styled.textarea`
+  letter-spacing: inherit;
+  resize: none;
+  width: 100%;
+  height: 100%;
+  outline: none;
+  background: #ffe7d0;
+  border: none;
+  overflow: auto;
+  border-left: 1px solid black;
+  padding: 0px 5px;
+`;
+
+const Div = styled.div`
+  background: #ffe7d0;
+  height: 100%;
 `;
 
 const Messages: React.FC = () => {
@@ -69,7 +77,12 @@ const Messages: React.FC = () => {
           <MoreVertIcon sx={{ fontSize: "28px" }} />
         </Butt>
       </Header>
-      <div style={{ padding: "10px 40px 0px 20px" }}>
+      <div
+        style={{
+          padding: "10px 40px 0px 20px",
+          borderBottom: "1px solid black",
+        }}
+      >
         Nest (NestJS) is a framework for building efficient, scalable Node.js
         server-side applications. It uses progressive JavaScript, is built with
         and fully supports TypeScript (yet still enables developers to code in
@@ -84,21 +97,20 @@ const Messages: React.FC = () => {
         platform.
       </div>
       <SendBox>
-        <TextField
-          id="standard-textarea"
-          multiline
-          maxRows={10}
-          placeholder="send a message"
-          variant="standard"
-          color="warning"
-          sx={SX.textArea}
-        />
-        <ButtSend>
-          <SendIcon />
-        </ButtSend>
-        <ButtSend2>
-          <AttachFileIcon />
-        </ButtSend2>
+        <Div>
+          <ButtSend2>
+            <AttachFileIcon />
+          </ButtSend2>
+          <ButtSend2>
+            <HighlightOffIcon />
+          </ButtSend2>
+        </Div>
+        <TextA placeholder="send a message" rows={6}></TextA>
+        <Div>
+          <ButtSend>
+            <SendIcon />
+          </ButtSend>
+        </Div>
       </SendBox>
     </PosterBox>
   );

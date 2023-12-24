@@ -4,8 +4,10 @@ import Login from "../components/login/Login";
 import MainPage from "../components/mainPage/MainPage";
 import Messages from "../components/mainPage/messages/Messages";
 import React from "react";
+import { useDataUserQuery } from "../redux/reducers/http/httpReducer";
 
 const Routers: React.FC<any> = ({ user }) => {
+  const { data } = useDataUserQuery();
   const arrToElem: Array<{
     element: JSX.Element;
     path: string;

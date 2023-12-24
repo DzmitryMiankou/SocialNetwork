@@ -13,7 +13,7 @@ const FriendsText = styled.h2`
 `;
 
 const Friend = styled.p`
-  font-size: 18px;
+  font-size: 15px;
 `;
 
 const AvatarFriendBox = styled.li`

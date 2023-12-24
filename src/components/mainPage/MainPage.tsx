@@ -34,6 +34,7 @@ const Div = styled.div`
   position: absolute;
   background-color: #ffc690;
   height: calc(100vh - 62px);
+  z-index: 24;
 `;
 
 const Div2 = styled(Div)`
@@ -81,7 +82,7 @@ const MainPage: React.FC<{ user: InitialStateType }> = ({ user }) => {
       </Div3>
       <Div2
         style={{
-          inset: `0% ${mousePosition.mousePosition.mirrPercentageX}% 0% ${
+          inset: `0% ${mousePosition?.mousePosition?.mirrPercentageX}% 0% ${
             open ? 270 : 0
           }px`,
         }}
@@ -98,12 +99,12 @@ const MainPage: React.FC<{ user: InitialStateType }> = ({ user }) => {
       <ColResize
         onMouseDown={() => setmousUp(true)}
         style={{
-          inset: `0% 0% 0% ${mousePosition.mousePosition.percentageX}%`,
+          inset: `0% 0% 0% ${mousePosition?.mousePosition?.percentageX}%`,
         }}
       />
       <Div
         style={{
-          inset: `0% 0% 0% ${mousePosition.mousePosition.percentageX}%`,
+          inset: `0% 0% 0% ${mousePosition?.mousePosition?.percentageX}%`,
         }}
       >
         <Outlet />
