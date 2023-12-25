@@ -10,7 +10,7 @@ const InputBox = styled.div`
   margin-left: auto;
   display: flex;
   align-items: center;
-  background: rgb(140, 75, 13);
+  background: rgb(138, 90, 45);
 `;
 
 const Input = styled.input`
@@ -28,7 +28,7 @@ const InputButton = styled.button`
   display: flex;
   align-items: center;
   border: none;
-  background: rgb(105, 56, 11);
+  background: rgb(138, 90, 45);
 `;
 
 const SX: { icon: SxProps; icon2: SxProps } = {

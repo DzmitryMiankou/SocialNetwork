@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import avatar from "../../../img/images.png";
+import { ContactsType } from "../../../redux/reducers/http/httpReducer";
+import { NavLink } from "react-router-dom";
 
 const Friends = styled.div`
   margin-top: 20px;
@@ -17,7 +19,7 @@ const Friend = styled.p`
   font-size: 14px;
 `;
 
-const AvatarFriendBox = styled.li`
+const AvatarFriendBox = styled(NavLink)`
   display: flex;
   padding: 10px 0px;
   gap: 10px;
@@ -39,35 +41,20 @@ const Ul = styled.ul`
   overflow-y: scroll;
 `;
 
-const Contacts = () => {
+const Contacts: React.FC<{ contacts: ContactsType[] | undefined }> = ({
+  contacts,
+}) => {
   return (
     <Friends>
       <FriendsText>Contacts</FriendsText>
       <Ul>
-        {[
-          "Ivan Melnic",
-          "Alex Flerdson",
-          "Alex Flerdson",
-          "Alex Flerdson",
-          "Ivan Melnic",
-          "Ivan Melnic",
-          "Ivan Melnic",
-          "Alex Flerdson",
-          "Alex Flerdson",
-          "Alex Flerdson",
-          "Ivan Melnic",
-          "Alex Flerdson",
-          "Alex Flerdson",
-          "Alex Flerdson",
-          "Ivan Melnic",
-          "Ivan Melnic",
-          "Alex Flerdson",
-          "Alex Flerdson",
-          "Ivan Melnic",
-        ].map((name, i) => (
-          <AvatarFriendBox key={i}>
+        {contacts?.map(({ id, contactId }) => (
+          <AvatarFriendBox
+            key={id}
+            to={`/:${contactId?.id}_${contactId?.firstName}_${contactId?.lastName}`}
+          >
             <AvatarFriend src={avatar} alt="avatar" />
-            <Friend key={i}>{name}</Friend>
+            <Friend>{`${contactId?.lastName} ${contactId?.firstName}`}</Friend>
           </AvatarFriendBox>
         ))}
       </Ul>

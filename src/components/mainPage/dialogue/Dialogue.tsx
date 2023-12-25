@@ -6,9 +6,7 @@ import Modal from "../../modal/Modal";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 
-const PosterBox = styled.div`
-  padding: 20px 0px;
-`;
+const PosterBox = styled.div``;
 
 const ScrollBox = styled.div`
   min-width: 150px;
@@ -26,15 +24,16 @@ const LinkFrend = styled(NavLink)<{ $mousUp: boolean }>`
     background-color: ${(prop) => (prop.$mousUp === false ? "#fffcf94f" : "")};
   }
   &.active {
-    background-color: #ffb977;
+    background-color: #ffffff50;
     cursor: default;
   }
 `;
 
 const H3 = styled.h3`
-  padding: 0px 0px 10px 0px;
+  padding: 10px 0px 10px 20px;
   font-size: 18px;
   border-bottom: var(--block-border);
+  background-color: #e8b482;
 `;
 
 const Avatar = styled.img`
@@ -61,7 +60,7 @@ const Butt = styled.button`
 const Ul = styled.ul`
   overflow-y: scroll;
   overflow-x: hidden;
-  height: calc(var(--hight-blok-noHeader) - 56px);
+  height: calc(var(--hight-blok-noHeader) - 46px);
 `;
 
 const Dialogue: React.FC<{ mousUp: boolean }> = ({ mousUp }) => {
@@ -91,7 +90,10 @@ const Dialogue: React.FC<{ mousUp: boolean }> = ({ mousUp }) => {
         <Ul>
           {arr.map((data, i) => (
             <Li key={i} onContextMenu={(e) => contextHandler(e, i)}>
-              <LinkFrend $mousUp={mousUp} to={`/:${i}`}>
+              <LinkFrend
+                $mousUp={mousUp}
+                to={`/:${i}_${`firstName`}_${`lastName`}`}
+              >
                 <Avatar src={avatar} alt="avatar" />
                 <div style={{ marginRight: "auto", fontSize: "14px" }}>
                   Nikiforov Mikle

@@ -23,9 +23,21 @@ interface UserDataType extends RegType {
   access_token: string;
 }
 
+export interface ContactsType {
+  id: number;
+  user: number;
+  contactId: {
+    id: number;
+    firstName: string;
+    lastName: string;
+    email: string;
+  };
+}
+
 export const httpReducer = createApi({
   reducerPath: "auth",
   baseQuery: baseQueryWithReauth,
+  tagTypes: ["Contacts", "PostContacts"],
   endpoints: (build) => ({
     searchUsers: build.query<
       { id: number; firstName: string; lastName: string }[],
@@ -44,6 +56,21 @@ export const httpReducer = createApi({
       query: () => ({
         url: `user`,
       }),
+    }),
+    contacts: build.query<ContactsType[], void>({
+      query: () => ({
+        url: `contacts`,
+      }),
+      providesTags: (result, error, arg) =>
+        result
+          ? [
+              ...result.map(({ id }) => ({
+                type: "PostContacts" as const,
+                id,
+              })),
+              "PostContacts",
+            ]
+          : ["PostContacts"],
     }),
     authUser: build.mutation<UserDataType, AcceptsType>({
       query: (body: AcceptsType) => ({
@@ -65,6 +92,7 @@ export const httpReducer = createApi({
         url: "new_contact",
         body,
       }),
+      invalidatesTags: ["PostContacts"],
     }),
   }),
 });
@@ -76,4 +104,5 @@ export const {
   useLazyLogOutUserQuery,
   useDataUserQuery,
   useNewContactMutation,
+  useContactsQuery,
 } = httpReducer;

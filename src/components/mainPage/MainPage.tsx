@@ -7,7 +7,10 @@ import { Outlet } from "react-router-dom";
 import Contacts from "./contacts/Contacts";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import { useDataUserQuery } from "../../redux/reducers/http/httpReducer";
+import {
+  useContactsQuery,
+  useDataUserQuery,
+} from "../../redux/reducers/http/httpReducer";
 
 const Main = styled.div<{ $select: boolean }>`
   display: flex;
@@ -25,14 +28,14 @@ const ColResize = styled.div`
   position: absolute;
   z-index: 34;
   &:hover {
-    width: 6px;
-    background: var(--header-color);
+    padding: 0px 1px;
+    background: #ff7300;
   }
 `;
 
 const Div = styled.div`
   position: absolute;
-  background-color: #ffc690;
+  background-color: #ad54007e;
   height: var(--hight-blok-noHeader);
   z-index: 24;
 `;
@@ -45,7 +48,7 @@ const Div2 = styled(Div)`
 const Div3 = styled.div`
   width: 230px;
   padding: 20px 0px 0px 40px;
-  background-color: #ffe6d2;
+  background-color: #c877148d;
 `;
 
 const But = styled.button`
@@ -62,6 +65,8 @@ const But = styled.button`
 
 const MainPage: React.FC = () => {
   const { data } = useDataUserQuery();
+  const { data: contacts } = useContactsQuery();
+
   const [mousUp, setmousUp] = React.useState<boolean>(false);
   const [open, setOpen] = React.useState<boolean>(true);
   const mousePosition = useMousePosition({
@@ -79,7 +84,7 @@ const MainPage: React.FC = () => {
     >
       <Div3>
         <UserData user={data} />
-        <Contacts />
+        <Contacts contacts={contacts} />
       </Div3>
       <Div2
         style={{

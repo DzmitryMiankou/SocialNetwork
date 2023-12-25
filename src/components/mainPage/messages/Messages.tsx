@@ -4,19 +4,21 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import SendIcon from "@mui/icons-material/Send";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
+import { useParams } from "react-router-dom";
 
 const PosterBox = styled.div`
   display: grid;
   height: var(--hight-blok-noHeader);
-  grid-template-rows: 55px 1fr auto;
+  grid-template-rows: 44px 1fr auto;
 `;
 
 const Header = styled.div`
-  padding: 10px 40px 0px 20px;
+  padding: 0px 40px 0px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   border-bottom: var(--block-border);
+  background-color: #856c4630;
 `;
 
 const Butt = styled.button`
@@ -88,15 +90,24 @@ const Message = styled.div`
   font-size: 14px;
 `;
 
+const H3 = styled.h3`
+  font-size: 18px;
+`;
+
 const Messages: React.FC = () => {
+  const { idM } = useParams();
   const arr = new Array(20).fill("");
+  const dialogueData: Array<string> | string =
+    idM?.replace(":", "").split("_") ?? "";
 
   return (
     <PosterBox>
       <Header>
-        <h3>Name</h3>
+        <H3>
+          <span>{dialogueData[1]}</span> <span>{dialogueData[2]}</span>
+        </H3>
         <Butt type="button">
-          <MoreVertIcon sx={{ fontSize: "28px" }} />
+          <MoreVertIcon sx={{ fontSize: "24px" }} />
         </Butt>
       </Header>
       <MessagesBox>
