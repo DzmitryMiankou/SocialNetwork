@@ -7,8 +7,8 @@ import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 
 const PosterBox = styled.div`
   display: grid;
-  height: calc(100vh - 62px);
-  grid-template-rows: 50px 1fr auto;
+  height: var(--hight-blok-noHeader);
+  grid-template-rows: 55px 1fr auto;
 `;
 
 const Header = styled.div`
@@ -16,6 +16,7 @@ const Header = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-bottom: var(--block-border);
 `;
 
 const Butt = styled.button`
@@ -84,6 +85,7 @@ const Message = styled.div`
   padding: 5px 10px;
   width: fit-content;
   min-width: 100px;
+  font-size: 14px;
 `;
 
 const Messages: React.FC = () => {
@@ -110,7 +112,7 @@ const Messages: React.FC = () => {
             <ButtSend2 key={`message_icon_${i}`}>{data}</ButtSend2>
           ))}
         </Div>
-        <TextA placeholder="send a message" rows={6}></TextA>
+        <TextA placeholder="send a message" rows={4}></TextA>
         <Div>
           <ButtSend>
             <SendIcon />

@@ -8,12 +8,13 @@ const Friends = styled.div`
 `;
 
 const FriendsText = styled.h2`
-  font-size: 20px;
+  font-size: 18px;
   padding: 20px 0px 10px 0px;
+  border-bottom: var(--block-border);
 `;
 
 const Friend = styled.p`
-  font-size: 18px;
+  font-size: 14px;
 `;
 
 const AvatarFriendBox = styled.li`
@@ -34,7 +35,7 @@ const AvatarFriend = styled.img`
 `;
 
 const Ul = styled.ul`
-  height: calc(100vh - 380px);
+  height: calc(var(--hight-blok-noHeader) - 320px);
   overflow-y: scroll;
 `;
 

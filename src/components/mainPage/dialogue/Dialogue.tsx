@@ -32,7 +32,9 @@ const LinkFrend = styled(NavLink)<{ $mousUp: boolean }>`
 `;
 
 const H3 = styled.h3`
-  padding: 0px 20px;
+  padding: 0px 0px 10px 0px;
+  font-size: 18px;
+  border-bottom: var(--block-border);
 `;
 
 const Avatar = styled.img`
@@ -59,7 +61,7 @@ const Butt = styled.button`
 const Ul = styled.ul`
   overflow-y: scroll;
   overflow-x: hidden;
-  height: calc(100vh - 106px);
+  height: calc(var(--hight-blok-noHeader) - 56px);
 `;
 
 const Dialogue: React.FC<{ mousUp: boolean }> = ({ mousUp }) => {
@@ -91,8 +93,10 @@ const Dialogue: React.FC<{ mousUp: boolean }> = ({ mousUp }) => {
             <Li key={i} onContextMenu={(e) => contextHandler(e, i)}>
               <LinkFrend $mousUp={mousUp} to={`/:${i}`}>
                 <Avatar src={avatar} alt="avatar" />
-                <div style={{ marginRight: "auto" }}>Nikiforov Mikle</div>
-                <div style={{ color: "grey" }}>
+                <div style={{ marginRight: "auto", fontSize: "14px" }}>
+                  Nikiforov Mikle
+                </div>
+                <div style={{ color: "grey", fontSize: "14px" }}>
                   Fr <span>11:43</span>
                 </div>
               </LinkFrend>

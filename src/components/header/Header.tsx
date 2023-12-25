@@ -12,9 +12,9 @@ import { useLazyLogOutUserQuery } from "../../redux/reducers/http/httpReducer";
 const HeaderBox = styled.header`
   display: flex;
   align-items: center;
-  background: var(--rssssd-color);
-  border-bottom: black 2px solid;
-  height: 60px;
+  background: var(--header-color);
+  border-bottom: black 1px solid;
+  height: var(--height-header);
 `;
 
 const HeaderDiv = styled.div`
@@ -50,11 +50,8 @@ const Nav = styled(NavLink)`
 const Nav2 = styled.div`
   display: flex;
   align-items: center;
-  text-decoration: none;
-  font-size: 20px;
-  color: black;
-  cursor: pointer;
   transition: 0.2s;
+  cursor: pointer;
   &:hover {
     color: var(--red-color);
   }
@@ -65,7 +62,7 @@ const Nav2 = styled.div`
 `;
 
 const NavLogo = styled.div`
-  font-size: 25px;
+  font-size: 22px;
   font-weight: 800;
 `;
 

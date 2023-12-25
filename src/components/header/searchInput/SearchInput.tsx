@@ -18,7 +18,10 @@ const Input = styled.input`
   background: transparent;
   outline: none;
   color: white;
-  padding: 5px 8px;
+  height: 10px;
+  width: 140px;
+  font-size: 14px;
+  padding: 5px;
 `;
 
 const InputButton = styled.button`
@@ -28,13 +31,18 @@ const InputButton = styled.button`
   background: rgb(105, 56, 11);
 `;
 
-const SX: { icon: SxProps } = {
+const SX: { icon: SxProps; icon2: SxProps } = {
   icon: {
     color: "rgb(255, 169, 89)",
     transition: "0.2s",
+    fontSize: "20px",
     "&:hover": {
       color: "var(--red-color)",
     },
+  },
+  icon2: {
+    color: "rgb(255, 169, 89)",
+    fontSize: "20px",
   },
 };
 
@@ -66,9 +74,7 @@ const SearchInput: React.FC = () => {
           )}
         </>
         <Input onChange={handleChange} value={value} type="text" />
-        <InputButton type="button">
-          <SearchTwoToneIcon sx={SX.icon} />
-        </InputButton>
+        <SearchTwoToneIcon sx={SX.icon2} />
       </InputBox>
       <>
         {data?.length !== 0 && data !== null && data !== undefined ? (

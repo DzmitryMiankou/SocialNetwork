@@ -9,7 +9,7 @@ const ModalBox = styled.div`
   position: absolute;
   right: 10px;
   background-color: white;
-  top: 50px;
+  top: 30px;
   min-width: 200px;
   width: 20vw;
   z-index: 99;

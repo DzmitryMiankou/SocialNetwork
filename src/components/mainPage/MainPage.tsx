@@ -26,14 +26,14 @@ const ColResize = styled.div`
   z-index: 34;
   &:hover {
     width: 6px;
-    background: var(--rssssd-color);
+    background: var(--header-color);
   }
 `;
 
 const Div = styled.div`
   position: absolute;
   background-color: #ffc690;
-  height: calc(100vh - 62px);
+  height: var(--hight-blok-noHeader);
   z-index: 24;
 `;
 
@@ -54,7 +54,7 @@ const But = styled.button`
   left: 0;
   background-color: #e2c8af;
   border: none;
-  padding: 0 0 0 5px;
+  padding: 0 0 0 3px;
   &:hover {
     background-color: #fcb97a;
   }
@@ -90,9 +90,9 @@ const MainPage: React.FC = () => {
       >
         <But onClick={() => setOpen(!open)}>
           {open ? (
-            <ArrowBackIosIcon sx={{ fontSize: "18px" }} />
+            <ArrowBackIosIcon sx={{ fontSize: "10px" }} />
           ) : (
-            <ArrowForwardIosIcon sx={{ fontSize: "18px" }} />
+            <ArrowForwardIosIcon sx={{ fontSize: "10px" }} />
           )}
         </But>
         <Dialogue mousUp={mousUp} />
