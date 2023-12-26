@@ -64,16 +64,34 @@ const But = styled.button`
 `;
 
 const MainPage: React.FC = () => {
+  const max = 100;
+  const initial = 50;
+  const boarder = 30;
   const { data } = useDataUserQuery();
   const { data: contacts } = useContactsQuery();
-
   const [mousUp, setmousUp] = React.useState<boolean>(false);
   const [open, setOpen] = React.useState<boolean>(true);
   const mousePosition = useMousePosition({
     mouse: mousUp,
-    initial: 50,
-    boarder: 20,
+    initial: initial,
+    boarder: boarder,
   });
+
+  const mirror =
+    mousePosition?.mousePosition?.mirrPercentageX > max - boarder
+      ? max - boarder
+      : mousePosition?.mousePosition?.mirrPercentageX &&
+        mousePosition?.mousePosition?.mirrPercentageX < boarder
+      ? boarder
+      : mousePosition?.mousePosition?.mirrPercentageX;
+
+  const normal =
+    mousePosition?.mousePosition?.percentageX < boarder
+      ? boarder
+      : mousePosition?.mousePosition?.percentageX &&
+        mousePosition?.mousePosition?.percentageX > max - boarder
+      ? max - boarder
+      : mousePosition?.mousePosition?.percentageX;
 
   return (
     <Main
@@ -88,9 +106,7 @@ const MainPage: React.FC = () => {
       </Div3>
       <Div2
         style={{
-          inset: `0% ${mousePosition?.mousePosition?.mirrPercentageX}% 0% ${
-            open ? 270 : 0
-          }px`,
+          inset: `0% ${mirror}% 0% ${open ? 270 : 0}px`,
         }}
       >
         <But onClick={() => setOpen(!open)}>
@@ -105,12 +121,12 @@ const MainPage: React.FC = () => {
       <ColResize
         onMouseDown={() => setmousUp(true)}
         style={{
-          inset: `0% 0% 0% ${mousePosition?.mousePosition?.percentageX}%`,
+          inset: `0% 0% 0% ${normal}%`,
         }}
       />
       <Div
         style={{
-          inset: `0% 0% 0% ${mousePosition?.mousePosition?.percentageX}%`,
+          inset: `0% 0% 0% ${normal}%`,
         }}
       >
         <Outlet />

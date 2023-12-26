@@ -3,7 +3,6 @@ import styled from "styled-components";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import SendIcon from "@mui/icons-material/Send";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
-import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import { useParams } from "react-router-dom";
 
 const PosterBox = styled.div`
@@ -29,15 +28,14 @@ const Butt = styled.button`
 const SendBox = styled.div`
   display: flex;
   align-items: center;
-  max-height: 200px;
 `;
 
 const ButtSend = styled(Butt)`
   background-color: #cead8d;
   border: none;
+  height: 100%;
   width: 60px;
   transition: 0.1s;
-  height: 100%;
   &:hover {
     background: #d0b9a3;
   }
@@ -58,13 +56,13 @@ const TextA = styled.textarea`
   letter-spacing: inherit;
   resize: none;
   width: 100%;
-  height: 100%;
   outline: none;
   background: #ffe7d0;
   border: none;
   overflow: auto;
+  font-size: 15px;
   border-left: 1px solid black;
-  padding: 0px 5px;
+  padding: 10px 5px;
 `;
 
 const Div = styled.div`
@@ -119,11 +117,11 @@ const Messages: React.FC = () => {
       </MessagesBox>
       <SendBox>
         <Div>
-          {[<AttachFileIcon />, <HighlightOffIcon />].map((data, i) => (
+          {[<AttachFileIcon />].map((data, i) => (
             <ButtSend2 key={`message_icon_${i}`}>{data}</ButtSend2>
           ))}
         </Div>
-        <TextA placeholder="send a message" rows={4}></TextA>
+        <TextA placeholder="send a message" rows={1}></TextA>
         <Div>
           <ButtSend>
             <SendIcon />
