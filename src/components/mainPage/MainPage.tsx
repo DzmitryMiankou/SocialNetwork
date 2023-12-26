@@ -41,7 +41,7 @@ const Div = styled.div`
 `;
 
 const Div2 = styled(Div)`
-  background-color: #fad8b8;
+  background-color: #e7c9ad;
   border-left: 1px black solid;
 `;
 
@@ -71,7 +71,7 @@ const MainPage: React.FC = () => {
   const [open, setOpen] = React.useState<boolean>(true);
   const mousePosition = useMousePosition({
     mouse: mousUp,
-    initial: 35,
+    initial: 50,
     boarder: 20,
   });
 

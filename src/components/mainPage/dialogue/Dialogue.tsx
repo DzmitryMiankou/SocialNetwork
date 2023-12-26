@@ -30,10 +30,11 @@ const LinkFrend = styled(NavLink)<{ $mousUp: boolean }>`
 `;
 
 const H3 = styled.h3`
-  padding: 10px 0px 10px 20px;
+  padding: 10px 0px 0px 20px;
   font-size: 18px;
   border-bottom: var(--block-border);
   background-color: #c69f76;
+  height: 33px;
 `;
 
 const Avatar = styled.img`
@@ -78,10 +79,7 @@ const Dialogue: React.FC<{ mousUp: boolean }> = ({ mousUp }) => {
     setId(id);
   };
 
-  const contexClousetHandler = (e: React.MouseEvent<HTMLElement>): void => {
-    e.preventDefault();
-    setOpen(false);
-  };
+  const clouseHandler = (): void => setOpen(false);
 
   return (
     <PosterBox>
@@ -106,13 +104,14 @@ const Dialogue: React.FC<{ mousUp: boolean }> = ({ mousUp }) => {
                 open={open}
                 num={id}
                 n={i}
+                clouseHandler={clouseHandler}
                 component={
                   <ModCom>
-                    <Butt onClick={contexClousetHandler}>
-                      <HighlightOffIcon />
+                    <Butt>
+                      <HighlightOffIcon sx={{ fontSize: "20px" }} />
                     </Butt>
-                    <Butt onClick={contexClousetHandler}>
-                      <DeleteOutlineIcon />
+                    <Butt>
+                      <DeleteOutlineIcon sx={{ fontSize: "20px" }} />
                     </Butt>
                   </ModCom>
                 }

@@ -1,9 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 import avatar from "../../../img/images.png";
-import { ContactsType } from "../../../redux/reducers/http/httpReducer";
+import {
+  ContactsType,
+  useDelContactMutation,
+} from "../../../redux/reducers/http/httpReducer";
 import { NavLink } from "react-router-dom";
 import Modal from "../../modal/Modal";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 
 const Friends = styled.div`
   margin-top: 20px;
@@ -43,11 +48,29 @@ const Ul = styled.ul`
   overflow-y: scroll;
 `;
 
+const Li = styled.li`
+  position: relative;
+`;
+
+const Butt = styled.button`
+  background-color: transparent;
+  border: none;
+`;
+
+const ButtBoxs = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  height: 100%;
+`;
+
 const Contacts: React.FC<{
   contacts: ContactsType[] | undefined;
 }> = ({ contacts }) => {
   const [get, set] = React.useState<boolean>(false);
   const [getid, setId] = React.useState<number>();
+  const [setContact] = useDelContactMutation();
 
   const openHandler = (e: React.MouseEvent<HTMLElement>, id: number): void => {
     e.preventDefault();
@@ -55,25 +78,43 @@ const Contacts: React.FC<{
     set(true);
   };
 
-  const clouseHandler = (): void => {
-    set(false);
+  const deleteHandler = (id: number): void => {
+    setContact({ id: id });
   };
+
+  const clouseHandler = (): void => set(false);
 
   return (
     <Friends>
       <FriendsText>Contacts</FriendsText>
       <Ul>
         {contacts?.map(({ id, contactId }) => (
-          <AvatarFriendBox
-            onClick={clouseHandler}
-            onContextMenu={(e) => openHandler(e, id)}
-            key={id}
-            to={`/:${contactId?.id}_${contactId?.firstName}_${contactId?.lastName}`}
-          >
-            <AvatarFriend src={avatar} alt="avatar" />
-            <Friend>{`${contactId?.lastName} ${contactId?.firstName}`}</Friend>
-            <Modal open={get} num={getid} n={id} component={<div>sss</div>} />
-          </AvatarFriendBox>
+          <Li key={id}>
+            <AvatarFriendBox
+              onContextMenu={(e) => openHandler(e, id)}
+              to={`/:${contactId?.id}_${contactId?.firstName}_${contactId?.lastName}`}
+            >
+              <AvatarFriend src={avatar} alt="avatar" />
+              <Friend>{`${contactId?.lastName} ${contactId?.firstName}`}</Friend>
+            </AvatarFriendBox>
+            <Modal
+              bg={"#bc9979"}
+              open={get}
+              num={getid}
+              n={id}
+              clouseHandler={clouseHandler}
+              component={
+                <ButtBoxs>
+                  <Butt onClick={clouseHandler}>
+                    <HighlightOffIcon sx={{ fontSize: "20px" }} />
+                  </Butt>
+                  <Butt onClick={() => deleteHandler(id)}>
+                    <DeleteOutlineIcon sx={{ fontSize: "20px" }} />
+                  </Butt>
+                </ButtBoxs>
+              }
+            />
+          </Li>
         ))}
       </Ul>
     </Friends>

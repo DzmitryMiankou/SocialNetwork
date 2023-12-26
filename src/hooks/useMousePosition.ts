@@ -35,12 +35,10 @@ const useMousePosition = ({
       mirrPercentageX: 100 - initial,
     });
 
-  const num = boarder;
-
   React.useEffect(() => {
     const updateSize = (): void => setSizeWind(window.innerWidth);
-
     window.addEventListener("resize", updateSize);
+
     const updateMousePosition = (ev: MouseEvent) => {
       if (mouse === true) {
         setMousePosition({ x: ev.clientX, y: ev.clientY });
@@ -56,21 +54,22 @@ const useMousePosition = ({
         return setPercentagePosition({ ...percentagePosition });
     };
 
-    if (percentagePosition.percentageX < num)
+    if (percentagePosition.percentageX < boarder) {
       return setPercentagePosition({
-        percentageX: num,
-        mirrPercentageX: 100 - num,
+        percentageX: boarder,
+        mirrPercentageX: 100 - boarder,
       });
+    }
 
-    if (percentagePosition.percentageX > 100 - num)
+    if (percentagePosition.percentageX > 100 - boarder)
       return setPercentagePosition({
-        percentageX: 100 - num,
-        mirrPercentageX: num,
+        percentageX: 100 - boarder,
+        mirrPercentageX: boarder,
       });
 
     window.addEventListener("mousemove", updateMousePosition);
     return () => window.removeEventListener("mousemove", updateMousePosition);
-  }, [boarder, mouse, mousePosition.x, num, percentagePosition, sizeWind]);
+  }, [mouse, mousePosition.x, boarder, percentagePosition, sizeWind]);
   return { mousePosition: { ...percentagePosition } };
 };
 export default useMousePosition;

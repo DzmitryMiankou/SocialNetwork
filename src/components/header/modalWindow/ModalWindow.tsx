@@ -43,13 +43,18 @@ const Button = styled.button`
 `;
 
 const SX: { button: SxProps } = {
-  button: { transition: "0.2s", ":hover": { color: "#df7714" } },
+  button: {
+    transition: "0.2s",
+    fontSize: "20px",
+    ":hover": { color: "#df7714" },
+  },
 };
 
 const MoadalWindow: React.FC<{
   data: { id: number; firstName: string; lastName: string }[] | undefined;
 }> = ({ data }) => {
   const [setContact] = useNewContactMutation();
+  const [open, setopen] = React.useState<number | string>("");
 
   const setNewContact = (
     e: React.MouseEvent<HTMLButtonElement>,
@@ -65,7 +70,11 @@ const MoadalWindow: React.FC<{
     <ModalBox>
       <ul>
         {data?.map(({ id, lastName, firstName }) => (
-          <UserBox key={id}>
+          <UserBox
+            key={id}
+            onMouseEnter={() => setopen(id)}
+            onMouseLeave={() => setopen("")}
+          >
             <UserLink>
               <p>{`${firstName} ${lastName}`}</p>
               <ButtBox>
@@ -73,14 +82,19 @@ const MoadalWindow: React.FC<{
                   <LocalLibraryIcon sx={SX.button} />,
                   <PersonAddIcon sx={SX.button} />,
                 ].map((data, i) => (
-                  <Button
-                    onClick={(e) =>
-                      i === 1 ? setNewContact(e, id) : getAllInfUser
-                    }
-                    key={`button_header_${i}`}
-                  >
-                    {data}
-                  </Button>
+                  <React.Fragment key={`button_header_${i}`}>
+                    {open === id ? (
+                      <Button
+                        onClick={(e) =>
+                          i === 1 ? setNewContact(e, id) : getAllInfUser
+                        }
+                      >
+                        {data}
+                      </Button>
+                    ) : (
+                      <></>
+                    )}
+                  </React.Fragment>
                 ))}
               </ButtBox>
             </UserLink>

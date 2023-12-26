@@ -94,6 +94,14 @@ export const httpReducer = createApi({
       }),
       invalidatesTags: ["PostContacts"],
     }),
+    delContact: build.mutation<void, any | { code: number; message: string }>({
+      query: (body: { id: number }) => ({
+        method: "DELETE",
+        url: "del_contact",
+        body,
+      }),
+      invalidatesTags: ["PostContacts"],
+    }),
   }),
 });
 
@@ -105,4 +113,5 @@ export const {
   useDataUserQuery,
   useNewContactMutation,
   useContactsQuery,
+  useDelContactMutation,
 } = httpReducer;
