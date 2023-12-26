@@ -3,6 +3,7 @@ import styled from "styled-components";
 import avatar from "../../../img/images.png";
 import { ContactsType } from "../../../redux/reducers/http/httpReducer";
 import { NavLink } from "react-router-dom";
+import Modal from "../../modal/Modal";
 
 const Friends = styled.div`
   margin-top: 20px;
@@ -22,6 +23,7 @@ const Friend = styled.p`
 const AvatarFriendBox = styled(NavLink)`
   display: flex;
   padding: 10px 0px;
+  position: relative;
   gap: 10px;
   align-items: center;
   cursor: pointer;
@@ -41,20 +43,36 @@ const Ul = styled.ul`
   overflow-y: scroll;
 `;
 
-const Contacts: React.FC<{ contacts: ContactsType[] | undefined }> = ({
-  contacts,
-}) => {
+const Contacts: React.FC<{
+  contacts: ContactsType[] | undefined;
+}> = ({ contacts }) => {
+  const [get, set] = React.useState<boolean>(false);
+  const [getid, setId] = React.useState<number>();
+
+  const openHandler = (e: React.MouseEvent<HTMLElement>, id: number): void => {
+    e.preventDefault();
+    setId(id);
+    set(true);
+  };
+
+  const clouseHandler = (): void => {
+    set(false);
+  };
+
   return (
     <Friends>
       <FriendsText>Contacts</FriendsText>
       <Ul>
         {contacts?.map(({ id, contactId }) => (
           <AvatarFriendBox
+            onClick={clouseHandler}
+            onContextMenu={(e) => openHandler(e, id)}
             key={id}
             to={`/:${contactId?.id}_${contactId?.firstName}_${contactId?.lastName}`}
           >
             <AvatarFriend src={avatar} alt="avatar" />
             <Friend>{`${contactId?.lastName} ${contactId?.firstName}`}</Friend>
+            <Modal open={get} num={getid} n={id} component={<div>sss</div>} />
           </AvatarFriendBox>
         ))}
       </Ul>

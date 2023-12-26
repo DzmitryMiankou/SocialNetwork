@@ -73,13 +73,13 @@ const Div = styled.div`
 `;
 
 const MessagesBox = styled.div`
-  padding: 10px 40px 0px 20px;
+  padding: 15px 40px 15px 20px;
   border-bottom: 1px solid black;
   overflow-y: scroll;
   overflow-x: hidden;
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 15px;
 `;
 
 const Message = styled.div`

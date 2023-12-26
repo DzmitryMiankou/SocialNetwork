@@ -35,7 +35,7 @@ const ColResize = styled.div`
 
 const Div = styled.div`
   position: absolute;
-  background-color: #ad54007e;
+  background-color: #d6ab81;
   height: var(--hight-blok-noHeader);
   z-index: 24;
 `;

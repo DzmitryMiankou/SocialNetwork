@@ -4,7 +4,7 @@ import styled from "styled-components";
 const ModalBox = styled.div`
   position: absolute;
   background-color: #cead8f;
-  z-index: 99;
+  z-index: 20;
   top: 0;
   right: 0px;
   height: 100%;
