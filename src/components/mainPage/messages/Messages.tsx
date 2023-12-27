@@ -4,6 +4,7 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import SendIcon from "@mui/icons-material/Send";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import { useParams } from "react-router-dom";
+import { useOutletContext } from "react-router-dom";
 
 const PosterBox = styled.div`
   display: grid;
@@ -27,29 +28,15 @@ const Butt = styled.button`
 
 const SendBox = styled.div`
   display: flex;
-  align-items: center;
 `;
 
 const ButtSend = styled(Butt)`
-  background-color: #cead8d;
+  background-color: transparent;
   border: none;
-  height: 100%;
-  width: 60px;
-  transition: 0.1s;
-  &:hover {
-    background: #d0b9a3;
-  }
-`;
-
-const ButtSend2 = styled(ButtSend)`
   display: flex;
   height: auto;
   padding: 6px;
   width: auto;
-  background-color: transparent;
-  &:hover {
-    background-color: transparent;
-  }
 `;
 
 const TextA = styled.textarea`
@@ -61,12 +48,15 @@ const TextA = styled.textarea`
   border: none;
   font-size: 15px;
   border-left: 1px solid black;
-  padding: 10px 5px;
+  padding: 6px 5px 2px 5px;
 `;
 
 const Div = styled.div`
   background: #ffe7d0;
   height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
 `;
 
 const MessagesBox = styled.div`
@@ -92,6 +82,7 @@ const H3 = styled.h3`
 `;
 
 const Messages: React.FC = () => {
+  const [mouse] = useOutletContext() as number[];
   const { idM } = useParams();
   const [text, setText] = React.useState<string>("");
   const textareaRef = React.useRef<HTMLTextAreaElement | null>(null);
@@ -99,10 +90,8 @@ const Messages: React.FC = () => {
   const dialogueData: Array<string> | string =
     idM?.replace(":", "").split("_") ?? "";
 
-  const onChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    event.preventDefault();
+  const onChange = (event: React.ChangeEvent<HTMLTextAreaElement>): void =>
     setText(event.target.value);
-  };
 
   React.useEffect(() => {
     if (textareaRef && textareaRef.current) {
@@ -110,7 +99,7 @@ const Messages: React.FC = () => {
       const scrollHeight = textareaRef.current.scrollHeight;
       textareaRef.current.style.height = scrollHeight + "px";
     }
-  }, [text]);
+  }, [text, mouse]);
 
   return (
     <PosterBox>
@@ -119,7 +108,7 @@ const Messages: React.FC = () => {
           <span>{dialogueData[1]}</span> <span>{dialogueData[2]}</span>
         </H3>
         <Butt type="button">
-          <MoreVertIcon sx={{ fontSize: "24px" }} />
+          <MoreVertIcon sx={{ fontSize: "20px" }} />
         </Butt>
       </Header>
       <MessagesBox>
@@ -131,8 +120,8 @@ const Messages: React.FC = () => {
       </MessagesBox>
       <SendBox>
         <Div>
-          {[<AttachFileIcon />].map((data, i) => (
-            <ButtSend2 key={`message_icon_${i}`}>{data}</ButtSend2>
+          {[<AttachFileIcon sx={{ fontSize: "20px" }} />].map((data, i) => (
+            <ButtSend key={`message_icon_${i}`}>{data}</ButtSend>
           ))}
         </Div>
         <TextA
@@ -144,7 +133,7 @@ const Messages: React.FC = () => {
         />
         <Div>
           <ButtSend>
-            <SendIcon />
+            <SendIcon sx={{ fontSize: "24px" }} />
           </ButtSend>
         </Div>
       </SendBox>

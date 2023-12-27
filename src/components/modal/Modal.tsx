@@ -19,11 +19,14 @@ const Modal: React.FC<{
   bg?: string;
   clouseHandler?: () => void;
 }> = ({ open, num, n, component, bg, clouseHandler }) => {
-  const wrapperRef = React.useRef<any>(null);
+  const wrapperRef = React.useRef<HTMLDivElement | null>(null);
 
   React.useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
-      if (wrapperRef.current && !wrapperRef.current.contains(event.target))
+      if (
+        wrapperRef.current &&
+        !wrapperRef.current.contains(event.target as Node)
+      )
         if (clouseHandler) return clouseHandler();
     }
 

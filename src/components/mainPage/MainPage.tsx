@@ -128,7 +128,7 @@ const MainPage: React.FC = () => {
           inset: `0% 0% 0% ${normal}%`,
         }}
       >
-        <Outlet />
+        <Outlet context={[mousePosition.mousePosition.mirrPercentageX]} />
       </Div>
     </Main>
   );
