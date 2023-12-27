@@ -12,6 +12,7 @@ import { useLazyLogOutUserQuery } from "../../redux/reducers/http/httpReducer";
 const HeaderBox = styled.header`
   display: flex;
   align-items: center;
+  justify-content: center;
   background: var(--header-color);
   border-bottom: black 1px solid;
   height: var(--height-header);
@@ -22,7 +23,6 @@ const HeaderDiv = styled.div`
   align-items: center;
   justify-content: space-between;
   width: var(--size-border);
-  margin: auto;
   gap: 40px;
 `;
 

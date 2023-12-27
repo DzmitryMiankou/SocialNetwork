@@ -41,7 +41,7 @@ const ButtSend = styled(Butt)`
 
 const TextA = styled.textarea`
   resize: none;
-  max-height: 100px;
+  max-height: 200px;
   width: 100%;
   outline: none;
   background: #ffe7d0;
@@ -53,14 +53,12 @@ const TextA = styled.textarea`
 
 const Div = styled.div`
   background: #ffe7d0;
-  height: 100%;
   display: flex;
-  justify-content: center;
   align-items: flex-end;
 `;
 
 const MessagesBox = styled.div`
-  padding: 15px 40px 15px 20px;
+  padding: 15px 40px 2px 20px;
   border-bottom: 1px solid black;
   overflow-y: scroll;
   overflow-x: hidden;
@@ -86,20 +84,26 @@ const Messages: React.FC = () => {
   const { idM } = useParams();
   const [text, setText] = React.useState<string>("");
   const textareaRef = React.useRef<HTMLTextAreaElement | null>(null);
+  const messagesEndRef = React.useRef<HTMLDivElement | null>(null);
   const arr = new Array(20).fill("");
   const dialogueData: Array<string> | string =
     idM?.replace(":", "").split("_") ?? "";
 
-  const onChange = (event: React.ChangeEvent<HTMLTextAreaElement>): void =>
-    setText(event.target.value);
+  const scrollToBottom = (): void => messagesEndRef.current?.scrollIntoView();
+  React.useEffect((): void => {
+    scrollToBottom();
+  }, []);
 
-  React.useEffect(() => {
+  React.useEffect((): void => {
     if (textareaRef && textareaRef.current) {
       textareaRef.current.style.height = "0px";
       const scrollHeight = textareaRef.current.scrollHeight;
       textareaRef.current.style.height = scrollHeight + "px";
     }
   }, [text, mouse]);
+
+  const onChange = (event: React.ChangeEvent<HTMLTextAreaElement>): void =>
+    setText(event.target.value);
 
   return (
     <PosterBox>
@@ -117,6 +121,7 @@ const Messages: React.FC = () => {
             <p>Hello!</p>
           </Message>
         ))}
+        <div ref={messagesEndRef} />
       </MessagesBox>
       <SendBox>
         <Div>
@@ -129,7 +134,6 @@ const Messages: React.FC = () => {
           onChange={onChange}
           value={text}
           placeholder="send a message"
-          rows={1}
         />
         <Div>
           <ButtSend>

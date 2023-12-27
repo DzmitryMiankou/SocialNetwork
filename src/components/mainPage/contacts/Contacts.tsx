@@ -9,6 +9,7 @@ import { NavLink } from "react-router-dom";
 import Modal from "../../modal/Modal";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
+import SearchContact from "./Search";
 
 const Friends = styled.div`
   margin-top: 20px;
@@ -44,7 +45,7 @@ const AvatarFriend = styled.img`
 `;
 
 const Ul = styled.ul`
-  height: calc(var(--hight-blok-noHeader) - 320px);
+  height: calc(var(--hight-blok-noHeader) - 341px);
   overflow-y: scroll;
 `;
 
@@ -64,6 +65,8 @@ const ButtBoxs = styled.div`
   gap: 8px;
   height: 100%;
 `;
+
+const SearchBox = styled.div``;
 
 const Contacts: React.FC<{
   contacts: ContactsType[] | undefined;
@@ -86,7 +89,10 @@ const Contacts: React.FC<{
 
   return (
     <Friends>
-      <FriendsText>Contacts</FriendsText>
+      <SearchBox>
+        <FriendsText>Contacts</FriendsText>
+        <SearchContact />
+      </SearchBox>
       <Ul>
         {contacts?.map(({ id, contactId }) => (
           <Li key={id}>

@@ -76,21 +76,22 @@ const MainPage: React.FC = () => {
     initial: initial,
   });
 
+  const mosePositionMirr = mousePosition.mousePosition.mirrPercentageX;
+  const mosePosition = mousePosition.mousePosition.percentageX;
+
   const mirror =
-    mousePosition.mousePosition?.mirrPercentageX > max - boarder
+    mosePositionMirr > max - boarder
       ? max - boarder
-      : mousePosition.mousePosition.mirrPercentageX &&
-        mousePosition.mousePosition.mirrPercentageX < boarder
+      : mosePositionMirr && mosePositionMirr < boarder
       ? boarder
-      : mousePosition.mousePosition.mirrPercentageX;
+      : mosePositionMirr;
 
   const normal =
-    mousePosition.mousePosition.percentageX < boarder
+    mosePosition < boarder
       ? boarder
-      : mousePosition.mousePosition.percentageX &&
-        mousePosition.mousePosition.percentageX > max - boarder
+      : mosePosition && mosePosition > max - boarder
       ? max - boarder
-      : mousePosition.mousePosition.percentageX;
+      : mosePosition;
 
   return (
     <Main
@@ -108,7 +109,7 @@ const MainPage: React.FC = () => {
           inset: `0% ${mirror}% 0% ${open ? 270 : 0}px`,
         }}
       >
-        <But onClick={() => setOpen(!open)}>
+        <But type="button" onClick={() => setOpen(!open)}>
           {open ? (
             <ArrowBackIosIcon sx={{ fontSize: "10px" }} />
           ) : (
@@ -128,7 +129,7 @@ const MainPage: React.FC = () => {
           inset: `0% 0% 0% ${normal}%`,
         }}
       >
-        <Outlet context={[mousePosition.mousePosition.mirrPercentageX]} />
+        <Outlet context={[mosePosition]} />
       </Div>
     </Main>
   );
