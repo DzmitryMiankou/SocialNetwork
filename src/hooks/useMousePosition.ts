@@ -12,14 +12,9 @@ interface ReturnUseMousePosition {
 interface prop {
   mouse: boolean;
   initial: number;
-  boarder: number;
 }
 
-const useMousePosition = ({
-  mouse,
-  initial,
-  boarder,
-}: prop): ReturnUseMousePosition => {
+const useMousePosition = ({ mouse, initial }: prop): ReturnUseMousePosition => {
   const [sizeWind, setSizeWind] = React.useState<number>(window.innerWidth);
 
   const [percentagePosition, setPercentagePosition] =

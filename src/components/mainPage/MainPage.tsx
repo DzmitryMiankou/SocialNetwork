@@ -74,24 +74,23 @@ const MainPage: React.FC = () => {
   const mousePosition = useMousePosition({
     mouse: mousUp,
     initial: initial,
-    boarder: boarder,
   });
 
   const mirror =
-    mousePosition?.mousePosition?.mirrPercentageX > max - boarder
+    mousePosition.mousePosition?.mirrPercentageX > max - boarder
       ? max - boarder
-      : mousePosition?.mousePosition?.mirrPercentageX &&
-        mousePosition?.mousePosition?.mirrPercentageX < boarder
+      : mousePosition.mousePosition.mirrPercentageX &&
+        mousePosition.mousePosition.mirrPercentageX < boarder
       ? boarder
-      : mousePosition?.mousePosition?.mirrPercentageX;
+      : mousePosition.mousePosition.mirrPercentageX;
 
   const normal =
-    mousePosition?.mousePosition?.percentageX < boarder
+    mousePosition.mousePosition.percentageX < boarder
       ? boarder
-      : mousePosition?.mousePosition?.percentageX &&
-        mousePosition?.mousePosition?.percentageX > max - boarder
+      : mousePosition.mousePosition.percentageX &&
+        mousePosition.mousePosition.percentageX > max - boarder
       ? max - boarder
-      : mousePosition?.mousePosition?.percentageX;
+      : mousePosition.mousePosition.percentageX;
 
   return (
     <Main

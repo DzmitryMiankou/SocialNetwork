@@ -53,13 +53,12 @@ const ButtSend2 = styled(ButtSend)`
 `;
 
 const TextA = styled.textarea`
-  letter-spacing: inherit;
   resize: none;
+  max-height: 100px;
   width: 100%;
   outline: none;
   background: #ffe7d0;
   border: none;
-  overflow: auto;
   font-size: 15px;
   border-left: 1px solid black;
   padding: 10px 5px;
@@ -94,9 +93,24 @@ const H3 = styled.h3`
 
 const Messages: React.FC = () => {
   const { idM } = useParams();
+  const [text, setText] = React.useState<string>("");
+  const textareaRef = React.useRef<HTMLTextAreaElement | null>(null);
   const arr = new Array(20).fill("");
   const dialogueData: Array<string> | string =
     idM?.replace(":", "").split("_") ?? "";
+
+  const onChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    event.preventDefault();
+    setText(event.target.value);
+  };
+
+  React.useEffect(() => {
+    if (textareaRef && textareaRef.current) {
+      textareaRef.current.style.height = "0px";
+      const scrollHeight = textareaRef.current.scrollHeight;
+      textareaRef.current.style.height = scrollHeight + "px";
+    }
+  }, [text]);
 
   return (
     <PosterBox>
@@ -121,7 +135,13 @@ const Messages: React.FC = () => {
             <ButtSend2 key={`message_icon_${i}`}>{data}</ButtSend2>
           ))}
         </Div>
-        <TextA placeholder="send a message" rows={1}></TextA>
+        <TextA
+          ref={textareaRef}
+          onChange={onChange}
+          value={text}
+          placeholder="send a message"
+          rows={1}
+        />
         <Div>
           <ButtSend>
             <SendIcon />
