@@ -10,16 +10,16 @@ import Modal from "../../modal/Modal";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import SearchContact from "./Search";
+import Avatar from "../../avatar/Avatar";
 
 const Friends = styled.div`
-  margin-top: 20px;
+  margin-top: 5px;
   width: 100%;
 `;
 
 const FriendsText = styled.h2`
   font-size: 18px;
   padding: 20px 0px 10px 0px;
-  border-bottom: var(--block-border);
 `;
 
 const Friend = styled.p`
@@ -27,15 +27,18 @@ const Friend = styled.p`
 `;
 
 const AvatarFriendBox = styled(NavLink)`
+  position: relative;
   display: flex;
   padding: 10px 0px;
-  position: relative;
   gap: 10px;
   align-items: center;
   cursor: pointer;
-  transition: 0.1s;
   &:hover {
-    background: #ffffff95;
+    background: linear-gradient(
+      90deg,
+      rgba(63, 94, 251, 0) 1%,
+      rgba(255, 255, 255, 0.3) 71%
+    );
   }
 `;
 
@@ -45,7 +48,7 @@ const AvatarFriend = styled.img`
 `;
 
 const Ul = styled.ul`
-  height: calc(var(--hight-blok-noHeader) - 341px);
+  height: calc(var(--hight-blok-noHeader) - 323px);
   overflow-y: scroll;
 `;
 
@@ -66,7 +69,9 @@ const ButtBoxs = styled.div`
   height: 100%;
 `;
 
-const SearchBox = styled.div``;
+const SearchBox = styled.div`
+  width: fit-content;
+`;
 
 const Contacts: React.FC<{
   contacts: ContactsType[] | undefined;
@@ -100,8 +105,16 @@ const Contacts: React.FC<{
               onContextMenu={(e) => openHandler(e, id)}
               to={`/:${contactId?.id}_${contactId?.firstName}_${contactId?.lastName}`}
             >
-              <AvatarFriend src={avatar} alt="avatar" />
-              <Friend>{`${contactId?.lastName} ${contactId?.firstName}`}</Friend>
+              <>
+                {(
+                  <Avatar
+                    size={30}
+                    letter={contactId?.firstName[0]}
+                    fontSize={20}
+                  />
+                ) ?? <AvatarFriend src={avatar} alt="avatar" />}
+              </>
+              <Friend>{`${contactId?.firstName} ${contactId?.lastName}`}</Friend>
             </AvatarFriendBox>
             <Modal
               bg={"#bc9979"}

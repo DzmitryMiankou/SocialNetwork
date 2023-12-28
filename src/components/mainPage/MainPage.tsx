@@ -11,6 +11,7 @@ import {
   useContactsQuery,
   useDataUserQuery,
 } from "../../redux/reducers/http/httpReducer";
+import { useGetMessageQuery } from "../../redux/reducers/http/socketReducer";
 
 const Main = styled.div<{ $select: boolean }>`
   display: flex;
@@ -23,32 +24,32 @@ const Main = styled.div<{ $select: boolean }>`
 const ColResize = styled.div`
   content: '" "';
   width: 1px;
-  background-color: #000000;
+  background-color: var(--black-color);
   cursor: col-resize;
   position: absolute;
   z-index: 34;
   &:hover {
     padding: 0px 1px;
-    background: #ff7300;
+    background: var(--bg-colResize);
   }
 `;
 
 const Div = styled.div`
   position: absolute;
-  background-color: #d6ab81;
+  background-color: var(--bg-messages);
   height: var(--hight-blok-noHeader);
   z-index: 24;
 `;
 
 const Div2 = styled(Div)`
-  background-color: #e7c9ad;
+  background-color: var(--bg-dialogue);
   border-left: 1px black solid;
 `;
 
 const Div3 = styled.div`
   width: 230px;
   padding: 20px 0px 0px 40px;
-  background-color: #c877148d;
+  background-color: var(--bg-contacts);
 `;
 
 const But = styled.button`
@@ -64,6 +65,7 @@ const But = styled.button`
 `;
 
 const MainPage: React.FC = () => {
+  const { data: contact } = useGetMessageQuery();
   const max = 100;
   const initial = 50;
   const boarder = 30;
@@ -75,6 +77,8 @@ const MainPage: React.FC = () => {
     mouse: mousUp,
     initial: initial,
   });
+
+  console.log(contact);
 
   const mosePositionMirr = mousePosition.mousePosition.mirrPercentageX;
   const mosePosition = mousePosition.mousePosition.percentageX;

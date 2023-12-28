@@ -1,10 +1,16 @@
 :root {
   --size-border: 95%;
   --red-color: rgb(255, 255, 255);
+  --black-color: rgb(0, 0, 0);
   --height-header: 34px;
   --header-color: rgb(187, 126, 69);
   --hight-blok-noHeader: calc(100vh - var(--height-header) + 1px);
   --block-border: 1px solid #ffffff95;
+  --bg-avatar: #ffffffa9;
+  --bg-messages: #d6ab81;
+  --bg-dialogue: #e7c9ad;
+  --bg-contacts: #c877148d;
+  --bg-colResize: #ff7300;
 }
 
 * {
@@ -40,17 +46,14 @@ input {
   width: 8px;
 }
 
-/* Track */
 ::-webkit-scrollbar-track {
   background: #88888851;
 }
 
-/* Handle */
 ::-webkit-scrollbar-thumb {
   background: #aa855f;
 }
 
-/* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #bd7c3f;
 }

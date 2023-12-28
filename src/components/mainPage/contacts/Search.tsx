@@ -8,7 +8,6 @@ const InputBox = styled.div`
   display: flex;
   align-items: center;
   background: rgba(138, 90, 45, 0.454);
-  width: fit-content;
 `;
 
 const Input = styled.input`
@@ -19,6 +18,7 @@ const Input = styled.input`
   height: 10px;
   font-size: 14px;
   padding: 5px;
+  width: 140px;
 `;
 
 const InputButton = styled.button`
@@ -28,19 +28,21 @@ const InputButton = styled.button`
   background: transparent;
 `;
 
-const SX: { icon: SxProps; icon2: SxProps } = {
-  icon: {
-    color: "white",
-    transition: "0.2s",
-    fontSize: "20px",
-    "&:hover": {
-      color: "#d0d0d0",
+const SX = (): { icon: SxProps; icon2: SxProps } => {
+  return {
+    icon: {
+      color: "white",
+      transition: "0.2s",
+      fontSize: "20px",
+      "&:hover": {
+        color: "#d0d0d0",
+      },
     },
-  },
-  icon2: {
-    color: "#ffd297",
-    fontSize: "20px",
-  },
+    icon2: {
+      color: "#ffd297",
+      fontSize: "20px",
+    },
+  };
 };
 
 const SearchContact: React.FC = () => {
@@ -62,12 +64,12 @@ const SearchContact: React.FC = () => {
           <></>
         ) : (
           <InputButton onClick={handleClick} type="button">
-            <ClearRoundedIcon sx={SX.icon} />
+            <ClearRoundedIcon sx={SX().icon} />
           </InputButton>
         )}
       </>
       <Input onChange={handleChange} value={value} type="text" />
-      <SearchTwoToneIcon sx={SX.icon2} />
+      <SearchTwoToneIcon sx={SX().icon2} />
     </InputBox>
   );
 };

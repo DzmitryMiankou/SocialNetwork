@@ -12,17 +12,19 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import loginReducer from "./loginReducer";
+import { socketApi } from "./reducers/http/socketReducer";
 
 const persistConfig = {
   key: "root",
   storage,
   version: 1,
-  blacklist: ["auth"],
+  blacklist: ["auth", "socketApi"],
 };
 
 const rootReducers = combineReducers({
   login: loginReducer as any,
   [httpReducer.reducerPath]: httpReducer.reducer,
+  [socketApi.reducerPath]: socketApi.reducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducers);
@@ -34,7 +36,7 @@ const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(httpReducer.middleware),
+    }).concat(httpReducer.middleware, socketApi.middleware),
 });
 
 export default store;

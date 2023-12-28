@@ -5,6 +5,7 @@ import SendIcon from "@mui/icons-material/Send";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import { useParams } from "react-router-dom";
 import { useOutletContext } from "react-router-dom";
+import { useSendMessageMutation } from "../../../redux/reducers/http/socketReducer";
 
 const PosterBox = styled.div`
   display: grid;
@@ -48,7 +49,7 @@ const TextA = styled.textarea`
   border: none;
   font-size: 15px;
   border-left: 1px solid black;
-  padding: 6px 5px 2px 5px;
+  padding: 4px 5px;
 `;
 
 const Div = styled.div`
@@ -81,6 +82,7 @@ const H3 = styled.h3`
 
 const Messages: React.FC = () => {
   const [mouse] = useOutletContext() as number[];
+  const [trigger] = useSendMessageMutation();
   const { idM } = useParams();
   const [text, setText] = React.useState<string>("");
   const textareaRef = React.useRef<HTMLTextAreaElement | null>(null);
@@ -104,6 +106,10 @@ const Messages: React.FC = () => {
 
   const onChange = (event: React.ChangeEvent<HTMLTextAreaElement>): void =>
     setText(event.target.value);
+
+  const sentMessage = () => {
+    trigger(text);
+  };
 
   return (
     <PosterBox>
@@ -136,7 +142,7 @@ const Messages: React.FC = () => {
           placeholder="send a message"
         />
         <Div>
-          <ButtSend>
+          <ButtSend onClick={sentMessage}>
             <SendIcon sx={{ fontSize: "24px" }} />
           </ButtSend>
         </Div>

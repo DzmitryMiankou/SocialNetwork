@@ -5,39 +5,45 @@ import avatar from "../../../img/images.png";
 import Modal from "../../modal/Modal";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
+import Avatar from "../../avatar/Avatar";
 
-const PosterBox = styled.div``;
+const PosterBox = styled.div`
+  display: grid;
+  grid-template-rows: 44px auto;
+`;
 
 const ScrollBox = styled.div`
   min-width: 150px;
 `;
 
 const LinkFrend = styled(NavLink)<{ $mousUp: boolean }>`
-  padding: 20px 20px;
+  padding: 17px 20px;
   display: flex;
+  align-items: center;
   font-size: 15px;
   white-space: nowrap;
   gap: 20px;
-  transition: 0.1s;
   justify-content: space-between;
   &:hover {
-    background-color: ${(prop) => (prop.$mousUp === false ? "#fffcf94f" : "")};
+    background: ${(prop) =>
+      prop.$mousUp === false
+        ? "linear-gradient(90deg, rgba(63, 94, 251, 0) 1%,  rgba(255, 255, 255, 0.3) 30%)"
+        : ""};
   }
   &.active {
-    background-color: #ffffff50;
+    background-color: #ffffff88;
     cursor: default;
   }
 `;
 
 const H3 = styled.h3`
-  padding: 10px 0px 0px 20px;
+  padding: 10px 20px;
   font-size: 18px;
   border-bottom: var(--block-border);
   background-color: #c69f76;
-  height: 33px;
 `;
 
-const Avatar = styled.img`
+const AvatarImg = styled.img`
   max-width: 20px;
 `;
 
@@ -92,7 +98,11 @@ const Dialogue: React.FC<{ mousUp: boolean }> = ({ mousUp }) => {
                 $mousUp={mousUp}
                 to={`/:${i}_${`firstName`}_${`lastName`}`}
               >
-                <Avatar src={avatar} alt="avatar" />
+                <>
+                  {<Avatar size={30} letter={"M"} fontSize={20} /> ?? (
+                    <AvatarImg src={avatar} alt="avatar" />
+                  )}
+                </>
                 <div style={{ marginRight: "auto", fontSize: "14px" }}>
                   Nikiforov Mikle
                 </div>
