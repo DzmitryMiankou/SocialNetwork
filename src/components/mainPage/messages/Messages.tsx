@@ -18,7 +18,6 @@ const Header = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: var(--block-border);
   background-color: #856c4630;
 `;
 
@@ -28,7 +27,8 @@ const Butt = styled.button`
 `;
 
 const SendBox = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: 30px 1fr 40px;
 `;
 
 const ButtSend = styled(Butt)`
@@ -48,8 +48,7 @@ const TextA = styled.textarea`
   background: #ffe7d0;
   border: none;
   font-size: 15px;
-  border-left: 1px solid black;
-  padding: 4px 5px;
+  padding: 8px 3px 1px 3px;
 `;
 
 const Div = styled.div`
@@ -60,7 +59,6 @@ const Div = styled.div`
 
 const MessagesBox = styled.div`
   padding: 15px 40px 2px 20px;
-  border-bottom: 1px solid black;
   overflow-y: scroll;
   overflow-x: hidden;
   display: flex;
@@ -91,9 +89,8 @@ const Messages: React.FC = () => {
   const dialogueData: Array<string> | string =
     idM?.replace(":", "").split("_") ?? "";
 
-  const scrollToBottom = (): void => messagesEndRef.current?.scrollIntoView();
   React.useEffect((): void => {
-    scrollToBottom();
+    messagesEndRef.current?.scrollIntoView();
   }, []);
 
   React.useEffect((): void => {

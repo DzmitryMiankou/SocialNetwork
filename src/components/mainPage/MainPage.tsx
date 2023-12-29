@@ -24,7 +24,7 @@ const Main = styled.div<{ $select: boolean }>`
 const ColResize = styled.div`
   content: '" "';
   width: 1px;
-  background-color: var(--black-color);
+  background-color: #e6c6b2;
   cursor: col-resize;
   position: absolute;
   z-index: 34;
@@ -43,7 +43,6 @@ const Div = styled.div`
 
 const Div2 = styled(Div)`
   background-color: var(--bg-dialogue);
-  border-left: 1px black solid;
 `;
 
 const Div3 = styled.div`

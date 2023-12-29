@@ -39,7 +39,6 @@ const LinkFrend = styled(NavLink)<{ $mousUp: boolean }>`
 const H3 = styled.h3`
   padding: 10px 20px;
   font-size: 18px;
-  border-bottom: var(--block-border);
   background-color: #c69f76;
 `;
 

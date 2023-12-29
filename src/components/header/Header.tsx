@@ -14,7 +14,6 @@ const HeaderBox = styled.header`
   align-items: center;
   justify-content: center;
   background: var(--header-color);
-  border-bottom: black 1px solid;
   height: var(--height-header);
 `;
 
