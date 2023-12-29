@@ -77,7 +77,9 @@ const MainPage: React.FC = () => {
     initial: initial,
   });
 
-  console.log(contact);
+  React.useMemo((): void => {
+    console.log(contact);
+  }, [contact]);
 
   const mosePositionMirr = mousePosition.mousePosition.mirrPercentageX;
   const mosePosition = mousePosition.mousePosition.percentageX;

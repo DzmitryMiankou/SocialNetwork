@@ -7,6 +7,8 @@ import { Provider } from "react-redux";
 import store, { persistor } from "./redux/store";
 import { HashRouter } from "react-router-dom";
 import { PersistGate } from "redux-persist/integration/react";
+import { injectStore } from "./redux/reducers/http/socketReducer";
+injectStore(store);
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement

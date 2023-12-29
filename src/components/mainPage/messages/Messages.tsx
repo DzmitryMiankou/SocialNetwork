@@ -140,7 +140,11 @@ const Messages: React.FC = () => {
         />
         <Div>
           <ButtSend onClick={sentMessage}>
-            <SendIcon sx={{ fontSize: "24px" }} />
+            {text.trim().length !== 0 ? (
+              <SendIcon sx={{ fontSize: "24px" }} />
+            ) : (
+              <></>
+            )}
           </ButtSend>
         </Div>
       </SendBox>

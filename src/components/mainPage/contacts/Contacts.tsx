@@ -48,7 +48,7 @@ const AvatarFriend = styled.img`
 `;
 
 const Ul = styled.ul`
-  height: calc(var(--hight-blok-noHeader) - 323px);
+  height: calc(var(--hight-blok-noHeader) - 316px);
   overflow-y: scroll;
 `;
 

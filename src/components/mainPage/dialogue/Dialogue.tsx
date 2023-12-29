@@ -66,7 +66,7 @@ const Butt = styled.button`
 const Ul = styled.ul`
   overflow-y: scroll;
   overflow-x: hidden;
-  height: calc(var(--hight-blok-noHeader) - 46px);
+  height: calc(var(--hight-blok-noHeader) - 44px);
 `;
 
 const Dialogue: React.FC<{ mousUp: boolean }> = ({ mousUp }) => {
