@@ -13,9 +13,7 @@ interface Message {
 
 let store: any;
 
-export const injectStore = (_store: any) => {
-  store = _store;
-};
+export const injectStore = (_store: any) => (store = _store);
 
 const createSocketFactory = () => {
   let _socket: Socket;
@@ -23,26 +21,25 @@ const createSocketFactory = () => {
     const token = await store.getState().login.token;
     if (!_socket) {
       _socket = io(`http://localhost:5000/`, {
-        auth: (cb) => {
+        auth: (cb) =>
           cb({
             Authorization: "Bearer=" + token,
-          });
-        },
+          }),
         transports: ["websocket"],
         withCredentials: true,
       });
-
-      _socket.on("connect_error", (error: Error) => {
-        console.log(error);
-        setTimeout(() => {
-          _socket.connect();
-        }, 500);
-      });
     }
 
-    if (_socket.disconnected) {
-      _socket.connect();
-    }
+    _socket.on("connect_error", (error: Error) => {
+      console.log(error);
+      setTimeout(() => _socket.connect(), 1000);
+    });
+
+    _socket.on("disconnect", () => _socket.connect());
+
+    if (_socket.disconnected) _socket.connect();
+
+    _socket.off("connect_error");
     return _socket;
   };
 };
@@ -55,6 +52,14 @@ export const socketApi = createApi({
     baseUrl: `http://localhost:5000/`,
   }),
   endpoints: (builder) => ({
+    handlerClickKey: builder.mutation<void, void>({
+      queryFn: async () => {
+        const socket = await getSocket();
+        return new Promise((resolve) => {
+          socket.emit("click");
+        });
+      },
+    }),
     sendMessage: builder.mutation<Message, string>({
       queryFn: async (chatMessageContent: string) => {
         const socket = await getSocket();
@@ -97,4 +102,8 @@ export const socketApi = createApi({
   }),
 });
 
-export const { useGetMessageQuery, useSendMessageMutation } = socketApi;
+export const {
+  useGetMessageQuery,
+  useSendMessageMutation,
+  useHandlerClickKeyMutation,
+} = socketApi;
