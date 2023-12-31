@@ -9,8 +9,8 @@ import { NavLink } from "react-router-dom";
 import Modal from "../../modal/Modal";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
-import SearchContact from "./Search";
 import Avatar from "../../avatar/Avatar";
+import SearchInput from "../../searchInput/SearchInput";
 
 const Friends = styled.div`
   margin-top: 5px;
@@ -96,7 +96,7 @@ const Contacts: React.FC<{
     <Friends>
       <SearchBox>
         <FriendsText>Contacts</FriendsText>
-        <SearchContact />
+        <SearchInput />
       </SearchBox>
       <Ul>
         {contacts?.map(({ id, contactId }) => (

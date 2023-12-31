@@ -49,16 +49,24 @@ const SX: { icon: SxProps; icon2: SxProps } = {
 const SearchInput: React.FC = () => {
   const [value, setValue] = React.useState<string>("");
   const [trigger, { data }] = useLazySearchUsersQuery();
+  const [open, setOpen] = React.useState<boolean>();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const value = event.target.value;
     setValue(value);
     trigger(value);
+    setOpen(true);
   };
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>): void => {
     setValue("");
     trigger("");
+  };
+
+  const clouseHandler = (): void => {
+    setValue("");
+    trigger("");
+    setOpen(false);
   };
 
   return (
@@ -77,8 +85,8 @@ const SearchInput: React.FC = () => {
         <SearchTwoToneIcon sx={SX.icon2} />
       </InputBox>
       <>
-        {data?.length !== 0 && data !== null && data !== undefined ? (
-          <MoadalWindow data={data} />
+        {data?.length !== 0 && data && open !== false ? (
+          <MoadalWindow data={data} clouseHandler={clouseHandler} />
         ) : (
           <></>
         )}

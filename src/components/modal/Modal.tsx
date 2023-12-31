@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import useClouseClickOut from "../../hooks/useClouseClickOut";
 
 const ModalBox = styled.div<{ $bg: string }>`
   position: absolute;
@@ -17,27 +18,14 @@ const Modal: React.FC<{
   n: number;
   component: JSX.Element;
   bg?: string;
-  clouseHandler?: () => void;
+  clouseHandler: () => void;
 }> = ({ open, num, n, component, bg, clouseHandler }) => {
-  const wrapperRef = React.useRef<HTMLDivElement | null>(null);
-
-  React.useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (
-        wrapperRef.current &&
-        !wrapperRef.current.contains(event.target as Node)
-      )
-        if (clouseHandler) return clouseHandler();
-    }
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [clouseHandler]);
+  const { ref } = useClouseClickOut({ clouseHandler });
 
   return (
     <>
       {open && num === n ? (
-        <ModalBox ref={wrapperRef} $bg={bg ?? "#cead8f"}>
+        <ModalBox ref={ref} $bg={bg ?? "#cead8f"}>
           {component}
         </ModalBox>
       ) : (

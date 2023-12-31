@@ -1,13 +1,22 @@
 import { SxProps } from "@mui/material";
 import React from "react";
 import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
-import SearchTwoToneIcon from "@mui/icons-material/SearchTwoTone";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
+
+const rotate = keyframes`
+  to {
+    transform: rotate(90deg);
+  }
+`;
 
 const InputBox = styled.div`
   display: flex;
+  width: 170px;
   align-items: center;
   background: rgba(138, 90, 45, 0.454);
+  ::placeholder {
+    color: #e1b47d;
+  }
 `;
 
 const Input = styled.input`
@@ -26,26 +35,23 @@ const InputButton = styled.button`
   align-items: center;
   border: none;
   background: transparent;
+  animation: ${rotate} 300ms linear;
 `;
 
-const SX = (): { icon: SxProps; icon2: SxProps } => {
+const SX = (): { icon: SxProps } => {
   return {
     icon: {
       color: "white",
       transition: "0.2s",
       fontSize: "20px",
       "&:hover": {
-        color: "#d0d0d0",
+        color: "#ffc289",
       },
-    },
-    icon2: {
-      color: "#ffd297",
-      fontSize: "20px",
     },
   };
 };
 
-const SearchContact: React.FC = () => {
+const SearchInput: React.FC = () => {
   const [value, setValue] = React.useState<string>("");
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -59,6 +65,12 @@ const SearchContact: React.FC = () => {
 
   return (
     <InputBox>
+      <Input
+        onChange={handleChange}
+        value={value}
+        type="text"
+        placeholder="search"
+      />
       <>
         {value === "" ? (
           <></>
@@ -68,10 +80,8 @@ const SearchContact: React.FC = () => {
           </InputButton>
         )}
       </>
-      <Input onChange={handleChange} value={value} type="text" />
-      <SearchTwoToneIcon sx={SX().icon2} />
     </InputBox>
   );
 };
 
-export default SearchContact;
+export default SearchInput;

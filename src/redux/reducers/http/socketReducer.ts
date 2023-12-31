@@ -7,8 +7,8 @@ const enum PathMessages {
 }
 
 interface Message {
-  id: number;
-  name: string;
+  timeSent: string;
+  message: string;
 }
 
 let store: any;
@@ -30,16 +30,13 @@ const createSocketFactory = () => {
       });
     }
 
+    if (_socket.disconnected) _socket.connect();
+
     _socket.on("connect_error", (error: Error) => {
       console.log(error);
       setTimeout(() => _socket.connect(), 1000);
     });
 
-    _socket.on("disconnect", () => _socket.connect());
-
-    if (_socket.disconnected) _socket.connect();
-
-    _socket.off("connect_error");
     return _socket;
   };
 };
@@ -60,8 +57,8 @@ export const socketApi = createApi({
         });
       },
     }),
-    sendMessage: builder.mutation<Message, string>({
-      queryFn: async (chatMessageContent: string) => {
+    sendMessage: builder.mutation<Message, Message>({
+      queryFn: async (chatMessageContent: Message) => {
         const socket = await getSocket();
         return new Promise((resolve) => {
           socket.emit(
@@ -86,14 +83,21 @@ export const socketApi = createApi({
 
           socket.emit(PathMessages.get_all);
 
-          socket.on(PathMessages.get_all, (message) => {
+          socket.on(PathMessages.get_all, (message: Message[]) => {
             updateCachedData((draft) => {
-              draft.push(message);
+              draft.splice(0, draft.length, ...message);
+            });
+          });
+
+          socket.on(PathMessages.send, (messages: Message) => {
+            updateCachedData((draft) => {
+              draft.push(messages);
             });
           });
 
           await cacheEntryRemoved;
           socket.off(PathMessages.get_all);
+          socket.off(PathMessages.send);
         } catch (error) {
           console.log(error);
         }

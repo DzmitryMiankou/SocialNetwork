@@ -16,8 +16,8 @@ const ScrollBox = styled.div`
   min-width: 150px;
 `;
 
-const LinkFrend = styled(NavLink)<{ $mousUp: boolean }>`
-  padding: 17px 20px;
+const LinkFrend = styled(NavLink)<{ $mousUp: boolean; $allWind: boolean }>`
+  padding: ${(prop) => (!prop.$allWind ? "10px 40px" : "10px 20px")};
   display: flex;
   align-items: center;
   font-size: 15px;
@@ -36,8 +36,8 @@ const LinkFrend = styled(NavLink)<{ $mousUp: boolean }>`
   }
 `;
 
-const H3 = styled.h3`
-  padding: 10px 20px;
+const H3 = styled.h3<{ $allWind: boolean }>`
+  padding: ${(prop) => (!prop.$allWind ? "10px 40px" : "10px 20px")};
   font-size: 18px;
   background-color: #c69f76;
 `;
@@ -69,7 +69,10 @@ const Ul = styled.ul`
   height: calc(var(--hight-blok-noHeader) - 44px);
 `;
 
-const Dialogue: React.FC<{ mousUp: boolean }> = ({ mousUp }) => {
+const Dialogue: React.FC<{ mousUp: boolean; allWind: boolean }> = ({
+  mousUp,
+  allWind,
+}) => {
   const [open, setOpen] = React.useState<boolean>(false);
   const [id, setId] = React.useState<number>();
 
@@ -88,12 +91,13 @@ const Dialogue: React.FC<{ mousUp: boolean }> = ({ mousUp }) => {
 
   return (
     <PosterBox>
-      <H3>Dialogue</H3>
+      <H3 $allWind={allWind}>Dialogue</H3>
       <ScrollBox>
         <Ul>
           {arr.map((data, i) => (
             <Li key={i} onContextMenu={(e) => contextHandler(e, i)}>
               <LinkFrend
+                $allWind={allWind}
                 $mousUp={mousUp}
                 to={`/:${i}_${`firstName`}_${`lastName`}`}
               >

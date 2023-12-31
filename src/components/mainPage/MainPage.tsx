@@ -11,7 +11,6 @@ import {
   useContactsQuery,
   useDataUserQuery,
 } from "../../redux/reducers/http/httpReducer";
-import { useGetMessageQuery } from "../../redux/reducers/http/socketReducer";
 
 const Main = styled.div<{ $select: boolean }>`
   display: flex;
@@ -53,18 +52,21 @@ const Div3 = styled.div`
 
 const But = styled.button`
   position: absolute;
-  top: 0;
+  top: 10px;
   left: 0;
-  background-color: #e2c8af;
+  height: 90px;
+  background-color: #986f4077;
   border: none;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
   padding: 0 0 0 3px;
+  z-index: 99;
   &:hover {
-    background-color: #fcb97a;
+    background-color: #ad723a;
   }
 `;
 
 const MainPage: React.FC = () => {
-  const { data: contact } = useGetMessageQuery();
   const max = 100;
   const initial = 50;
   const boarder = 30;
@@ -77,12 +79,8 @@ const MainPage: React.FC = () => {
     initial: initial,
   });
 
-  React.useMemo((): void => {
-    console.log(contact);
-  }, [contact]);
-
-  const mosePositionMirr = mousePosition.mousePosition.mirrPercentageX;
-  const mosePosition = mousePosition.mousePosition.percentageX;
+  const mosePositionMirr = mousePosition.mirrPercentageX;
+  const mosePosition = mousePosition.percentageX;
 
   const mirror =
     mosePositionMirr > max - boarder
@@ -121,7 +119,7 @@ const MainPage: React.FC = () => {
             <ArrowForwardIosIcon sx={{ fontSize: "10px" }} />
           )}
         </But>
-        <Dialogue mousUp={mousUp} />
+        <Dialogue mousUp={mousUp} allWind={open} />
       </Div2>
       <ColResize
         onMouseDown={() => setmousUp(true)}

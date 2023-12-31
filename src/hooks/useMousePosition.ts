@@ -5,16 +5,12 @@ interface PercentagePosition {
   mirrPercentageX: number;
 }
 
-interface ReturnUseMousePosition {
-  mousePosition: PercentagePosition;
-}
-
 interface prop {
   mouse: boolean;
   initial: number;
 }
 
-const useMousePosition = ({ mouse, initial }: prop): ReturnUseMousePosition => {
+const useMousePosition = ({ mouse, initial }: prop): PercentagePosition => {
   const [sizeWind, setSizeWind] = React.useState<number>(window.innerWidth);
 
   const [percentagePosition, setPercentagePosition] =
@@ -41,6 +37,6 @@ const useMousePosition = ({ mouse, initial }: prop): ReturnUseMousePosition => {
     window.addEventListener("mousemove", updateMousePosition);
     return () => window.removeEventListener("mousemove", updateMousePosition);
   }, [mouse, percentagePosition, sizeWind]);
-  return { mousePosition: { ...percentagePosition } };
+  return { ...percentagePosition };
 };
 export default useMousePosition;

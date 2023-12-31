@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import styled from "styled-components";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import SendIcon from "@mui/icons-material/Send";
@@ -6,6 +6,7 @@ import AttachFileIcon from "@mui/icons-material/AttachFile";
 import { useParams } from "react-router-dom";
 import { useOutletContext } from "react-router-dom";
 import {
+  useGetMessageQuery,
   useHandlerClickKeyMutation,
   useSendMessageMutation,
 } from "../../../redux/reducers/http/socketReducer";
@@ -21,7 +22,7 @@ const Header = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #856c4630;
+  background-color: #c69f76;
 `;
 
 const Butt = styled.button`
@@ -75,10 +76,17 @@ const Message = styled.div`
   width: fit-content;
   min-width: 100px;
   font-size: 14px;
+  display: grid;
 `;
 
 const H3 = styled.h3`
   font-size: 18px;
+`;
+
+const Time = styled.time`
+  color: #997a5ed0;
+  font-size: 12px;
+  justify-self: flex-end;
 `;
 
 const Messages: React.FC = () => {
@@ -87,11 +95,11 @@ const Messages: React.FC = () => {
   const [trigger2] = useHandlerClickKeyMutation();
   const { idM } = useParams();
   const [text, setText] = React.useState<string>("");
-  const textareaRef = React.useRef<HTMLTextAreaElement | null>(null);
-  const messagesEndRef = React.useRef<HTMLDivElement | null>(null);
-  const arr = new Array(20).fill("");
+  const textareaRef = useRef<HTMLTextAreaElement | null>(null);
+  const messagesEndRef = useRef<HTMLDivElement | null>(null);
   const dialogueData: Array<string> | string =
     idM?.replace(":", "").split("_") ?? "";
+  const { data } = useGetMessageQuery();
 
   React.useEffect((): void => {
     messagesEndRef.current?.scrollIntoView();
@@ -110,8 +118,24 @@ const Messages: React.FC = () => {
     trigger2();
   };
 
-  const sentMessage = () => {
-    trigger(text);
+  const sendMessage = (): void => {
+    if (text.trim().length === 0) return;
+    const message = {
+      timeSent: new Date(Date.now()).toLocaleString("en-US"),
+      message: text,
+    };
+    trigger({ ...message });
+    setText("");
+  };
+
+  const correctDate = (date: string): string => {
+    const optionDate: Intl.DateTimeFormatOptions = {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+    };
+    const clientDate = new Date(date).toLocaleTimeString("en-US", optionDate);
+    return clientDate;
   };
 
   return (
@@ -121,15 +145,17 @@ const Messages: React.FC = () => {
           <span>{dialogueData[1]}</span> <span>{dialogueData[2]}</span>
         </H3>
         <Butt type="button">
-          <MoreVertIcon sx={{ fontSize: "20px" }} />
+          <MoreVertIcon sx={{ fontSize: "24px" }} />
         </Butt>
       </Header>
       <MessagesBox>
-        {arr.map((data, i) => (
-          <Message key={i}>
-            <p>Hello!</p>
-          </Message>
-        ))}
+        {data &&
+          data.map(({ message, timeSent }, i) => (
+            <Message key={i}>
+              <p>{message}</p>
+              <Time>{correctDate(timeSent)}</Time>
+            </Message>
+          ))}
         <div ref={messagesEndRef} />
       </MessagesBox>
       <SendBox>
@@ -145,7 +171,7 @@ const Messages: React.FC = () => {
           placeholder="send a message"
         />
         <Div>
-          <ButtSend onClick={sentMessage}>
+          <ButtSend onClick={sendMessage}>
             {text.trim().length !== 0 ? (
               <SendIcon sx={{ fontSize: "24px" }} />
             ) : (

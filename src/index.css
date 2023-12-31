@@ -1,5 +1,5 @@
 :root {
-  --size-border: 95%;
+  --size-border: calc(100% - 80px);
   --red-color: rgb(255, 255, 255);
   --black-color: rgb(0, 0, 0);
   --height-header: 34px;
@@ -7,7 +7,7 @@
   --hight-blok-noHeader: calc(100vh - var(--height-header) + 1px);
   --block-border: 1px solid #ffffff95;
   --bg-avatar: #ffffffa9;
-  --bg-messages: #d6ab81;
+  --bg-messages: #ae8a66;
   --bg-dialogue: #e7c9ad;
   --bg-contacts: #c877148d;
   --bg-colResize: #ff7300;
@@ -47,13 +47,13 @@ input {
 }
 
 ::-webkit-scrollbar-track {
-  background: #88888851;
+  background: rgba(135, 135, 135, 0.318);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #aa855f;
+  background: #fff1e5;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #bd7c3f;
+  background: #ffffff;
 }

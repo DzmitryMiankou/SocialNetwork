@@ -4,6 +4,7 @@ import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import LocalLibraryIcon from "@mui/icons-material/LocalLibrary";
 import { SxProps } from "@mui/material";
 import { useNewContactMutation } from "../../../redux/reducers/http/httpReducer";
+import useClouseClickOut from "../../../hooks/useClouseClickOut";
 
 const ModalBox = styled.div`
   position: absolute;
@@ -52,9 +53,11 @@ const SX: { button: SxProps } = {
 
 const MoadalWindow: React.FC<{
   data: { id: number; firstName: string; lastName: string }[] | undefined;
-}> = ({ data }) => {
+  clouseHandler: () => void;
+}> = ({ data, clouseHandler }) => {
   const [setContact] = useNewContactMutation();
   const [open, setopen] = React.useState<number | string>("");
+  const { ref } = useClouseClickOut({ clouseHandler });
 
   const setNewContact = (
     e: React.MouseEvent<HTMLButtonElement>,
@@ -67,7 +70,7 @@ const MoadalWindow: React.FC<{
   const getAllInfUser = (e: React.MouseEvent<HTMLButtonElement>) => {};
 
   return (
-    <ModalBox>
+    <ModalBox ref={ref}>
       <ul>
         {data?.map(({ id, lastName, firstName }) => (
           <UserBox
