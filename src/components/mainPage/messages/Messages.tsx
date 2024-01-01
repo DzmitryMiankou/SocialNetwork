@@ -76,17 +76,26 @@ const Message = styled.div`
   width: fit-content;
   min-width: 100px;
   font-size: 14px;
+  max-width: 500px;
   display: grid;
+  grid-template-areas:
+    "mess mess ."
+    ". . time";
 `;
 
 const H3 = styled.h3`
   font-size: 18px;
 `;
 
+const P = styled.p`
+  grid-area: mess;
+`;
+
 const Time = styled.time`
   color: #997a5ed0;
   font-size: 12px;
   justify-self: flex-end;
+  grid-area: time;
 `;
 
 const Messages: React.FC = () => {
@@ -152,7 +161,7 @@ const Messages: React.FC = () => {
         {data &&
           data.map(({ message, timeSent }, i) => (
             <Message key={i}>
-              <p>{message}</p>
+              <P>{message}</P>
               <Time>{correctDate(timeSent)}</Time>
             </Message>
           ))}
