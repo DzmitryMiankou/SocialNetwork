@@ -42,8 +42,7 @@ const loginReducer = (
         const newData = { ...action.value };
         delete newData["access_token"];
         return {
-          ...state,
-          token: action.value.access_token ?? null,
+          token: action.value.access_token,
           user: "id" in action.value ? { ...newData } : { ...state.user },
           isActive: "access_token" in action.value ? true : false,
         };

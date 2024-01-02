@@ -4,18 +4,22 @@ import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
 import styled, { keyframes } from "styled-components";
 
 const rotate = keyframes`
-  to {
+  0% {
+    opacity: 0; 
+  }
+  100% {
+    opacity: 1; 
     transform: rotate(90deg);
   }
 `;
 
-const InputBox = styled.div`
+const InputBox = styled.div<{ $bg: string; $colorPl: string }>`
   display: flex;
   width: 170px;
   align-items: center;
-  background: rgba(138, 90, 45, 0.454);
+  background: ${(prop) => prop.$bg};
   ::placeholder {
-    color: #e1b47d;
+    color: ${(prop) => prop.$colorPl};
   }
 `;
 
@@ -51,31 +55,31 @@ const SX = (): { icon: SxProps } => {
   };
 };
 
-const SearchInput: React.FC = () => {
-  const [value, setValue] = React.useState<string>("");
+type Props = {
+  handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  clouseHandler: () => void;
+  value: string;
+  bg?: string;
+  colorPl?: string;
+};
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    const value = event.target.value;
-    setValue(value);
-  };
-
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>): void => {
-    setValue("");
-  };
-
+const SearchInput: React.FC<Props> = (props) => {
   return (
-    <InputBox>
+    <InputBox
+      $bg={props.bg ?? "rgb(255, 255, 255)"}
+      $colorPl={props.colorPl ?? "rgb(0, 0, 0)"}
+    >
       <Input
-        onChange={handleChange}
-        value={value}
+        onChange={props.handleChange}
+        value={props.value}
         type="text"
         placeholder="search"
       />
       <>
-        {value === "" ? (
+        {props.value === "" ? (
           <></>
         ) : (
-          <InputButton onClick={handleClick} type="button">
+          <InputButton onClick={props.clouseHandler} type="button">
             <ClearRoundedIcon sx={SX().icon} />
           </InputButton>
         )}

@@ -67,7 +67,8 @@ const MoadalWindow: React.FC<{
     setContact({ id: id });
   };
 
-  const getAllInfUser = (e: React.MouseEvent<HTMLButtonElement>) => {};
+  const getAllInfUser = (e: React.MouseEvent<HTMLButtonElement>) =>
+    e.preventDefault();
 
   return (
     <ModalBox ref={ref}>

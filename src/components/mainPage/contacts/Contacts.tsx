@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import avatar from "../../../img/images.png";
 import {
@@ -76,9 +76,10 @@ const SearchBox = styled.div`
 const Contacts: React.FC<{
   contacts: ContactsType[] | undefined;
 }> = ({ contacts }) => {
-  const [get, set] = React.useState<boolean>(false);
-  const [getid, setId] = React.useState<number>();
+  const [get, set] = useState<boolean>(false);
+  const [getid, setId] = useState<number>();
   const [setContact] = useDelContactMutation();
+  const [value, setValue] = useState<string>("");
 
   const openHandler = (e: React.MouseEvent<HTMLElement>, id: number): void => {
     e.preventDefault();
@@ -86,17 +87,30 @@ const Contacts: React.FC<{
     set(true);
   };
 
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    setValue(event.target.value);
+  };
+
+  const clouseHandler = (): void => {
+    setValue("");
+    set(false);
+  };
+
   const deleteHandler = (id: number): void => {
     setContact({ id: id });
   };
-
-  const clouseHandler = (): void => set(false);
 
   return (
     <Friends>
       <SearchBox>
         <FriendsText>Contacts</FriendsText>
-        <SearchInput />
+        <SearchInput
+          handleChange={handleChange}
+          value={value}
+          clouseHandler={clouseHandler}
+          bg="rgba(138, 90, 45, 0.454)"
+          colorPl="#e1b47d"
+        />
       </SearchBox>
       <Ul>
         {contacts?.map(({ id, contactId }) => (

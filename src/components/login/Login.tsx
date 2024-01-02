@@ -27,7 +27,7 @@ const Nav = styled(Link)`
 const Login: React.FC = () => {
   const navigate = useNavigate();
   const dispatch: AppDispatch = useDispatch();
-  const [post, result] = useAuthUserMutation();
+  const [post] = useAuthUserMutation();
   const [value, setValue] = React.useState<{ email: string; password: string }>(
     {
       email: "",
@@ -37,16 +37,13 @@ const Login: React.FC = () => {
 
   const handlerClick = async (e: React.MouseEvent): Promise<void> => {
     e.preventDefault();
-    await post({
+    const data = await post({
       email: value.email,
       password: value.password,
     });
+    if ("data" in data) dispatch(setDataAction(data.data));
     navigate("/");
   };
-
-  React.useEffect(() => {
-    dispatch(setDataAction(result.data ?? {}));
-  }, [dispatch, result.data]);
 
   const handleInputChange = (
     event: React.ChangeEvent<HTMLInputElement>

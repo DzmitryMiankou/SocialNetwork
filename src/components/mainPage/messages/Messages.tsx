@@ -178,6 +178,12 @@ const Messages: React.FC = () => {
           onChange={onChange}
           value={text}
           placeholder="send a message"
+          onKeyDown={(e) => {
+            if (e.code === "Enter") {
+              e.preventDefault();
+              return sendMessage();
+            }
+          }}
         />
         <Div>
           <ButtSend onClick={sendMessage}>

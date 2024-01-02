@@ -3,11 +3,15 @@ import styled from "styled-components";
 import { NavLink, useNavigate } from "react-router-dom";
 import LoginTwoToneIcon from "@mui/icons-material/LoginTwoTone";
 import LogoutIcon from "@mui/icons-material/Logout";
-import SearchInput from "./searchInput/SearchInput";
+import SearchInput from "../searchInput/SearchInput";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../redux/store";
 import { logOutAction } from "../../redux/loginReducer";
-import { useLazyLogOutUserQuery } from "../../redux/reducers/http/httpReducer";
+import {
+  useLazyLogOutUserQuery,
+  useLazySearchUsersQuery,
+} from "../../redux/reducers/http/httpReducer";
+import MoadalWindow from "./modalWindow/ModalWindow";
 
 const HeaderBox = styled.header`
   display: flex;
@@ -22,7 +26,6 @@ const HeaderDiv = styled.div`
   align-items: center;
   justify-content: space-between;
   width: var(--size-border);
-  gap: 40px;
 `;
 
 const Ul = styled.div`
@@ -65,37 +68,72 @@ const NavLogo = styled.div`
   font-weight: 800;
 `;
 
+const Search = styled.div`
+  display: flex;
+  gap: 20px;
+  justify-content: flex-end;
+  align-items: center;
+`;
+
 const Header: React.FC<{ user: any }> = ({ user }) => {
   const navigate = useNavigate();
   const dispatch: AppDispatch = useDispatch();
   const [trigger] = useLazyLogOutUserQuery();
+  const [search, { data }] = useLazySearchUsersQuery();
+  const [value, setValue] = React.useState<string>("");
+  const [open, setOpen] = React.useState<boolean>();
 
-  const handlerClick = async (): Promise<void> => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    const value = event.target.value;
+
+    setValue(value);
+    search(value);
+    setOpen(true);
+  };
+
+  const clouseHandler = (): void => {
+    setValue("");
+    search("");
+    setOpen(false);
+  };
+
+  const handlerClick = (): void => {
     dispatch(logOutAction());
+    trigger();
     navigate("/sign");
-    await trigger();
   };
 
   return (
     <HeaderBox>
       <HeaderDiv>
         <NavLogo>MyLine</NavLogo>
-        <SearchInput />
-        <menu>
-          <nav>
-            <Ul>
-              {!user.isActive ? (
-                <Nav to="sign">
-                  <LoginTwoToneIcon />
-                </Nav>
-              ) : (
-                <Nav2 onClick={handlerClick}>
-                  <LogoutIcon />
-                </Nav2>
-              )}
-            </Ul>
-          </nav>
-        </menu>
+        <Search>
+          <SearchInput
+            handleChange={handleChange}
+            clouseHandler={clouseHandler}
+            value={value}
+            bg="rgb(146, 95, 48)"
+            colorPl="rgba(207, 151, 106, 0.624)"
+          />
+          <Ul>
+            {!user.isActive ? (
+              <Nav to="sign">
+                <LoginTwoToneIcon />
+              </Nav>
+            ) : (
+              <Nav2 onClick={handlerClick}>
+                <LogoutIcon />
+              </Nav2>
+            )}
+          </Ul>
+        </Search>
+        <>
+          {data?.length !== 0 && data && open !== false ? (
+            <MoadalWindow data={data} clouseHandler={clouseHandler} />
+          ) : (
+            <></>
+          )}
+        </>
       </HeaderDiv>
     </HeaderBox>
   );
