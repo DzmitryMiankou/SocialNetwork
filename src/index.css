@@ -4,7 +4,7 @@
   --black-color: rgb(0, 0, 0);
   --height-header: 34px;
   --header-color: rgb(187, 126, 69);
-  --hight-blok-noHeader: calc(100vh - var(--height-header) + 1px);
+  --hight-blok-noHeader: calc(100vh - var(--height-header));
   --block-border: 1px solid #ffffff95;
   --bg-avatar: #ffffffa9;
   --bg-messages: #ae8a66;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { NavLink, useNavigate } from "react-router-dom";
 import LoginTwoToneIcon from "@mui/icons-material/LoginTwoTone";
@@ -49,7 +49,7 @@ const Nav = styled(NavLink)`
   }
 `;
 
-const Nav2 = styled.div`
+const LogOut = styled.div`
   display: flex;
   align-items: center;
   transition: 0.2s;
@@ -80,22 +80,19 @@ const Header: React.FC<{ user: any }> = ({ user }) => {
   const dispatch: AppDispatch = useDispatch();
   const [trigger] = useLazyLogOutUserQuery();
   const [search, { data }] = useLazySearchUsersQuery();
-  const [value, setValue] = React.useState<string>("");
-  const [open, setOpen] = React.useState<boolean>();
+  const [value, setValue] = useState<string>("");
+  const [open, setOpen] = useState<boolean>();
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    const value = event.target.value;
-
+  const handle = (value: string, hand: boolean): void => {
     setValue(value);
     search(value);
-    setOpen(true);
+    setOpen(hand);
   };
 
-  const clouseHandler = (): void => {
-    setValue("");
-    search("");
-    setOpen(false);
-  };
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void =>
+    handle(event.target.value, true);
+
+  const clouseHandler = (): void => handle("", false);
 
   const handlerClick = (): void => {
     dispatch(logOutAction());
@@ -121,9 +118,9 @@ const Header: React.FC<{ user: any }> = ({ user }) => {
                 <LoginTwoToneIcon />
               </Nav>
             ) : (
-              <Nav2 onClick={handlerClick}>
+              <LogOut onClick={handlerClick}>
                 <LogoutIcon />
-              </Nav2>
+              </LogOut>
             )}
           </Ul>
         </Search>
