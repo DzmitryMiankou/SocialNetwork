@@ -10,6 +10,7 @@ import {
   useHandlerClickKeyMutation,
   useSendMessageMutation,
 } from "../../../redux/reducers/http/socketReducer";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
 const PosterBox = styled.div`
   display: grid;
@@ -33,6 +34,7 @@ const Butt = styled.button`
 const SendBox = styled.div`
   display: grid;
   grid-template-columns: 30px 1fr 40px;
+  position: relative;
 `;
 
 const ButtSend = styled(Butt)`
@@ -98,7 +100,22 @@ const Time = styled.time`
   grid-area: time;
 `;
 
+const ArrowScroll = styled.button`
+  position: absolute;
+  border: none;
+  background: #ffffff93;
+  right: 20px;
+  top: -45px;
+  border-radius: 50px;
+  padding: 6px 6px 3px 6px;
+  transition: 0.2s;
+  &:hover {
+    background: #ffffff;
+  }
+`;
+
 const Messages: React.FC = () => {
+  const [toScroll, setToScroll] = React.useState<boolean>(false);
   const [mouse] = useOutletContext() as number[];
   const [trigger] = useSendMessageMutation();
   const [trigger2] = useHandlerClickKeyMutation();
@@ -106,13 +123,29 @@ const Messages: React.FC = () => {
   const [text, setText] = React.useState<string>("");
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
+
   const dialogueData: Array<string> | string =
     idM?.replace(":", "").split("_") ?? "";
   const { data } = useGetMessageQuery();
 
-  React.useEffect((): void => {
+  const intoScroll = (): void => {
     messagesEndRef.current?.scrollIntoView();
-  }, [data]);
+  };
+
+  React.useEffect((): void => intoScroll(), [data]);
+
+  const scrollHandler = (): void => {
+    const positionY = messagesEndRef.current?.getBoundingClientRect().y || 0;
+    if (positionY > 1500) setToScroll(true);
+    else setToScroll(false);
+  };
+
+  React.useEffect(() => {
+    window.addEventListener("scroll", scrollHandler, true);
+    return () => {
+      window.removeEventListener("scroll", scrollHandler, true);
+    };
+  }, []);
 
   React.useEffect((): void => {
     if (textareaRef && textareaRef.current) {
@@ -168,6 +201,15 @@ const Messages: React.FC = () => {
         <div ref={messagesEndRef} />
       </MessagesBox>
       <SendBox>
+        <>
+          {toScroll ? (
+            <ArrowScroll type="button" onClick={intoScroll}>
+              <KeyboardArrowDownIcon />
+            </ArrowScroll>
+          ) : (
+            <></>
+          )}
+        </>
         <Div>
           {[<AttachFileIcon sx={{ fontSize: "24px" }} />].map((data, i) => (
             <ButtSend key={`message_icon_${i}`}>{data}</ButtSend>

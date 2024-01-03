@@ -56,7 +56,7 @@ const Box = styled.div<StyleProp>`
   top: ${(prop) => prop.$top + "px"};
   left: ${(prop) => prop.$left};
   z-index: 99;
-  animation: ${(prop) => (prop.$anim ? opacityBox : opacityBoxEnd)} 0.2s
+  animation: ${(prop) => (prop.$anim ? opacityBox : opacityBoxEnd)} 0.1s
     ease-in-out;
 `;
 
@@ -69,7 +69,7 @@ const BG = styled.div<{ $anim?: boolean }>`
   z-index: 98;
   backdrop-filter: blur(2px);
   left: 0;
-  animation: ${(prop) => (prop.$anim ? opacity : opacityEnd)} 0.2s;
+  animation: ${(prop) => (prop.$anim ? opacity : opacityEnd)} 0.1s;
 `;
 
 type PropType = {
@@ -98,7 +98,7 @@ const Modal: React.FC<PropType> = (props) => {
     setTimeout((): void => {
       dispatch(delDataMoreInfAction());
       set(true);
-    }, 180);
+    }, 80);
   };
 
   return (
