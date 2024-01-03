@@ -5,14 +5,16 @@ import { AppDispatch } from "../../redux/store";
 import { delDataMoreInfAction } from "../../redux/moreInfReducer";
 import { InitialStateType } from "../../redux/moreInfReducer";
 
-const Box = styled.div<{ $left?: string; $top: number }>`
+type StyleProp = { $left: string; $top: number };
+
+const Box = styled.div<StyleProp>`
   width: 20%;
   min-width: 250px;
   height: 90vh;
   position: absolute;
   background: #ddad7e;
   top: ${(prop) => prop.$top + "px"};
-  left: ${(prop) => prop.$left ?? `calc(50vw - 10%)`};
+  left: ${(prop) => prop.$left};
   z-index: 99;
 `;
 
@@ -36,14 +38,14 @@ type PropType = {
 const Modal: React.FC<PropType> = (props) => {
   const dispatch: AppDispatch = useDispatch();
 
-  const prop = () => {
+  const switchProp = (): StyleProp => {
     switch (props.type) {
       case "right":
         return { $left: "79vw", $top: 20 };
       case "left":
         return { $left: "20px", $top: 20 };
       default:
-        return { $top: 20 };
+        return { $left: `calc(50vw - 10%)`, $top: 20 };
     }
   };
 
@@ -52,7 +54,7 @@ const Modal: React.FC<PropType> = (props) => {
       {props.moreInf.open ? (
         <>
           <BG onClick={() => dispatch(delDataMoreInfAction())} />
-          <Box {...prop()}>{props.component}</Box>
+          <Box {...switchProp()}>{props.component}</Box>
         </>
       ) : (
         <></>
