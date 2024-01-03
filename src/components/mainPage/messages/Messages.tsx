@@ -112,7 +112,7 @@ const Messages: React.FC = () => {
 
   React.useEffect((): void => {
     messagesEndRef.current?.scrollIntoView();
-  }, []);
+  }, [data]);
 
   React.useEffect((): void => {
     if (textareaRef && textareaRef.current) {

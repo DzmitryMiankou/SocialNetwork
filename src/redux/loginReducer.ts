@@ -9,7 +9,7 @@ interface User<N, S> {
   access_token?: S;
 }
 
-export interface InitialStateType {
+export interface LogInitialStateType {
   user: User<number | null, string | null>;
   token: null | string;
   isActive: boolean;
@@ -20,7 +20,7 @@ export interface TypeAction {
   value: User<number, string>;
 }
 
-const initialState: InitialStateType = {
+const initialState: LogInitialStateType = {
   user: {
     id: null,
     firstName: null,
@@ -35,7 +35,7 @@ const initialState: InitialStateType = {
 const loginReducer = (
   state = initialState,
   action: TypeAction
-): InitialStateType | {} => {
+): LogInitialStateType | {} => {
   switch (action.type) {
     case SETDATA: {
       if (action.value) {

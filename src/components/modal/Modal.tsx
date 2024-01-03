@@ -1,33 +1,59 @@
 import React from "react";
 import styled from "styled-components";
-import useClouseClickOut from "../../hooks/useClouseClickOut";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../redux/store";
+import { delDataMoreInfAction } from "../../redux/moreInfReducer";
+import { InitialStateType } from "../../redux/moreInfReducer";
 
-const ModalBox = styled.div<{ $bg: string }>`
+const Box = styled.div<{ $left?: string; $top: number }>`
+  width: 20%;
+  min-width: 250px;
+  height: 90vh;
   position: absolute;
-  background-color: ${(prop) => prop.$bg};
-  z-index: 24;
-  top: 0;
-  right: 0px;
-  height: 100%;
-  padding: 0px 10px;
+  background: #ddad7e;
+  top: ${(prop) => prop.$top + "px"};
+  left: ${(prop) => prop.$left ?? `calc(50vw - 10%)`};
+  z-index: 99;
 `;
 
-const Modal: React.FC<{
-  open: boolean;
-  num: number | undefined;
-  n: number;
+const BG = styled.div`
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  background: #3d2c21b5;
+  top: 0;
+  z-index: 98;
+  backdrop-filter: blur(2px);
+  left: 0;
+`;
+
+type PropType = {
+  moreInf: InitialStateType;
   component: JSX.Element;
-  bg?: string;
-  clouseHandler: () => void;
-}> = ({ open, num, n, component, bg, clouseHandler }) => {
-  const { ref } = useClouseClickOut({ clouseHandler });
+  type?: "right" | "left";
+};
+
+const Modal: React.FC<PropType> = (props) => {
+  const dispatch: AppDispatch = useDispatch();
+
+  const prop = () => {
+    switch (props.type) {
+      case "right":
+        return { $left: "79vw", $top: 20 };
+      case "left":
+        return { $left: "20px", $top: 20 };
+      default:
+        return { $top: 20 };
+    }
+  };
 
   return (
     <>
-      {open && num === n ? (
-        <ModalBox ref={ref} $bg={bg ?? "#cead8f"}>
-          {component}
-        </ModalBox>
+      {props.moreInf.open ? (
+        <>
+          <BG onClick={() => dispatch(delDataMoreInfAction())} />
+          <Box {...prop()}>{props.component}</Box>
+        </>
       ) : (
         <></>
       )}

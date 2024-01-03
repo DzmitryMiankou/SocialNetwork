@@ -6,11 +6,14 @@ import {
   useDelContactMutation,
 } from "../../../redux/reducers/http/httpReducer";
 import { NavLink } from "react-router-dom";
-import Modal from "../../modal/Modal";
+import Modal from "../../alert/Alert";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import Avatar from "../../avatar/Avatar";
 import SearchInput from "../../searchInput/SearchInput";
+import { AppDispatch } from "../../../redux/store";
+import { useDispatch } from "react-redux";
+import { setDataMoreInfAction } from "../../../redux/moreInfReducer";
+import LocalLibraryIcon from "@mui/icons-material/LocalLibrary";
 
 const Friends = styled.div`
   margin-top: 5px;
@@ -80,6 +83,7 @@ const Contacts: React.FC<{
   const [getid, setId] = useState<number>();
   const [setContact] = useDelContactMutation();
   const [value, setValue] = useState<string>("");
+  const dispatch: AppDispatch = useDispatch();
 
   const openHandler = (e: React.MouseEvent<HTMLElement>, id: number): void => {
     e.preventDefault();
@@ -98,6 +102,14 @@ const Contacts: React.FC<{
 
   const deleteHandler = (id: number): void => {
     setContact({ id: id });
+  };
+
+  const getAllInfUser = (
+    e: React.MouseEvent<HTMLButtonElement>,
+    id: number
+  ): void => {
+    e.preventDefault();
+    dispatch(setDataMoreInfAction(id));
   };
 
   return (
@@ -138,8 +150,8 @@ const Contacts: React.FC<{
               clouseHandler={clouseHandler}
               component={
                 <ButtBoxs>
-                  <Butt onClick={clouseHandler}>
-                    <HighlightOffIcon sx={{ fontSize: "20px" }} />
+                  <Butt onClick={(e) => getAllInfUser(e, contactId?.id)}>
+                    <LocalLibraryIcon sx={{ fontSize: "20px" }} />
                   </Butt>
                   <Butt onClick={() => deleteHandler(id)}>
                     <DeleteOutlineIcon sx={{ fontSize: "20px" }} />

@@ -13,16 +13,19 @@ import {
 import storage from "redux-persist/lib/storage";
 import loginReducer from "./loginReducer";
 import { socketApi } from "./reducers/http/socketReducer";
+import moreInfReducer from "./moreInfReducer";
+import { InitialStateType } from "./moreInfReducer";
 
 const persistConfig = {
   key: "root",
   storage,
   version: 1,
-  blacklist: ["auth", "socketApi"],
+  blacklist: ["auth", "socketApi", "moreInf"],
 };
 
 const rootReducers = combineReducers({
   login: loginReducer as any,
+  moreInf: moreInfReducer as unknown as InitialStateType,
   [httpReducer.reducerPath]: httpReducer.reducer,
   [socketApi.reducerPath]: socketApi.reducer,
 });

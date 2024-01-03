@@ -5,6 +5,9 @@ import LocalLibraryIcon from "@mui/icons-material/LocalLibrary";
 import { SxProps } from "@mui/material";
 import { useNewContactMutation } from "../../../redux/reducers/http/httpReducer";
 import useClouseClickOut from "../../../hooks/useClouseClickOut";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../../redux/store";
+import { setDataMoreInfAction } from "../../../redux/moreInfReducer";
 
 const ModalBox = styled.div`
   position: absolute;
@@ -17,7 +20,7 @@ const ModalBox = styled.div`
 `;
 
 const UserBox = styled.li`
-  border-bottom: black solid 2px;
+  border-bottom: black solid 1px;
   transition: 0.2s;
   &:hover {
     background-color: #ffead9;
@@ -58,6 +61,7 @@ const MoadalWindow: React.FC<{
   const [setContact] = useNewContactMutation();
   const [open, setopen] = React.useState<number | string>("");
   const { ref } = useClouseClickOut({ clouseHandler });
+  const dispatch: AppDispatch = useDispatch();
 
   const setNewContact = (
     e: React.MouseEvent<HTMLButtonElement>,
@@ -67,8 +71,14 @@ const MoadalWindow: React.FC<{
     setContact({ id: id });
   };
 
-  const getAllInfUser = (e: React.MouseEvent<HTMLButtonElement>) =>
+  const getAllInfUser = (
+    e: React.MouseEvent<HTMLButtonElement>,
+    id: number
+  ): void => {
     e.preventDefault();
+    dispatch(setDataMoreInfAction(id));
+    clouseHandler();
+  };
 
   return (
     <ModalBox ref={ref}>
@@ -90,7 +100,7 @@ const MoadalWindow: React.FC<{
                     {open === id ? (
                       <Button
                         onClick={(e) =>
-                          i === 1 ? setNewContact(e, id) : getAllInfUser
+                          i === 1 ? setNewContact(e, id) : getAllInfUser(e, id)
                         }
                       >
                         {data}
