@@ -1,11 +1,51 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../redux/store";
 import { delDataMoreInfAction } from "../../redux/moreInfReducer";
 import { InitialStateType } from "../../redux/moreInfReducer";
 
-type StyleProp = { $left: string; $top: number };
+const opacity = keyframes`
+  0% {
+    filter: opacity(0);  
+  }
+  100% {
+    filter: opacity(1)
+  }
+`;
+
+const opacityEnd = keyframes`
+  0% {
+    filter: opacity(1);  
+  }
+  100% {
+    filter: opacity(0)
+  }
+`;
+
+const opacityBox = keyframes`
+  0% {
+    top: 0px;
+    filter: opacity(0);  
+  }
+  100% {
+    top: 20px;
+    filter: opacity(1)
+  }
+`;
+
+const opacityBoxEnd = keyframes`
+  0% {
+    top: 20px;
+    filter: opacity(1);
+  }
+  100% {
+    top: 0px;
+    filter: opacity(0); 
+  }
+`;
+
+type StyleProp = { $left: string; $top: number; $anim?: boolean };
 
 const Box = styled.div<StyleProp>`
   width: 20%;
@@ -16,9 +56,11 @@ const Box = styled.div<StyleProp>`
   top: ${(prop) => prop.$top + "px"};
   left: ${(prop) => prop.$left};
   z-index: 99;
+  animation: ${(prop) => (prop.$anim ? opacityBox : opacityBoxEnd)} 0.2s
+    ease-in-out;
 `;
 
-const BG = styled.div`
+const BG = styled.div<{ $anim?: boolean }>`
   height: 100vh;
   width: 100vw;
   position: absolute;
@@ -27,6 +69,7 @@ const BG = styled.div`
   z-index: 98;
   backdrop-filter: blur(2px);
   left: 0;
+  animation: ${(prop) => (prop.$anim ? opacity : opacityEnd)} 0.2s;
 `;
 
 type PropType = {
@@ -37,6 +80,7 @@ type PropType = {
 
 const Modal: React.FC<PropType> = (props) => {
   const dispatch: AppDispatch = useDispatch();
+  const [get, set] = React.useState<boolean>(true);
 
   const switchProp = (): StyleProp => {
     switch (props.type) {
@@ -49,12 +93,22 @@ const Modal: React.FC<PropType> = (props) => {
     }
   };
 
+  const closeHandle = (): void => {
+    set(false);
+    setTimeout((): void => {
+      dispatch(delDataMoreInfAction());
+      set(true);
+    }, 180);
+  };
+
   return (
     <>
       {props.moreInf.open ? (
         <>
-          <BG onClick={() => dispatch(delDataMoreInfAction())} />
-          <Box {...switchProp()}>{props.component}</Box>
+          <BG $anim={get} onClick={closeHandle} />
+          <Box $anim={get} {...switchProp()}>
+            {props.component}
+          </Box>
         </>
       ) : (
         <></>

@@ -91,7 +91,9 @@ const Dialogue: React.FC<{ mousUp: boolean; allWind: boolean }> = ({
 
   return (
     <PosterBox>
-      <H3 $allWind={allWind}>Dialogue</H3>
+      <header>
+        <H3 $allWind={allWind}>Dialogue</H3>
+      </header>
       <ScrollBox>
         <Ul>
           {arr.map((data, i) => (

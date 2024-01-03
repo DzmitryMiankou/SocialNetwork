@@ -17,7 +17,7 @@ const PosterBox = styled.div`
   grid-template-rows: 44px 1fr auto;
 `;
 
-const Header = styled.div`
+const Header = styled.header`
   padding: 0px 40px 0px 20px;
   display: flex;
   justify-content: space-between;

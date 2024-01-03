@@ -33,7 +33,7 @@ const ColResize = styled.div`
   }
 `;
 
-const Div = styled.div`
+const Div = styled.section`
   position: absolute;
   background-color: var(--bg-messages);
   height: var(--hight-blok-noHeader);
@@ -44,7 +44,7 @@ const Div2 = styled(Div)`
   background-color: var(--bg-dialogue);
 `;
 
-const Div3 = styled.div`
+const Div3 = styled.aside`
   width: 230px;
   padding: 20px 0px 0px 40px;
   background-color: var(--bg-contacts);
