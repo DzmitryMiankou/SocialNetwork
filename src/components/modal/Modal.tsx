@@ -23,28 +23,6 @@ const opacityEnd = keyframes`
   }
 `;
 
-const opacityBox = keyframes`
-  0% {
-    top: 0px;
-    filter: opacity(0);  
-  }
-  100% {
-    top: 20px;
-    filter: opacity(1)
-  }
-`;
-
-const opacityBoxEnd = keyframes`
-  0% {
-    top: 20px;
-    filter: opacity(1);
-  }
-  100% {
-    top: 0px;
-    filter: opacity(0); 
-  }
-`;
-
 type StyleProp = { $left: string; $top: number; $anim?: boolean };
 
 const Box = styled.div<StyleProp>`
@@ -56,8 +34,7 @@ const Box = styled.div<StyleProp>`
   top: ${(prop) => prop.$top + "px"};
   left: ${(prop) => prop.$left};
   z-index: 99;
-  animation: ${(prop) => (prop.$anim ? opacityBox : opacityBoxEnd)} 0.1s
-    ease-in-out;
+  animation: ${(prop) => (prop.$anim ? opacity : opacityEnd)} 0.1s linear;
 `;
 
 const BG = styled.div<{ $anim?: boolean }>`
@@ -69,7 +46,7 @@ const BG = styled.div<{ $anim?: boolean }>`
   z-index: 98;
   backdrop-filter: blur(2px);
   left: 0;
-  animation: ${(prop) => (prop.$anim ? opacity : opacityEnd)} 0.1s;
+  animation: ${(prop) => (prop.$anim ? opacity : opacityEnd)} 0.1s linear;
 `;
 
 type PropType = {
@@ -98,7 +75,7 @@ const Modal: React.FC<PropType> = (props) => {
     setTimeout((): void => {
       dispatch(delDataMoreInfAction());
       set(true);
-    }, 80);
+    }, 70);
   };
 
   return (

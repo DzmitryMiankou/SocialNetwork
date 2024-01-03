@@ -20,7 +20,7 @@ const Friends = styled.div`
   width: 100%;
 `;
 
-const FriendsText = styled.h2`
+const FriendsText = styled.h3`
   font-size: 18px;
   padding: 20px 0px 10px 0px;
 `;
@@ -91,10 +91,6 @@ const Contacts: React.FC<{
     set(true);
   };
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    setValue(event.target.value);
-  };
-
   const clouseHandler = (): void => {
     setValue("");
     set(false);
@@ -112,6 +108,26 @@ const Contacts: React.FC<{
     dispatch(setDataMoreInfAction(id));
   };
 
+  const filterContacts = (): ContactsType[] | void => {
+    if (value.trim().length >= 1) {
+      const contact = contacts?.filter((el) =>
+        (el.contactId.firstName + el.contactId.lastName)
+          .toLowerCase()
+          .replaceAll(" ", "")
+          .includes(value.replaceAll(" ", "").toLowerCase())
+      );
+      if (contact === undefined) return;
+      return contact;
+    }
+    if (contacts === undefined) return;
+    return contacts;
+  };
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    setValue(event.target.value);
+    filterContacts();
+  };
+
   return (
     <Friends>
       <SearchBox>
@@ -125,7 +141,7 @@ const Contacts: React.FC<{
         />
       </SearchBox>
       <Ul>
-        {contacts?.map(({ id, contactId }) => (
+        {filterContacts()?.map(({ id, contactId }) => (
           <Li key={id}>
             <AvatarFriendBox
               onContextMenu={(e) => openHandler(e, id)}

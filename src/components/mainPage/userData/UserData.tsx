@@ -13,7 +13,7 @@ const AvatarImg = styled.img`
   max-width: 150px;
 `;
 
-const AvatarText = styled.h1`
+const AvatarText = styled.h2`
   font-size: 18px;
 `;
 
