@@ -105,13 +105,19 @@ const Header: React.FC<{ user: any }> = ({ user }) => {
       <HeaderDiv>
         <NavLogo>MyLine</NavLogo>
         <Search>
-          <SearchInput
-            handleChange={handleChange}
-            clouseHandler={clouseHandler}
-            value={value}
-            bg="rgb(146, 95, 48)"
-            colorPl="rgba(207, 151, 106, 0.624)"
-          />
+          <>
+            {user.isActive ? (
+              <SearchInput
+                handleChange={handleChange}
+                clouseHandler={clouseHandler}
+                value={value}
+                bg="rgb(146, 95, 48)"
+                colorPl="rgba(207, 151, 106, 0.624)"
+              />
+            ) : (
+              <></>
+            )}
+          </>
           <Ul>
             {!user.isActive ? (
               <Nav to="sign">

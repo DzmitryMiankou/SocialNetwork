@@ -111,7 +111,7 @@ const Contacts: React.FC<{
   const filterContacts = (): ContactsType[] | void => {
     if (value.trim().length >= 1) {
       const contact = contacts?.filter((el) =>
-        (el.contactId.firstName + el.contactId.lastName)
+        (el.contact.firstName + el.contact.lastName)
           .toLowerCase()
           .replaceAll(" ", "")
           .includes(value.replaceAll(" ", "").toLowerCase())
@@ -141,22 +141,22 @@ const Contacts: React.FC<{
         />
       </SearchBox>
       <Ul>
-        {filterContacts()?.map(({ id, contactId }) => (
+        {filterContacts()?.map(({ id, contact }: any) => (
           <Li key={id}>
             <AvatarFriendBox
               onContextMenu={(e) => openHandler(e, id)}
-              to={`/:${contactId?.id}_${contactId?.firstName}_${contactId?.lastName}`}
+              to={`/:${contact?.id}_${contact?.firstName}_${contact?.lastName}`}
             >
               <>
                 {(
                   <Avatar
                     size={30}
-                    letter={contactId?.firstName[0]}
+                    letter={contact?.firstName[0]}
                     fontSize={20}
                   />
                 ) ?? <AvatarFriend src={avatar} alt="avatar" />}
               </>
-              <Friend>{`${contactId?.firstName} ${contactId?.lastName}`}</Friend>
+              <Friend>{`${contact?.firstName} ${contact?.lastName}`}</Friend>
             </AvatarFriendBox>
             <Modal
               bg={"#bc9979"}
@@ -166,7 +166,7 @@ const Contacts: React.FC<{
               clouseHandler={clouseHandler}
               component={
                 <ButtBoxs>
-                  <Butt onClick={(e) => getAllInfUser(e, contactId?.id)}>
+                  <Butt onClick={(e) => getAllInfUser(e, contact?.id)}>
                     <LocalLibraryIcon sx={{ fontSize: "20px" }} />
                   </Butt>
                   <Butt onClick={() => deleteHandler(id)}>

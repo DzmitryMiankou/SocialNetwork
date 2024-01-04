@@ -34,9 +34,9 @@ const createSocketFactory = () => {
 
     _socket.on("connect_error", (error: Error) => {
       console.log(error);
-      setTimeout(() => _socket.connect(), 1000);
+      return setTimeout(() => _socket.connect(), 1000);
     });
-
+    _socket.off("connect_error");
     return _socket;
   };
 };

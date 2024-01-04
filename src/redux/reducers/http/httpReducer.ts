@@ -26,7 +26,7 @@ interface UserDataType extends RegType {
 export interface ContactsType {
   id: number;
   user: number;
-  contactId: {
+  contact: {
     id: number;
     firstName: string;
     lastName: string;
