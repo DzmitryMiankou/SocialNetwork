@@ -6,6 +6,7 @@ import Modal from "../../alert/Alert";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import Avatar from "../../avatar/Avatar";
+import { DialoguesType } from "../../../redux/reducers/http/socketReducer";
 
 const PosterBox = styled.div`
   display: grid;
@@ -69,14 +70,13 @@ const Ul = styled.ul`
   height: calc(var(--hight-blok-noHeader) - 44px);
 `;
 
-const Dialogue: React.FC<{ mousUp: boolean; allWind: boolean }> = ({
-  mousUp,
-  allWind,
-}) => {
+const Dialogue: React.FC<{
+  mousUp: boolean;
+  allWind: boolean;
+  dialogues: DialoguesType[] | undefined;
+}> = ({ mousUp, allWind, dialogues }) => {
   const [open, setOpen] = React.useState<boolean>(false);
   const [id, setId] = React.useState<number>();
-
-  const arr = new Array(20).fill("");
 
   const contextHandler = (
     e: React.MouseEvent<HTMLElement>,
@@ -96,43 +96,63 @@ const Dialogue: React.FC<{ mousUp: boolean; allWind: boolean }> = ({
       </header>
       <ScrollBox>
         <Ul>
-          {arr.map((data, i) => (
-            <Li key={i} onContextMenu={(e) => contextHandler(e, i)}>
-              <LinkFrend
-                $allWind={allWind}
-                $mousUp={mousUp}
-                to={`/:${i}_${`firstName`}_${`lastName`}`}
-              >
-                <>
-                  {<Avatar size={30} letter={"M"} fontSize={20} /> ?? (
-                    <AvatarImg src={avatar} alt="avatar" />
-                  )}
-                </>
-                <div style={{ marginRight: "auto", fontSize: "14px" }}>
-                  Nikiforov Mikle
-                </div>
-                <div style={{ color: "grey", fontSize: "14px" }}>
-                  Fr <span>11:43</span>
-                </div>
-              </LinkFrend>
-              <Modal
-                open={open}
-                num={id}
-                n={i}
-                clouseHandler={clouseHandler}
-                component={
-                  <ModCom>
-                    <Butt>
-                      <HighlightOffIcon sx={{ fontSize: "20px" }} />
-                    </Butt>
-                    <Butt>
-                      <DeleteOutlineIcon sx={{ fontSize: "20px" }} />
-                    </Butt>
-                  </ModCom>
+          {dialogues &&
+            dialogues.map(({ targetId, target, sourceId, sources }) => (
+              <Li
+                key={targetId === 1 ? sourceId + "t" : targetId}
+                onContextMenu={(e) =>
+                  contextHandler(e, targetId === 1 ? sourceId : targetId)
                 }
-              />
-            </Li>
-          ))}
+              >
+                <LinkFrend
+                  $allWind={allWind}
+                  $mousUp={mousUp}
+                  to={
+                    targetId === 1
+                      ? `/:${sourceId}_${sources.firstName}_${sources.lastName}`
+                      : `/:${targetId}_${target.firstName}_${target.lastName}`
+                  }
+                >
+                  <>
+                    {(
+                      <Avatar
+                        size={30}
+                        letter={
+                          targetId === 1
+                            ? sources.firstName[0]
+                            : target.firstName[0]
+                        }
+                        fontSize={20}
+                      />
+                    ) ?? <AvatarImg src={avatar} alt="avatar" />}
+                  </>
+                  <div style={{ marginRight: "auto", fontSize: "14px" }}>
+                    {`${
+                      targetId === 1 ? sources.firstName : target.firstName
+                    } ${targetId === 1 ? sources.lastName : target.lastName}`}
+                  </div>
+                  <div style={{ color: "grey", fontSize: "14px" }}>
+                    Fr <span>11:43</span>
+                  </div>
+                </LinkFrend>
+                <Modal
+                  open={open}
+                  num={id}
+                  n={targetId}
+                  clouseHandler={clouseHandler}
+                  component={
+                    <ModCom>
+                      <Butt>
+                        <HighlightOffIcon sx={{ fontSize: "20px" }} />
+                      </Butt>
+                      <Butt>
+                        <DeleteOutlineIcon sx={{ fontSize: "20px" }} />
+                      </Butt>
+                    </ModCom>
+                  }
+                />
+              </Li>
+            ))}
         </Ul>
       </ScrollBox>
     </PosterBox>

@@ -6,11 +6,13 @@ const enum PathMessages {
   get_all = `all_messages`,
 }
 
-interface Message {
-  timeSent: string;
+export interface MessageType {
+  createdAt: string;
+  sourceId: number;
   message: string;
+  targetId: number;
+  pathImg?: null | string;
 }
-
 export interface MessagesType {
   id: number;
   targetId: number;
@@ -24,6 +26,17 @@ export interface MessagesType {
     firstName: string;
     lastName: string;
     email: string;
+    activeId: string;
+  };
+}
+
+export interface DialoguesType {
+  targetId: number;
+  sourceId: number;
+  target: { firstName: string; lastName: string; activeId: string };
+  sources: {
+    firstName: string;
+    lastName: string;
     activeId: string;
   };
 }
@@ -74,14 +87,14 @@ export const socketApi = createApi({
         });
       },
     }),
-    sendMessage: builder.mutation<Message, Message>({
-      queryFn: async (chatMessageContent: Message) => {
+    sendMessage: builder.mutation<MessageType, MessageType>({
+      queryFn: async (chatMessageContent: MessageType) => {
         const socket = await getSocket();
         return new Promise((resolve) => {
           socket.emit(
             PathMessages.send,
             chatMessageContent,
-            (message: Message) => {
+            (message: MessageType) => {
               resolve({ data: message });
             }
           );
@@ -92,13 +105,14 @@ export const socketApi = createApi({
       queryFn: () => ({ data: [] }),
       async onCacheEntryAdded(
         arg,
-        { cacheDataLoaded, cacheEntryRemoved, updateCachedData }
+        { cacheDataLoaded, cacheEntryRemoved, updateCachedData, getState }
       ) {
         try {
           await cacheDataLoaded;
           const socket = await getSocket();
+          const state = getState() as any;
 
-          socket.emit(PathMessages.get_all);
+          socket.emit(PathMessages.get_all, state.login?.user?.id as number);
 
           socket.on(PathMessages.get_all, (message: MessagesType[]) => {
             updateCachedData((draft) => {
@@ -120,6 +134,32 @@ export const socketApi = createApi({
         }
       },
     }),
+    getDialogue: builder.query<DialoguesType[], void>({
+      queryFn: () => ({ data: [] }),
+      async onCacheEntryAdded(
+        arg,
+        { cacheDataLoaded, cacheEntryRemoved, updateCachedData, getState }
+      ) {
+        try {
+          await cacheDataLoaded;
+          const socket = await getSocket();
+          const state = getState() as any;
+
+          socket.emit(`dialogues`, state.login?.user?.id as number);
+
+          socket.on(`dialogues`, (message: DialoguesType[]) => {
+            updateCachedData((draft) => {
+              draft.splice(0, draft.length, ...message);
+            });
+          });
+
+          await cacheEntryRemoved;
+          socket.off(`dialogues`);
+        } catch (error) {
+          console.log(error);
+        }
+      },
+    }),
   }),
 });
 
@@ -127,4 +167,5 @@ export const {
   useGetMessageQuery,
   useSendMessageMutation,
   useHandlerClickKeyMutation,
+  useGetDialogueQuery,
 } = socketApi;

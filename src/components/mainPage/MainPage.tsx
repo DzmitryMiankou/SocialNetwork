@@ -11,7 +11,10 @@ import {
   useContactsQuery,
   useDataUserQuery,
 } from "../../redux/reducers/http/httpReducer";
-import { useGetMessageQuery } from "../../redux/reducers/http/socketReducer";
+import {
+  useGetDialogueQuery,
+  useGetMessageQuery,
+} from "../../redux/reducers/http/socketReducer";
 
 const Main = styled.div<{ $select: boolean }>`
   display: flex;
@@ -80,6 +83,7 @@ const MainPage: React.FC = () => {
     initial: initial,
   });
   const { data: messages } = useGetMessageQuery();
+  const { data: dialogues } = useGetDialogueQuery();
 
   const mosePositionMirr = mousePosition.mirrPercentageX;
   const mosePosition = mousePosition.percentageX;
@@ -121,7 +125,7 @@ const MainPage: React.FC = () => {
             <ArrowForwardIosIcon sx={{ fontSize: "10px" }} />
           )}
         </But>
-        <Dialogue mousUp={mousUp} allWind={open} />
+        <Dialogue mousUp={mousUp} allWind={open} dialogues={dialogues} />
       </Div2>
       <ColResize
         onMouseDown={() => setmousUp(true)}

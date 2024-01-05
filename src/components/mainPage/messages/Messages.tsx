@@ -11,6 +11,7 @@ import {
   useSendMessageMutation,
 } from "../../../redux/reducers/http/socketReducer";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import { MessageType } from "../../../redux/reducers/http/socketReducer";
 
 const PosterBox = styled.div`
   display: grid;
@@ -160,8 +161,10 @@ const Messages: React.FC = () => {
 
   const sendMessage = (): void => {
     if (text.trim().length === 0) return;
-    const message = {
-      timeSent: new Date(Date.now()).toLocaleString("en-US"),
+    const message: MessageType = {
+      targetId: +dialogueData[0],
+      sourceId: 1,
+      createdAt: new Date(Date.now()).toLocaleString("en-US"),
       message: text,
     };
     trigger({ ...message });
@@ -190,11 +193,21 @@ const Messages: React.FC = () => {
       </Header>
       <MessagesBox>
         {messages &&
-          messages.map(({ message, id, createdAt }) => (
-            <Message key={id}>
-              <P>{message}</P>
-              <Time>{correctDate(createdAt)}</Time>
-            </Message>
+          messages.map(({ message, id, createdAt, targetId, sourceId }) => (
+            <React.Fragment key={id + createdAt}>
+              {(+dialogueData[0] === targetId && sourceId === 1) ||
+              (+dialogueData[0] === sourceId && targetId === 1) ? (
+                <Message
+                  key={id}
+                  style={{ marginLeft: 1 === sourceId ? "auto" : "" }}
+                >
+                  <P>{message}</P>
+                  <Time>{correctDate(createdAt)}</Time>
+                </Message>
+              ) : (
+                <></>
+              )}
+            </React.Fragment>
           ))}
         <div ref={messagesEndRef} />
       </MessagesBox>
