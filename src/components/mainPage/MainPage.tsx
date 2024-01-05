@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import React from "react";
+import React, { useState } from "react";
 import UserData from "./userData/UserData";
 import Dialogue from "./dialogue/Dialogue";
 import useMousePosition from "../../hooks/useMousePosition";
@@ -11,6 +11,7 @@ import {
   useContactsQuery,
   useDataUserQuery,
 } from "../../redux/reducers/http/httpReducer";
+import { useGetMessageQuery } from "../../redux/reducers/http/socketReducer";
 
 const Main = styled.div<{ $select: boolean }>`
   display: flex;
@@ -72,12 +73,13 @@ const MainPage: React.FC = () => {
   const boarder = 30;
   const { data } = useDataUserQuery();
   const { data: contacts } = useContactsQuery();
-  const [mousUp, setmousUp] = React.useState<boolean>(false);
-  const [open, setOpen] = React.useState<boolean>(true);
+  const [mousUp, setmousUp] = useState<boolean>(false);
+  const [open, setOpen] = useState<boolean>(true);
   const mousePosition = useMousePosition({
     mouse: mousUp,
     initial: initial,
   });
+  const { data: messages } = useGetMessageQuery();
 
   const mosePositionMirr = mousePosition.mirrPercentageX;
   const mosePosition = mousePosition.percentageX;
@@ -132,7 +134,7 @@ const MainPage: React.FC = () => {
           inset: `0% 0% 0% ${normal}%`,
         }}
       >
-        <Outlet context={[mosePosition]} />
+        <Outlet context={[mosePosition, messages]} />
       </Div>
     </Main>
   );

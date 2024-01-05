@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import styled from "styled-components";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import SendIcon from "@mui/icons-material/Send";
@@ -6,7 +6,7 @@ import AttachFileIcon from "@mui/icons-material/AttachFile";
 import { useParams } from "react-router-dom";
 import { useOutletContext } from "react-router-dom";
 import {
-  useGetMessageQuery,
+  MessagesType,
   useHandlerClickKeyMutation,
   useSendMessageMutation,
 } from "../../../redux/reducers/http/socketReducer";
@@ -115,24 +115,22 @@ const ArrowScroll = styled.button`
 `;
 
 const Messages: React.FC = () => {
-  const [toScroll, setToScroll] = React.useState<boolean>(false);
-  const [mouse] = useOutletContext() as number[];
+  const [toScroll, setToScroll] = useState<boolean>(false);
+  const [mouse, messages]: [number, MessagesType[]] = useOutletContext();
   const [trigger] = useSendMessageMutation();
   const [trigger2] = useHandlerClickKeyMutation();
   const { idM } = useParams();
-  const [text, setText] = React.useState<string>("");
+  const [text, setText] = useState<string>("");
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
-
   const dialogueData: Array<string> | string =
     idM?.replace(":", "").split("_") ?? "";
-  const { data } = useGetMessageQuery();
 
   const intoScroll = (): void => {
     messagesEndRef.current?.scrollIntoView();
   };
 
-  React.useEffect((): void => intoScroll(), [data]);
+  useEffect((): void => intoScroll(), [messages]);
 
   const scrollHandler = (): void => {
     const positionY = messagesEndRef.current?.getBoundingClientRect().y || 0;
@@ -140,14 +138,14 @@ const Messages: React.FC = () => {
     else setToScroll(false);
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     window.addEventListener("scroll", scrollHandler, true);
     return () => {
       window.removeEventListener("scroll", scrollHandler, true);
     };
   }, []);
 
-  React.useEffect((): void => {
+  useEffect((): void => {
     if (textareaRef && textareaRef.current) {
       textareaRef.current.style.height = "0px";
       const scrollHeight = textareaRef.current.scrollHeight;
@@ -191,11 +189,11 @@ const Messages: React.FC = () => {
         </Butt>
       </Header>
       <MessagesBox>
-        {data &&
-          data.map(({ message, timeSent }, i) => (
-            <Message key={i}>
+        {messages &&
+          messages.map(({ message, id, createdAt }) => (
+            <Message key={id}>
               <P>{message}</P>
-              <Time>{correctDate(timeSent)}</Time>
+              <Time>{correctDate(createdAt)}</Time>
             </Message>
           ))}
         <div ref={messagesEndRef} />

@@ -11,6 +11,23 @@ interface Message {
   message: string;
 }
 
+export interface MessagesType {
+  id: number;
+  targetId: number;
+  sourceId: number;
+  message: string;
+  pathImg: null | string;
+  createdAt: string;
+  updatedAt: null | string;
+  target: {
+    id: number;
+    firstName: string;
+    lastName: string;
+    email: string;
+    activeId: string;
+  };
+}
+
 let store: any;
 
 export const injectStore = (_store: any) => (store = _store);
@@ -71,7 +88,7 @@ export const socketApi = createApi({
         });
       },
     }),
-    getMessage: builder.query<Message[], void>({
+    getMessage: builder.query<MessagesType[], void>({
       queryFn: () => ({ data: [] }),
       async onCacheEntryAdded(
         arg,
@@ -83,13 +100,13 @@ export const socketApi = createApi({
 
           socket.emit(PathMessages.get_all);
 
-          socket.on(PathMessages.get_all, (message: Message[]) => {
+          socket.on(PathMessages.get_all, (message: MessagesType[]) => {
             updateCachedData((draft) => {
               draft.splice(0, draft.length, ...message);
             });
           });
 
-          socket.on(PathMessages.send, (messages: Message) => {
+          socket.on(PathMessages.send, (messages: MessagesType) => {
             updateCachedData((draft) => {
               draft.push(messages);
             });
