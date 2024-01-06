@@ -22,6 +22,7 @@ const LinkFrend = styled(NavLink)<{ $mousUp: boolean; $allWind: boolean }>`
   display: flex;
   align-items: center;
   font-size: 15px;
+  position: relative;
   white-space: nowrap;
   gap: 20px;
   justify-content: space-between;
@@ -70,6 +71,16 @@ const Ul = styled.ul`
   height: calc(var(--hight-blok-noHeader) - 44px);
 `;
 
+const DateTime = styled.div`
+  color: grey;
+  font-size: 12px;
+  position: absolute;
+  right: 10px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+`;
+
 const Dialogue: React.FC<{
   mousUp: boolean;
   allWind: boolean;
@@ -88,6 +99,40 @@ const Dialogue: React.FC<{
   };
 
   const clouseHandler = (): void => setOpen(false);
+
+  const correctDate = (date: string): string => {
+    const optionDate: Intl.DateTimeFormatOptions = {
+      weekday: "short",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+    };
+    const dialDate = new Date(date);
+    const nowDate = new Date();
+
+    const nowYear = nowDate.toLocaleDateString("en-US", {
+      year: "numeric",
+    });
+
+    const dialYear = dialDate.toLocaleDateString("en-US", {
+      year: "numeric",
+    });
+    if (nowYear !== dialYear) return dialYear;
+
+    const nowDay = nowDate.toLocaleDateString("en-US", {
+      weekday: "short",
+    });
+
+    const dialDay = dialDate.toLocaleDateString("en-US", {
+      weekday: "short",
+    });
+
+    if (nowDay !== dialDay) return dialDay;
+
+    const clientDate = dialDate.toLocaleDateString("en-US", optionDate);
+
+    return clientDate;
+  };
 
   return (
     <PosterBox>
@@ -132,9 +177,7 @@ const Dialogue: React.FC<{
                         targetId === 1 ? sources.firstName : target.firstName
                       } ${targetId === 1 ? sources.lastName : target.lastName}`}
                     </div>
-                    <div style={{ color: "grey", fontSize: "14px" }}>
-                      Fr <span>{"17:24"}</span>
-                    </div>
+                    <DateTime>{correctDate(createdAt)}</DateTime>
                   </LinkFrend>
                   <Modal
                     open={open}
