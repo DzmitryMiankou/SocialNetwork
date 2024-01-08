@@ -165,10 +165,10 @@ const Dialogue: React.FC<{
                           size={30}
                           letter={
                             targetId === 1
-                              ? sources.firstName[0]
-                              : target.firstName[0]
+                              ? sources.firstName[0] + sources.lastName[0]
+                              : target.firstName[0] + target.lastName[0]
                           }
-                          fontSize={20}
+                          fontSize={16}
                         />
                       ) ?? <AvatarImg src={avatar} alt="avatar" />}
                     </>

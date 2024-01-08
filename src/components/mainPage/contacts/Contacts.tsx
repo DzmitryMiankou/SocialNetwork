@@ -151,8 +151,8 @@ const Contacts: React.FC<{
                 {(
                   <Avatar
                     size={30}
-                    letter={contact?.firstName[0]}
-                    fontSize={20}
+                    letter={contact?.firstName[0] + contact?.lastName[0]}
+                    fontSize={16}
                   />
                 ) ?? <AvatarFriend src={avatar} alt="avatar" />}
               </>
