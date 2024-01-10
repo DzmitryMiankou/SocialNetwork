@@ -102,7 +102,6 @@ const Dialogue: React.FC<{
 
   const correctDate = (date: string): string => {
     const optionDate: Intl.DateTimeFormatOptions = {
-      weekday: "short",
       hour: "2-digit",
       minute: "2-digit",
       hour12: false,
@@ -129,7 +128,7 @@ const Dialogue: React.FC<{
 
     if (nowDay !== dialDay) return dialDay;
 
-    const clientDate = dialDate.toLocaleDateString("en-US", optionDate);
+    const clientDate = dialDate.toLocaleTimeString("en-US", optionDate);
 
     return clientDate;
   };

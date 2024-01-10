@@ -51,7 +51,7 @@ const AvatarFriend = styled.img`
 `;
 
 const Ul = styled.ul`
-  height: calc(var(--hight-blok-noHeader) - 316px);
+  height: calc(var(--hight-blok-noHeader) - 360px);
   overflow-y: scroll;
 `;
 
@@ -141,7 +141,7 @@ const Contacts: React.FC<{
         />
       </SearchBox>
       <Ul>
-        {filterContacts()?.map(({ id, contact }: any) => (
+        {filterContacts()?.map(({ id, contact }) => (
           <Li key={id}>
             <AvatarFriendBox
               onContextMenu={(e) => openHandler(e, id)}
