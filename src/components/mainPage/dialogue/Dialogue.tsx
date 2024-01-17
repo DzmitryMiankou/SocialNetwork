@@ -28,7 +28,7 @@ const LinkFrend = styled(NavLink)<{ $mousUp: boolean; $allWind: boolean }>`
   justify-content: space-between;
   &:hover {
     background: ${(prop) =>
-      prop.$mousUp === false
+      !prop.$mousUp
         ? "linear-gradient(90deg, rgba(63, 94, 251, 0) 1%,  rgba(255, 255, 255, 0.3) 30%)"
         : ""};
   }
@@ -101,36 +101,35 @@ const Dialogue: React.FC<{
   const clouseHandler = (): void => setOpen(false);
 
   const correctDate = (date: string): string => {
-    const optionDate: Intl.DateTimeFormatOptions = {
-      hour: "2-digit",
-      minute: "2-digit",
-      hour12: false,
-    };
     const dialDate = new Date(date);
     const nowDate = new Date();
 
-    const nowYear = nowDate.toLocaleDateString("en-US", {
-      year: "numeric",
-    });
+    type DateOptionType = Intl.DateTimeFormatOptions;
 
-    const dialYear = dialDate.toLocaleDateString("en-US", {
-      year: "numeric",
-    });
+    type OptionDateType<T extends Intl.DateTimeFormatOptions> = {
+      year: T;
+      hour: T;
+      weekday: T;
+    };
+
+    const optionDate: OptionDateType<DateOptionType> = {
+      year: { year: "numeric" },
+      hour: { hour: "2-digit", minute: "2-digit", hour12: false },
+      weekday: { weekday: "short" },
+    };
+
+    const getDate = (date: Date, option: DateOptionType): string =>
+      date.toLocaleDateString("en-US", option);
+
+    const dialYear = getDate(dialDate, optionDate.year);
+    const nowYear = getDate(nowDate, optionDate.year);
+    const nowDay = getDate(nowDate, optionDate.weekday);
+    const dialDay = getDate(dialDate, optionDate.weekday);
+
     if (nowYear !== dialYear) return dialYear;
-
-    const nowDay = nowDate.toLocaleDateString("en-US", {
-      weekday: "short",
-    });
-
-    const dialDay = dialDate.toLocaleDateString("en-US", {
-      weekday: "short",
-    });
-
     if (nowDay !== dialDay) return dialDay;
 
-    const clientDate = dialDate.toLocaleTimeString("en-US", optionDate);
-
-    return clientDate;
+    return dialDate.toLocaleTimeString("en-US", optionDate.hour);
   };
 
   return (
