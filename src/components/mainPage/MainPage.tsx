@@ -24,10 +24,12 @@ const Main = styled.div<{ $select: boolean }>`
   height: var(--hight-blok-noHeader);
 `;
 
-const ColResize = styled.div`
+const ColResize = styled.div<{ $mousUp: boolean }>`
   content: '" "';
   width: 1px;
-  background-color: #e6c6b2;
+  background-color: ${(prop) =>
+    prop.$mousUp ? "var(--bg-colResize)" : "#e6c6b2"};
+  padding: ${(prop) => (prop.$mousUp ? "0px 1px" : "0px 0px")};
   cursor: col-resize;
   position: absolute;
   z-index: 34;
@@ -128,6 +130,7 @@ const MainPage: React.FC = () => {
         <Dialogue mousUp={mousUp} allWind={open} dialogues={dialogues} />
       </Div2>
       <ColResize
+        $mousUp={mousUp}
         onMouseDown={() => setmousUp(true)}
         style={{
           inset: `0% 0% 0% ${normal}%`,
