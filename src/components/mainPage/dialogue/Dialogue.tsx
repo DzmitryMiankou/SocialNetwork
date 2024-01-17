@@ -81,11 +81,13 @@ const DateTime = styled.div`
   align-items: center;
 `;
 
-const Dialogue: React.FC<{
+type PropType = {
   mousUp: boolean;
   allWind: boolean;
   dialogues: DialoguesType[] | undefined;
-}> = ({ mousUp, allWind, dialogues }) => {
+};
+
+const Dialogue: React.FC<PropType> = ({ mousUp, allWind, dialogues }) => {
   const [open, setOpen] = React.useState<boolean>(false);
   const [id, setId] = React.useState<number>();
 
