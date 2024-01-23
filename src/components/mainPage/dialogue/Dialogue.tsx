@@ -200,12 +200,12 @@ const Dialogue: React.FC<PropType> = ({ mousUp, allWind, dialogues }) => {
                     clouseHandler={clouseHandler}
                     component={
                       <ModCom>
-                        <Butt>
-                          <HighlightOffIcon sx={SX.icon} />
-                        </Butt>
-                        <Butt>
-                          <DeleteOutlineIcon sx={SX.icon} />
-                        </Butt>
+                        {[
+                          <HighlightOffIcon sx={SX.icon} />,
+                          <DeleteOutlineIcon sx={SX.icon} />,
+                        ].map((icon, i) => (
+                          <Butt key={i + "-iconDialogue"}>{icon}</Butt>
+                        ))}
                       </ModCom>
                     }
                   />
