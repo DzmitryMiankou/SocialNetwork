@@ -7,6 +7,7 @@ import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import Avatar from "../../avatar/Avatar";
 import { DialoguesType } from "../../../redux/reducers/http/socketReducer";
+import { SxProps } from "@mui/material";
 
 const PosterBox = styled.div`
   display: grid;
@@ -81,6 +82,15 @@ const DateTime = styled.div`
   align-items: center;
 `;
 
+const SX: { icon: SxProps } = {
+  icon: {
+    fontSize: "20px",
+    "&:hover": {
+      color: "#ffffff",
+    },
+  },
+};
+
 type PropType = {
   mousUp: boolean;
   allWind: boolean;
@@ -112,14 +122,14 @@ const Dialogue: React.FC<PropType> = ({ mousUp, allWind, dialogues }) => {
       year: T;
       hour: T;
       weekday: T;
-      day: T;
+      yearDayMonth: T;
     };
 
     const optionDate: OptionDateType<DateOptionType> = {
       year: { year: "numeric" },
       hour: { hour: "2-digit", minute: "2-digit", hour12: false },
       weekday: { weekday: "short" },
-      day: { day: "numeric" },
+      yearDayMonth: { year: "numeric", day: "numeric", month: "numeric" },
     };
 
     const getDate = (date: Date, option: DateOptionType): string =>
@@ -129,8 +139,8 @@ const Dialogue: React.FC<PropType> = ({ mousUp, allWind, dialogues }) => {
     const nowYear = getDate(nowDate, optionDate.year);
     const nowWeek = getDate(nowDate, optionDate.weekday);
     const dialWeek = getDate(dialDate, optionDate.weekday);
-    const nowDay = getDate(nowDate, optionDate.day);
-    const dialDay = getDate(dialDate, optionDate.day);
+    const nowDay = getDate(nowDate, optionDate.yearDayMonth);
+    const dialDay = getDate(dialDate, optionDate.yearDayMonth);
 
     if (nowYear !== dialYear) return dialYear;
     if (nowWeek !== dialWeek || nowDay !== dialDay) return dialWeek;
@@ -191,10 +201,10 @@ const Dialogue: React.FC<PropType> = ({ mousUp, allWind, dialogues }) => {
                     component={
                       <ModCom>
                         <Butt>
-                          <HighlightOffIcon sx={{ fontSize: "20px" }} />
+                          <HighlightOffIcon sx={SX.icon} />
                         </Butt>
                         <Butt>
-                          <DeleteOutlineIcon sx={{ fontSize: "20px" }} />
+                          <DeleteOutlineIcon sx={SX.icon} />
                         </Butt>
                       </ModCom>
                     }

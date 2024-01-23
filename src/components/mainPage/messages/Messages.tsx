@@ -73,7 +73,11 @@ const MessagesBox = styled.div`
   gap: 15px;
 `;
 
-const Message = styled.div<{ $sourceId: number; $myId: number }>`
+const Message = styled.div<{
+  $sourceId: number;
+  $myId: number;
+  $mouse: number;
+}>`
   background-color: ${(prop) =>
     prop.$sourceId === prop.$myId ? "#fff0dd" : "#e1c196"};
   padding: 5px 10px;
@@ -82,7 +86,8 @@ const Message = styled.div<{ $sourceId: number; $myId: number }>`
   font-size: 14px;
   max-width: 500px;
   display: grid;
-  margin-left: ${(prop) => (prop.$sourceId === prop.$myId ? "auto" : "")};
+  margin-left: ${(prop) =>
+    prop.$sourceId === prop.$myId && prop.$mouse > 42 ? "auto" : ""};
   grid-template-areas:
     "mess mess ."
     ". . time";
@@ -199,7 +204,7 @@ const Messages: React.FC = () => {
             <React.Fragment key={id + createdAt}>
               {(+dialogueData[0] === targetId && sourceId === 1) ||
               (+dialogueData[0] === sourceId && targetId === 1) ? (
-                <Message $myId={1} $sourceId={sourceId} key={id}>
+                <Message $mouse={mouse} $myId={1} $sourceId={sourceId} key={id}>
                   <P>{message}</P>
                   <Time>{correctDate(createdAt)}</Time>
                 </Message>

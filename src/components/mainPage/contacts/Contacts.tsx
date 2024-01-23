@@ -14,6 +14,7 @@ import { AppDispatch } from "../../../redux/store";
 import { useDispatch } from "react-redux";
 import { setDataMoreInfAction } from "../../../redux/moreInfReducer";
 import LocalLibraryIcon from "@mui/icons-material/LocalLibrary";
+import { SxProps } from "@mui/material";
 
 const Friends = styled.div`
   margin-top: 5px;
@@ -75,6 +76,15 @@ const ButtBoxs = styled.div`
 const SearchBox = styled.div`
   width: fit-content;
 `;
+
+const SX: { icon: SxProps } = {
+  icon: {
+    fontSize: "20px",
+    "&:hover": {
+      color: "#ffffff",
+    },
+  },
+};
 
 const Contacts: React.FC<{
   contacts: ContactsType[] | undefined;
@@ -167,10 +177,10 @@ const Contacts: React.FC<{
               component={
                 <ButtBoxs>
                   <Butt onClick={(e) => getAllInfUser(e, contact?.id)}>
-                    <LocalLibraryIcon sx={{ fontSize: "20px" }} />
+                    <LocalLibraryIcon sx={SX.icon} />
                   </Butt>
                   <Butt onClick={() => deleteHandler(id)}>
-                    <DeleteOutlineIcon sx={{ fontSize: "20px" }} />
+                    <DeleteOutlineIcon sx={SX.icon} />
                   </Butt>
                 </ButtBoxs>
               }
