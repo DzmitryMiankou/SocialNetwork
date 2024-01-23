@@ -49,12 +49,11 @@ export const injectStore = (_store: any) => (store = _store);
 const createSocketFactory = () => {
   let _socket: Socket;
   return async (): Promise<Socket> => {
-    const token = await store.getState().login.token;
     if (!_socket) {
       _socket = io(`http://localhost:5000/`, {
-        auth: (cb) =>
+        auth: async (cb) =>
           cb({
-            Authorization: "Bearer=" + token,
+            Authorization: "Bearer=" + (await store.getState().login.token),
           }),
         transports: ["websocket"],
         withCredentials: true,
@@ -64,10 +63,9 @@ const createSocketFactory = () => {
     if (_socket.disconnected) _socket.connect();
 
     _socket.on("connect_error", (error: Error) => {
-      console.log(error);
+      console.log(error.message);
       return setTimeout(() => _socket.connect(), 1000);
     });
-    _socket.off("connect_error");
     return _socket;
   };
 };

@@ -112,12 +112,14 @@ const Dialogue: React.FC<PropType> = ({ mousUp, allWind, dialogues }) => {
       year: T;
       hour: T;
       weekday: T;
+      day: T;
     };
 
     const optionDate: OptionDateType<DateOptionType> = {
       year: { year: "numeric" },
       hour: { hour: "2-digit", minute: "2-digit", hour12: false },
       weekday: { weekday: "short" },
+      day: { day: "numeric" },
     };
 
     const getDate = (date: Date, option: DateOptionType): string =>
@@ -125,11 +127,13 @@ const Dialogue: React.FC<PropType> = ({ mousUp, allWind, dialogues }) => {
 
     const dialYear = getDate(dialDate, optionDate.year);
     const nowYear = getDate(nowDate, optionDate.year);
-    const nowDay = getDate(nowDate, optionDate.weekday);
-    const dialDay = getDate(dialDate, optionDate.weekday);
+    const nowWeek = getDate(nowDate, optionDate.weekday);
+    const dialWeek = getDate(dialDate, optionDate.weekday);
+    const nowDay = getDate(nowDate, optionDate.day);
+    const dialDay = getDate(dialDate, optionDate.day);
 
     if (nowYear !== dialYear) return dialYear;
-    if (nowDay !== dialDay) return dialDay;
+    if (nowWeek !== dialWeek || nowDay !== dialDay) return dialWeek;
 
     return dialDate.toLocaleTimeString("en-US", optionDate.hour);
   };
