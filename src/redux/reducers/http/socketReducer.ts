@@ -12,6 +12,10 @@ export interface MessageType {
   message: string;
   targetId: number;
   pathImg?: null | string;
+  target: {
+    firstName: string;
+    lastName: string;
+  };
 }
 export interface MessagesType {
   id: number;

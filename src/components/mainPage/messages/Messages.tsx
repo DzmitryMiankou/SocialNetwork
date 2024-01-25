@@ -173,6 +173,10 @@ const Messages: React.FC = () => {
       sourceId: 1,
       createdAt: new Date(Date.now()).toLocaleString("en-US"),
       message: text,
+      target: {
+        firstName: dialogueData[1],
+        lastName: dialogueData[2],
+      },
     };
     trigger({ ...message });
     setText("");
