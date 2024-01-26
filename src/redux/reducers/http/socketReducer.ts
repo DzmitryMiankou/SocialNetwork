@@ -5,6 +5,7 @@ const enum PathMessages {
   send = `send_message`,
   get_all = `all_messages`,
   dialogue_one = `dialogue_one`,
+  dialogues = `dialogues`,
 }
 
 export interface MessageType {
@@ -153,9 +154,9 @@ export const socketApi = createApi({
           const socket = await getSocket();
           const state = getState() as any;
 
-          socket.emit(`dialogues`, state.login?.user?.id as number);
+          socket.emit(PathMessages.dialogues, state.login?.user?.id as number);
 
-          socket.on(`dialogues`, (message: DialoguesType[]) => {
+          socket.on(PathMessages.dialogues, (message: DialoguesType[]) => {
             updateCachedData((draft) => {
               draft.splice(0, draft.length, ...message);
             });
@@ -168,7 +169,7 @@ export const socketApi = createApi({
           });
 
           await cacheEntryRemoved;
-          socket.off(`dialogues`);
+          socket.off(PathMessages.dialogues);
           socket.off(PathMessages.dialogue_one);
         } catch (error) {
           console.log(error);

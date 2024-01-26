@@ -13,7 +13,7 @@ import SearchInput from "../../searchInput/SearchInput";
 import { AppDispatch } from "../../../redux/store";
 import { useDispatch } from "react-redux";
 import { setDataMoreInfAction } from "../../../redux/moreInfReducer";
-import LocalLibraryIcon from "@mui/icons-material/LocalLibrary";
+import LocalLibraryOutlinedIcon from "@mui/icons-material/LocalLibraryOutlined";
 import { SxProps } from "@mui/material";
 
 const Friends = styled.div`
@@ -80,6 +80,7 @@ const SearchBox = styled.div`
 const SX: { icon: SxProps } = {
   icon: {
     fontSize: "20px",
+    transition: "0.2s",
     "&:hover": {
       color: "#ffffff",
     },
@@ -177,7 +178,7 @@ const Contacts: React.FC<{
               component={
                 <ButtBoxs>
                   <Butt onClick={(e) => getAllInfUser(e, contact?.id)}>
-                    <LocalLibraryIcon sx={SX.icon} />
+                    <LocalLibraryOutlinedIcon sx={SX.icon} />
                   </Butt>
                   <Butt onClick={() => deleteHandler(id)}>
                     <DeleteOutlineIcon sx={SX.icon} />

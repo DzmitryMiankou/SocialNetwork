@@ -85,6 +85,7 @@ const DateTime = styled.div`
 const SX: { icon: SxProps } = {
   icon: {
     fontSize: "20px",
+    transition: "0.2s",
     "&:hover": {
       color: "#ffffff",
     },
