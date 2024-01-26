@@ -157,7 +157,7 @@ const Dialogue: React.FC<PropType> = ({ mousUp, allWind, dialogues }) => {
       <ScrollBox>
         <Ul>
           {dialogues &&
-            dialogues.map(
+            [...dialogues].map(
               ({ targetId, target, sourceId, sources, createdAt }) => (
                 <Li
                   key={targetId === 1 ? sourceId + "t" : targetId}

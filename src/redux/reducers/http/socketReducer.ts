@@ -91,7 +91,7 @@ export const socketApi = createApi({
     handlerClickKey: builder.mutation<void, void>({
       queryFn: async () => {
         const socket = await getSocket();
-        return new Promise((resolve) => {
+        return new Promise(() => {
           socket.emit("click");
         });
       },
