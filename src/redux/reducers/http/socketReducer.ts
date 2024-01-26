@@ -16,6 +16,10 @@ export interface MessageType {
     firstName: string;
     lastName: string;
   };
+  sources: {
+    firstName: string;
+    lastName: string;
+  };
 }
 export interface MessagesType {
   id: number;

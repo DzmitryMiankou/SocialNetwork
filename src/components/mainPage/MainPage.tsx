@@ -15,6 +15,7 @@ import {
   useGetDialogueQuery,
   useGetMessageQuery,
 } from "../../redux/reducers/http/socketReducer";
+import { LogInitialStateType } from "../../redux/loginReducer";
 
 const Main = styled.div<{ $select: boolean }>`
   display: flex;
@@ -72,7 +73,7 @@ const But = styled.button`
   }
 `;
 
-const MainPage: React.FC = () => {
+const MainPage: React.FC<{ user: LogInitialStateType }> = ({ user }) => {
   const max = 100;
   const initial = 50;
   const boarder = 30;
@@ -141,7 +142,7 @@ const MainPage: React.FC = () => {
           inset: `0% 0% 0% ${normal}%`,
         }}
       >
-        <Outlet context={[mosePosition, messages]} />
+        <Outlet context={[mosePosition, messages, user]} />
       </Div>
     </Main>
   );

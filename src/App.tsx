@@ -6,13 +6,16 @@ import { useSelector } from "react-redux";
 import { RootState } from "./redux/store";
 import Modal from "./components/modal/Modal";
 import MoreInf from "./components/moreInf/MoreInf";
+import { LogInitialStateType } from "./redux/loginReducer";
 
 const AppBox = styled.div`
   height: 100vh;
 `;
 
 const App: React.FC = () => {
-  const user = useSelector((store: RootState) => store?.login);
+  const user = useSelector(
+    (store: RootState) => store?.login
+  ) as LogInitialStateType;
   const more = useSelector((store: RootState) => store.moreInf);
 
   return (

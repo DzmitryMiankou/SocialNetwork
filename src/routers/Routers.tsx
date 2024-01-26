@@ -4,8 +4,9 @@ import Login from "../components/login/Login";
 import MainPage from "../components/mainPage/MainPage";
 import Messages from "../components/mainPage/messages/Messages";
 import React from "react";
+import { LogInitialStateType } from "../redux/loginReducer";
 
-const Routers: React.FC<any> = ({ user }) => {
+const Routers: React.FC<{ user: LogInitialStateType }> = ({ user }) => {
   const arrToElem: Array<{
     element: JSX.Element;
     path: string;
@@ -20,7 +21,9 @@ const Routers: React.FC<any> = ({ user }) => {
     <Routes>
       <Route
         path="/"
-        element={user?.isActive === true ? <MainPage /> : <div>no</div>}
+        element={
+          user?.isActive === true ? <MainPage user={user} /> : <div>no</div>
+        }
       >
         <Route
           index

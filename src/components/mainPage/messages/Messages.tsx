@@ -12,6 +12,7 @@ import {
 } from "../../../redux/reducers/http/socketReducer";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { MessageType } from "../../../redux/reducers/http/socketReducer";
+import { LogInitialStateType } from "../../../redux/loginReducer";
 
 const PosterBox = styled.div`
   display: grid;
@@ -124,7 +125,8 @@ const ArrowScroll = styled.button`
 
 const Messages: React.FC = () => {
   const [toScroll, setToScroll] = useState<boolean>(false);
-  const [mouse, messages]: [number, MessagesType[]] = useOutletContext();
+  const [mouse, messages, user]: [number, MessagesType[], LogInitialStateType] =
+    useOutletContext();
   const [trigger] = useSendMessageMutation();
   const [trigger2] = useHandlerClickKeyMutation();
   const { idM } = useParams();
@@ -176,6 +178,10 @@ const Messages: React.FC = () => {
       target: {
         firstName: dialogueData[1],
         lastName: dialogueData[2],
+      },
+      sources: {
+        firstName: user?.user?.firstName ?? "",
+        lastName: user?.user?.lastName ?? "",
       },
     };
     trigger({ ...message });
