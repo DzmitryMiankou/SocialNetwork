@@ -4,6 +4,7 @@ import { Socket, io } from "socket.io-client";
 const enum PathMessages {
   send = `send_message`,
   get_all = `all_messages`,
+  dialogue_one = `dialogue_one`,
 }
 
 export interface MessageType {
@@ -160,8 +161,15 @@ export const socketApi = createApi({
             });
           });
 
+          socket.on(PathMessages.dialogue_one, (di: DialoguesType) => {
+            updateCachedData((draft) => {
+              draft.push(di);
+            });
+          });
+
           await cacheEntryRemoved;
           socket.off(`dialogues`);
+          socket.off(PathMessages.dialogue_one);
         } catch (error) {
           console.log(error);
         }

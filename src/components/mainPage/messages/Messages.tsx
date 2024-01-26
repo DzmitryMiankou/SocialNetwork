@@ -172,7 +172,7 @@ const Messages: React.FC = () => {
     if (text.trim().length === 0) return;
     const message: MessageType = {
       targetId: +dialogueData[0],
-      sourceId: 1,
+      sourceId: user?.user?.id || 0,
       createdAt: new Date(Date.now()).toLocaleString("en-US"),
       message: text,
       target: {
