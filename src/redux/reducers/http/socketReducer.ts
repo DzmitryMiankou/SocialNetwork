@@ -168,15 +168,20 @@ export const socketApi = createApi({
 
           socket.on(PathMessages.dialogue_one, (di: DialoguesType) => {
             updateCachedData((draft) => {
-              draft.forEach((el) => {
-                if (
-                  el.targetId === di.targetId &&
-                  +new Date(el.createdAt) < +new Date(di.createdAt)
-                )
-                  return (el.createdAt = di.createdAt);
-              });
-              if (!draft.find((el) => el.targetId === di.targetId))
-                draft.push(di);
+              draft.find(
+                (el) =>
+                  !(
+                    (el.targetId === di.targetId ||
+                      el.sourceId === di.sourceId) &&
+                    (el.targetId === di.sourceId ||
+                      el.sourceId === di.targetId) &&
+                    +new Date(el.createdAt) < +new Date(di.createdAt)
+                  ) && (el.createdAt = di.createdAt)
+              );
+              !draft.find(
+                (el) =>
+                  el.targetId !== di.targetId || el.sourceId !== di.targetId
+              ) && draft.push(di);
             });
           });
 

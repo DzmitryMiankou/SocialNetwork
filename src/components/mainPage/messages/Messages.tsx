@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
-import styled from "styled-components";
+import { St } from "./Messages.style";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import SendIcon from "@mui/icons-material/Send";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
@@ -14,115 +14,6 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { MessageType } from "../../../redux/reducers/http/socketReducer";
 import { LogInitialStateType } from "../../../redux/loginReducer";
 
-const PosterBox = styled.div`
-  display: grid;
-  height: var(--hight-blok-noHeader);
-  grid-template-rows: 44px 1fr auto;
-`;
-
-const Header = styled.header`
-  padding: 0px 40px 0px 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #c69f76;
-`;
-
-const Butt = styled.button`
-  background-color: transparent;
-  border: none;
-`;
-
-const SendBox = styled.div`
-  display: grid;
-  grid-template-columns: 30px 1fr 40px;
-  position: relative;
-`;
-
-const ButtSend = styled(Butt)`
-  background-color: transparent;
-  border: none;
-  display: flex;
-  height: auto;
-  padding: 6px;
-  width: auto;
-`;
-
-const TextA = styled.textarea`
-  resize: none;
-  max-height: 200px;
-  width: 100%;
-  outline: none;
-  background: #ffe7d0;
-  border: none;
-  font-size: 15px;
-  padding: 8px 3px 1px 3px;
-`;
-
-const Div = styled.div`
-  background: #ffe7d0;
-  display: flex;
-  align-items: flex-end;
-`;
-
-const MessagesBox = styled.div`
-  padding: 15px 40px 2px 20px;
-  overflow-y: scroll;
-  overflow-x: hidden;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-`;
-
-const Message = styled.div<{
-  $sourceId: number;
-  $myId: number;
-  $mouse: number;
-}>`
-  background-color: ${(prop) =>
-    prop.$sourceId === prop.$myId ? "#fff0dd" : "#e1c196"};
-  padding: 5px 10px;
-  width: fit-content;
-  min-width: 100px;
-  font-size: 14px;
-  max-width: 500px;
-  display: grid;
-  margin-left: ${(prop) =>
-    prop.$sourceId === prop.$myId && prop.$mouse > 42 ? "auto" : ""};
-  grid-template-areas:
-    "mess mess ."
-    ". . time";
-`;
-
-const H3 = styled.h3`
-  font-size: 18px;
-`;
-
-const P = styled.p`
-  grid-area: mess;
-`;
-
-const Time = styled.time`
-  color: #997a5ed0;
-  font-size: 12px;
-  justify-self: flex-end;
-  grid-area: time;
-`;
-
-const ArrowScroll = styled.button`
-  position: absolute;
-  border: none;
-  background: #ffffff93;
-  right: 20px;
-  top: -45px;
-  border-radius: 50px;
-  padding: 6px 6px 3px 6px;
-  transition: 0.2s;
-  &:hover {
-    background: #ffffff;
-  }
-`;
-
 const Messages: React.FC = () => {
   const [toScroll, setToScroll] = useState<boolean>(false);
   const [mouse, messages, user]: [number, MessagesType[], LogInitialStateType] =
@@ -136,9 +27,7 @@ const Messages: React.FC = () => {
   const dialogueData: Array<string> | string =
     idM?.replace(":", "").split("_") ?? "";
 
-  const intoScroll = (): void => {
-    messagesEndRef.current?.scrollIntoView();
-  };
+  const intoScroll = (): void => messagesEndRef.current?.scrollIntoView();
 
   useEffect((): void => intoScroll(), [messages]);
 
@@ -150,9 +39,7 @@ const Messages: React.FC = () => {
 
   useEffect(() => {
     window.addEventListener("scroll", scrollHandler, true);
-    return () => {
-      window.removeEventListener("scroll", scrollHandler, true);
-    };
+    return () => window.removeEventListener("scroll", scrollHandler, true);
   }, []);
 
   useEffect((): void => {
@@ -198,49 +85,62 @@ const Messages: React.FC = () => {
     return clientDate;
   };
 
+  const idUser = user?.user?.id;
+
   return (
-    <PosterBox>
-      <Header>
-        <H3>
-          <span>{dialogueData[1]}</span> <span>{dialogueData[2]}</span>
-        </H3>
-        <Butt type="button">
+    <St.PosterBox>
+      <St.Header>
+        <div>
+          <St.H3>
+            <span>{dialogueData[1]}</span> <span>{dialogueData[2]}</span>
+          </St.H3>
+          <St.Status>ofline</St.Status>
+        </div>
+        <St.Butt type="button">
           <MoreVertIcon sx={{ fontSize: "24px" }} />
-        </Butt>
-      </Header>
-      <MessagesBox>
+        </St.Butt>
+      </St.Header>
+      <St.MessagesBox>
         {messages &&
           messages.map(({ message, id, createdAt, targetId, sourceId }) => (
             <React.Fragment key={id + createdAt}>
-              {(+dialogueData[0] === targetId && sourceId === 1) ||
-              (+dialogueData[0] === sourceId && targetId === 1) ? (
-                <Message $mouse={mouse} $myId={1} $sourceId={sourceId} key={id}>
-                  <P>{message}</P>
-                  <Time>{correctDate(createdAt)}</Time>
-                </Message>
+              {(+dialogueData[0] === targetId && sourceId === idUser) ||
+              (+dialogueData[0] === sourceId && targetId === idUser) ? (
+                <St.Message
+                  $mouse={mouse}
+                  $myId={idUser}
+                  $sourceId={sourceId}
+                  key={id}
+                >
+                  <St.P>{message}</St.P>
+                  <St.Time>{correctDate(createdAt)}</St.Time>
+                </St.Message>
               ) : (
                 <></>
               )}
             </React.Fragment>
           ))}
         <div ref={messagesEndRef} />
-      </MessagesBox>
-      <SendBox>
+      </St.MessagesBox>
+      <St.SendBox>
         <>
           {toScroll ? (
-            <ArrowScroll type="button" onClick={intoScroll}>
+            <St.ArrowScroll type="button" onClick={intoScroll}>
               <KeyboardArrowDownIcon />
-            </ArrowScroll>
+            </St.ArrowScroll>
           ) : (
             <></>
           )}
         </>
-        <Div>
+        <St.Div>
           {[<AttachFileIcon sx={{ fontSize: "24px" }} />].map((data, i) => (
-            <ButtSend key={`message_icon_${i}`}>{data}</ButtSend>
+            <React.Fragment key={i + `-icon_attach_file`}>
+              <St.ButtAttach htmlFor="file-input">{data}</St.ButtAttach>
+              <input id="file-input" type="file" />
+            </React.Fragment>
           ))}
-        </Div>
-        <TextA
+        </St.Div>
+        <St.TextA
           ref={textareaRef}
           onChange={onChange}
           value={text}
@@ -252,17 +152,17 @@ const Messages: React.FC = () => {
             }
           }}
         />
-        <Div>
-          <ButtSend onClick={sendMessage}>
+        <St.Div>
+          <St.ButtSend onClick={sendMessage}>
             {text.trim().length !== 0 ? (
               <SendIcon sx={{ fontSize: "24px" }} />
             ) : (
               <></>
             )}
-          </ButtSend>
-        </Div>
-      </SendBox>
-    </PosterBox>
+          </St.ButtSend>
+        </St.Div>
+      </St.SendBox>
+    </St.PosterBox>
   );
 };
 

@@ -128,7 +128,12 @@ const MainPage: React.FC<{ user: LogInitialStateType }> = ({ user }) => {
             <ArrowForwardIosIcon sx={{ fontSize: "10px" }} />
           )}
         </But>
-        <Dialogue mousUp={mousUp} allWind={open} dialogues={dialogues} />
+        <Dialogue
+          mousUp={mousUp}
+          allWind={open}
+          dialogues={dialogues}
+          user={user}
+        />
       </Div2>
       <ColResize
         $mousUp={mousUp}

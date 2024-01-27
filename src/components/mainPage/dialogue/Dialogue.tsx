@@ -8,6 +8,7 @@ import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import Avatar from "../../avatar/Avatar";
 import { DialoguesType } from "../../../redux/reducers/http/socketReducer";
 import { SxProps } from "@mui/material";
+import { LogInitialStateType } from "../../../redux/loginReducer";
 
 const PosterBox = styled.div`
   display: grid;
@@ -103,9 +104,10 @@ type PropType = {
   mousUp: boolean;
   allWind: boolean;
   dialogues: DialoguesType[] | undefined;
+  user: LogInitialStateType;
 };
 
-const Dialogue: React.FC<PropType> = ({ mousUp, allWind, dialogues }) => {
+const Dialogue: React.FC<PropType> = ({ mousUp, allWind, dialogues, user }) => {
   const [open, setOpen] = React.useState<boolean>(false);
   const [id, setId] = React.useState<number>();
 
@@ -159,6 +161,8 @@ const Dialogue: React.FC<PropType> = ({ mousUp, allWind, dialogues }) => {
   const d = (arr: DialoguesType[]) =>
     arr?.sort((a, b) => +new Date(a.createdAt) - +new Date(b.createdAt));
 
+  const idUser = user?.user?.id;
+
   return (
     <PosterBox>
       <header>
@@ -170,16 +174,16 @@ const Dialogue: React.FC<PropType> = ({ mousUp, allWind, dialogues }) => {
             d([...dialogues]).map(
               ({ targetId, target, sourceId, sources, createdAt }) => (
                 <Li
-                  key={targetId === 1 ? sourceId + "t" : targetId}
+                  key={targetId === idUser ? sourceId + "t" : targetId}
                   onContextMenu={(e) =>
-                    contextHandler(e, targetId === 1 ? sourceId : targetId)
+                    contextHandler(e, targetId === idUser ? sourceId : targetId)
                   }
                 >
                   <LinkFrend
                     $allWind={allWind}
                     $mousUp={mousUp}
                     to={
-                      targetId === 1
+                      targetId === idUser
                         ? `/:${sourceId}_${sources.firstName}_${sources.lastName}`
                         : `/:${targetId}_${target.firstName}_${target.lastName}`
                     }
@@ -189,7 +193,7 @@ const Dialogue: React.FC<PropType> = ({ mousUp, allWind, dialogues }) => {
                         <Avatar
                           size={30}
                           letter={
-                            targetId === 1
+                            targetId === idUser
                               ? sources.firstName[0] + sources.lastName[0]
                               : target.firstName[0] + target.lastName[0]
                           }
@@ -199,8 +203,12 @@ const Dialogue: React.FC<PropType> = ({ mousUp, allWind, dialogues }) => {
                     </>
                     <Dial>
                       {`${
-                        targetId === 1 ? sources.firstName : target.firstName
-                      } ${targetId === 1 ? sources.lastName : target.lastName}`}
+                        targetId === idUser
+                          ? sources.firstName
+                          : target.firstName
+                      } ${
+                        targetId === idUser ? sources.lastName : target.lastName
+                      }`}
                     </Dial>
                     <DateTime>{correctDate(createdAt)}</DateTime>
                   </LinkFrend>
