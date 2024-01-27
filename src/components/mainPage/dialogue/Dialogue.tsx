@@ -23,10 +23,7 @@ const LinkFrend = styled(NavLink)<{ $mousUp: boolean; $allWind: boolean }>`
   display: flex;
   align-items: center;
   font-size: 15px;
-  position: relative;
   white-space: nowrap;
-  gap: 20px;
-  justify-content: space-between;
   &:hover {
     background: ${(prop) =>
       !prop.$mousUp
@@ -75,11 +72,10 @@ const Ul = styled.ul`
 const DateTime = styled.div`
   color: grey;
   font-size: 12px;
-  position: absolute;
-  right: 10px;
   height: 100%;
   display: flex;
   align-items: center;
+  margin-left: auto;
 `;
 
 const SX: { icon: SxProps } = {
@@ -91,6 +87,14 @@ const SX: { icon: SxProps } = {
     },
   },
 };
+
+const Dial = styled.div`
+  margin-left: 10px;
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
 
 type PropType = {
   mousUp: boolean;
@@ -187,11 +191,11 @@ const Dialogue: React.FC<PropType> = ({ mousUp, allWind, dialogues }) => {
                         />
                       ) ?? <AvatarImg src={avatar} alt="avatar" />}
                     </>
-                    <div style={{ marginRight: "auto", fontSize: "14px" }}>
+                    <Dial>
                       {`${
                         targetId === 1 ? sources.firstName : target.firstName
                       } ${targetId === 1 ? sources.lastName : target.lastName}`}
-                    </div>
+                    </Dial>
                     <DateTime>{correctDate(createdAt)}</DateTime>
                   </LinkFrend>
                   <Modal
