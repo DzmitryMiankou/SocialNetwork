@@ -111,7 +111,9 @@ export const socketApi = createApi({
       },
     }),
     getMessage: builder.query<MessagesType[], void>({
-      queryFn: () => ({ data: [] }),
+      queryFn: () => ({
+        data: [],
+      }),
       async onCacheEntryAdded(
         arg,
         { cacheDataLoaded, cacheEntryRemoved, updateCachedData, getState }
@@ -121,7 +123,7 @@ export const socketApi = createApi({
           const socket = await getSocket();
           const state = getState() as any;
 
-          socket.emit(PathMessages.get_all, state.login?.user?.id as number);
+          socket.emit(PathMessages.get_all, +state.login?.user?.id as number);
 
           socket.on(PathMessages.get_all, (message: MessagesType[]) => {
             updateCachedData((draft) => {
@@ -144,7 +146,9 @@ export const socketApi = createApi({
       },
     }),
     getDialogue: builder.query<DialoguesType[], void>({
-      queryFn: () => ({ data: [] }),
+      queryFn: () => ({
+        data: [],
+      }),
       async onCacheEntryAdded(
         arg,
         { cacheDataLoaded, cacheEntryRemoved, updateCachedData, getState }
@@ -164,7 +168,15 @@ export const socketApi = createApi({
 
           socket.on(PathMessages.dialogue_one, (di: DialoguesType) => {
             updateCachedData((draft) => {
-              draft.push(di);
+              draft.forEach((el) => {
+                if (
+                  el.targetId === di.targetId &&
+                  +new Date(el.createdAt) < +new Date(di.createdAt)
+                )
+                  return (el.createdAt = di.createdAt);
+              });
+              if (!draft.find((el) => el.targetId === di.targetId))
+                draft.push(di);
             });
           });
 

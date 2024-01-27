@@ -67,6 +67,9 @@ const Ul = styled.ul`
   overflow-y: scroll;
   overflow-x: hidden;
   height: calc(var(--hight-blok-noHeader) - 44px);
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: flex-end;
 `;
 
 const DateTime = styled.div`
@@ -153,6 +156,9 @@ const Dialogue: React.FC<PropType> = ({ mousUp, allWind, dialogues }) => {
     return dialDate.toLocaleTimeString("en-US", optionDate.hour);
   };
 
+  const d = (arr: DialoguesType[]) =>
+    arr?.sort((a, b) => +new Date(a.createdAt) - +new Date(b.createdAt));
+
   return (
     <PosterBox>
       <header>
@@ -161,7 +167,7 @@ const Dialogue: React.FC<PropType> = ({ mousUp, allWind, dialogues }) => {
       <ScrollBox>
         <Ul>
           {dialogues &&
-            [...dialogues].map(
+            d([...dialogues]).map(
               ({ targetId, target, sourceId, sources, createdAt }) => (
                 <Li
                   key={targetId === 1 ? sourceId + "t" : targetId}
