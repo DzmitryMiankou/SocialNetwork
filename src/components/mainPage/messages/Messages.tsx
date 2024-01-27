@@ -97,7 +97,7 @@ const Messages: React.FC = () => {
           <St.Status>ofline</St.Status>
         </div>
         <St.Butt type="button">
-          <MoreVertIcon sx={{ fontSize: "24px" }} />
+          <MoreVertIcon sx={St.SX.icon} />
         </St.Butt>
       </St.Header>
       <St.MessagesBox>

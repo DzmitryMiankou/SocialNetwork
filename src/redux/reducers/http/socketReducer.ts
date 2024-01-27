@@ -171,16 +171,17 @@ export const socketApi = createApi({
               draft.find(
                 (el) =>
                   !(
-                    (el.targetId === di.targetId ||
-                      el.sourceId === di.sourceId) &&
-                    (el.targetId === di.sourceId ||
-                      el.sourceId === di.targetId) &&
+                    (el.targetId !== di.targetId ||
+                      el.sourceId !== di.sourceId) &&
+                    (el.targetId !== di.sourceId ||
+                      el.sourceId !== di.targetId) &&
                     +new Date(el.createdAt) < +new Date(di.createdAt)
                   ) && (el.createdAt = di.createdAt)
               );
+
               !draft.find(
                 (el) =>
-                  el.targetId !== di.targetId || el.sourceId !== di.targetId
+                  el.targetId === di.targetId || el.sourceId === di.targetId
               ) && draft.push(di);
             });
           });

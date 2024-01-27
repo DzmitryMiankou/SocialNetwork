@@ -65,3 +65,7 @@ input {
 ::-webkit-scrollbar-thumb:hover {
   background: #ffffff;
 }
+
+#file-input {
+  display: none;
+}
