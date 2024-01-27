@@ -155,7 +155,7 @@ const Messages: React.FC = () => {
         <St.Div>
           <St.ButtSend onClick={sendMessage}>
             {text.trim().length !== 0 ? (
-              <SendIcon sx={{ fontSize: "24px" }} />
+              <SendIcon sx={St.SX.iconSend} />
             ) : (
               <></>
             )}

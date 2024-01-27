@@ -18,6 +18,8 @@ const Header = styled.header`
 const Butt = styled.button`
   background-color: transparent;
   border: none;
+  display: flex;
+  align-items: center;
 `;
 
 export const SendBox = styled.div`
@@ -37,6 +39,10 @@ const ButtSend = styled(Butt)`
 
 export const ButtAttach = styled.label`
   cursor: pointer;
+  transition: 0.2s;
+  &:hover {
+    color: #a79788;
+  }
 `;
 
 const TextA = styled.textarea`
@@ -120,12 +126,19 @@ const Status = styled.p`
   color: #81644bd0;
 `;
 
-const SX: { icon: SxProps } = {
+const SX: { icon: SxProps; iconSend: SxProps } = {
   icon: {
     fontSize: "24px",
     transition: "0.2s",
     "&:hover": {
       color: "#ffffff",
+    },
+  },
+  iconSend: {
+    fontSize: "24px",
+    transition: "0.2s",
+    "&:hover": {
+      color: "#a79788",
     },
   },
 };
