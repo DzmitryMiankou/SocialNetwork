@@ -5,13 +5,17 @@ import type {
   FetchBaseQueryError,
 } from "@reduxjs/toolkit/query";
 import { RootState } from "./store";
-import { setDataAction, logOutAction } from "./loginReducer";
+import {
+  upTokenAction,
+  logOutAction,
+  LogInitialStateType,
+} from "./loginReducer";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: "http://localhost:5000/app/",
   prepareHeaders: (headers, { getState }) => {
     const state = getState() as RootState;
-    const token: any = state.login;
+    const token = state.login as unknown as LogInitialStateType;
     headers.set("Content-Type", "application/json");
     headers.set("Accept", "application/json");
     if (token) {
@@ -29,10 +33,14 @@ export const baseQueryWithReauth: BaseQueryFn<
 > = async (args, api, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions);
   if (result.error && result.error.status === 401) {
-    const refreshResult = await baseQuery("/refreshToken", api, extraOptions);
+    const refreshResult = (await baseQuery(
+      "/refreshToken",
+      api,
+      extraOptions
+    )) as { data: { access_token: string } };
 
     if (refreshResult.data) {
-      api.dispatch(setDataAction(refreshResult?.data));
+      api.dispatch(upTokenAction(refreshResult?.data));
       result = await baseQuery(args, api, extraOptions);
     } else {
       api.dispatch(logOutAction());

@@ -156,13 +156,13 @@ const Messages: React.FC = () => {
           }}
         />
         <St.Div>
-          <St.ButtSend onClick={sendMessage}>
-            {text.trim().length !== 0 ? (
+          {text.trim().length !== 0 ? (
+            <St.ButtSend onClick={sendMessage}>
               <SendIcon sx={St.SX.iconSend} />
-            ) : (
-              <></>
-            )}
-          </St.ButtSend>
+            </St.ButtSend>
+          ) : (
+            <></>
+          )}
         </St.Div>
       </St.SendBox>
     </St.PosterBox>

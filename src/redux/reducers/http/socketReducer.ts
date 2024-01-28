@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { Socket, io } from "socket.io-client";
 
-const enum PathMessages {
+const enum PathSocket {
   send = `send_message`,
   get_all = `all_messages`,
   dialogue_one = `dialogue_one`,
@@ -36,7 +36,6 @@ export interface MessagesType {
     firstName: string;
     lastName: string;
     email: string;
-    activeId: string;
   };
 }
 
@@ -44,11 +43,10 @@ export interface DialoguesType {
   targetId: number;
   sourceId: number;
   createdAt: string;
-  target: { firstName: string; lastName: string; activeId: string };
+  target: { firstName: string; lastName: string };
   sources: {
     firstName: string;
     lastName: string;
-    activeId: string;
   };
 }
 
@@ -101,7 +99,7 @@ export const socketApi = createApi({
         const socket = await getSocket();
         return new Promise((resolve) => {
           socket.emit(
-            PathMessages.send,
+            PathSocket.send,
             chatMessageContent,
             (message: MessageType) => {
               resolve({ data: message });
@@ -123,23 +121,23 @@ export const socketApi = createApi({
           const socket = await getSocket();
           const state = getState() as any;
 
-          socket.emit(PathMessages.get_all, +state.login?.user?.id as number);
+          socket.emit(PathSocket.get_all, +state.login?.user?.id as number);
 
-          socket.on(PathMessages.get_all, (message: MessagesType[]) => {
+          socket.on(PathSocket.get_all, (message: MessagesType[]) => {
             updateCachedData((draft) => {
               draft.splice(0, draft.length, ...message);
             });
           });
 
-          socket.on(PathMessages.send, (messages: MessagesType) => {
+          socket.on(PathSocket.send, (messages: MessagesType) => {
             updateCachedData((draft) => {
               draft.push(messages);
             });
           });
 
           await cacheEntryRemoved;
-          socket.off(PathMessages.get_all);
-          socket.off(PathMessages.send);
+          socket.off(PathSocket.get_all);
+          socket.off(PathSocket.send);
         } catch (error) {
           console.log(error);
         }
@@ -158,15 +156,15 @@ export const socketApi = createApi({
           const socket = await getSocket();
           const state = getState() as any;
 
-          socket.emit(PathMessages.dialogues, state.login?.user?.id as number);
+          socket.emit(PathSocket.dialogues, state.login?.user?.id as number);
 
-          socket.on(PathMessages.dialogues, (message: DialoguesType[]) => {
+          socket.on(PathSocket.dialogues, (message: DialoguesType[]) => {
             updateCachedData((draft) => {
               draft.splice(0, draft.length, ...message);
             });
           });
 
-          socket.on(PathMessages.dialogue_one, (di: DialoguesType) => {
+          socket.on(PathSocket.dialogue_one, (di: DialoguesType) => {
             updateCachedData((draft) => {
               draft.find(
                 (el) =>
@@ -187,8 +185,8 @@ export const socketApi = createApi({
           });
 
           await cacheEntryRemoved;
-          socket.off(PathMessages.dialogues);
-          socket.off(PathMessages.dialogue_one);
+          socket.off(PathSocket.dialogues);
+          socket.off(PathSocket.dialogue_one);
         } catch (error) {
           console.log(error);
         }
