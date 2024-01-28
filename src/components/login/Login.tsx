@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useAuthUserMutation } from "../../redux/reducers/http/httpReducer";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../redux/store";
-import { setDataAction } from "../../redux/loginReducer";
+import { loginActions } from "../../redux/loginReducer";
 import { Link, useNavigate } from "react-router-dom";
 
 const FormBox = styled.form`
@@ -41,7 +41,7 @@ const Login: React.FC = () => {
       email: value.email,
       password: value.password,
     });
-    if ("data" in data) dispatch(setDataAction(data.data));
+    if ("data" in data) dispatch(loginActions.setDataAction(data.data));
     navigate("/");
   };
 

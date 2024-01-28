@@ -11,13 +11,14 @@ export interface RegType extends AcceptsType {
   lastName: string;
 }
 
-export interface UserDataS {
+type UserNames = Pick<RegType, "firstName" | "lastName">;
+type IdUser = Pick<UserDataS, "id" | "email">;
+
+type IdNamesUser = UserNames & IdUser;
+export interface UserDataS extends UserNames {
   id: number;
-  firstName: string;
-  lastName: string;
   email: string;
 }
-
 interface UserDataType extends RegType {
   id: number;
   access_token: string;
@@ -26,12 +27,7 @@ interface UserDataType extends RegType {
 export interface ContactsType {
   id: number;
   user: number;
-  contact: {
-    id: number;
-    firstName: string;
-    lastName: string;
-    email: string;
-  };
+  contact: IdNamesUser;
 }
 
 export const httpReducer = createApi({

@@ -6,7 +6,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import SearchInput from "../searchInput/SearchInput";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../redux/store";
-import { logOutAction } from "../../redux/loginReducer";
+import { loginActions } from "../../redux/loginReducer";
 import {
   useLazyLogOutUserQuery,
   useLazySearchUsersQuery,
@@ -95,7 +95,7 @@ const Header: React.FC<{ user: any }> = ({ user }) => {
   const clouseHandler = (): void => handle("", false);
 
   const handlerClick = (): void => {
-    dispatch(logOutAction());
+    dispatch(loginActions.logOutAction());
     trigger();
     navigate("/sign");
   };

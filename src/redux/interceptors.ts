@@ -5,11 +5,7 @@ import type {
   FetchBaseQueryError,
 } from "@reduxjs/toolkit/query";
 import { RootState } from "./store";
-import {
-  upTokenAction,
-  logOutAction,
-  LogInitialStateType,
-} from "./loginReducer";
+import { loginActions, LogInitialStateType } from "./loginReducer";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: "http://localhost:5000/app/",
@@ -40,10 +36,10 @@ export const baseQueryWithReauth: BaseQueryFn<
     )) as { data: { access_token: string } };
 
     if (refreshResult.data) {
-      api.dispatch(upTokenAction(refreshResult?.data));
+      api.dispatch(loginActions.upTokenAction(refreshResult?.data));
       result = await baseQuery(args, api, extraOptions);
     } else {
-      api.dispatch(logOutAction());
+      api.dispatch(loginActions.logOutAction());
     }
   }
   return result;
