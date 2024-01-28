@@ -215,7 +215,7 @@ const Dialogue: React.FC<PropType> = ({ mousUp, allWind, dialogues, user }) => {
                   <Modal
                     open={open}
                     num={id}
-                    n={targetId}
+                    n={targetId === idUser ? sourceId : targetId}
                     clouseHandler={clouseHandler}
                     component={
                       <ModCom>

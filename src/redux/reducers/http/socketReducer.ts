@@ -23,32 +23,25 @@ export interface MessageType {
     lastName: string;
   };
 }
-export interface MessagesType {
+
+type BigMessageData = Omit<MessageType, "target" | "sources">;
+type SmallMessageData = Pick<
+  BigMessageData,
+  "targetId" | "sourceId" | "createdAt"
+>;
+type SourcesAndTarget = Pick<MessageType, "target" | "sources">;
+type Target = Pick<SourcesAndTarget, "target">["target"];
+interface NewTar extends Target {
   id: number;
-  targetId: number;
-  sourceId: number;
-  message: string;
-  pathImg: null | string;
-  createdAt: string;
+  email: string;
+}
+export interface MessagesType extends BigMessageData {
+  id: NewTar["id"];
   updatedAt: null | string;
-  target: {
-    id: number;
-    firstName: string;
-    lastName: string;
-    email: string;
-  };
+  target: NewTar;
 }
 
-export interface DialoguesType {
-  targetId: number;
-  sourceId: number;
-  createdAt: string;
-  target: { firstName: string; lastName: string };
-  sources: {
-    firstName: string;
-    lastName: string;
-  };
-}
+export type DialoguesType = SmallMessageData & SourcesAndTarget;
 
 let store: any;
 

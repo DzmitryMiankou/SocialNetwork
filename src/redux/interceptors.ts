@@ -5,13 +5,13 @@ import type {
   FetchBaseQueryError,
 } from "@reduxjs/toolkit/query";
 import { RootState } from "./store";
-import { loginActions, LogInitialStateType } from "./loginReducer";
+import { loginActions } from "./loginReducer";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: "http://localhost:5000/app/",
   prepareHeaders: (headers, { getState }) => {
     const state = getState() as RootState;
-    const token = state.login as unknown as LogInitialStateType;
+    const token = state.login;
     headers.set("Content-Type", "application/json");
     headers.set("Accept", "application/json");
     if (token) {

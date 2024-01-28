@@ -1,4 +1,4 @@
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import { Reducer, combineReducers, configureStore } from "@reduxjs/toolkit";
 import { httpReducer } from "./reducers/http/httpReducer";
 import {
   persistStore,
@@ -14,7 +14,6 @@ import storage from "redux-persist/lib/storage";
 import loginReducer from "./loginReducer";
 import { socketApi } from "./reducers/http/socketReducer";
 import moreInfReducer from "./moreInfReducer";
-import { InitialStateType } from "./moreInfReducer";
 
 const persistConfig = {
   key: "root",
@@ -23,14 +22,18 @@ const persistConfig = {
   blacklist: ["auth", "socketApi", "moreInf"],
 };
 
-const rootReducers = combineReducers({
-  login: loginReducer as any,
-  moreInf: moreInfReducer as unknown as InitialStateType,
+const reducers = {
+  login: loginReducer,
+  moreInf: moreInfReducer,
   [httpReducer.reducerPath]: httpReducer.reducer,
   [socketApi.reducerPath]: socketApi.reducer,
-});
+};
+const combinedReducer = combineReducers<typeof reducers>(reducers);
 
-const persistedReducer = persistReducer(persistConfig, rootReducers);
+const rootReducer: Reducer<RootState> = (state, action) =>
+  combinedReducer(state, action);
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const store = configureStore({
   reducer: persistedReducer,
@@ -39,10 +42,10 @@ const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(httpReducer.middleware, socketApi.middleware),
+    }).concat(socketApi.middleware, httpReducer.middleware),
 });
 
 export default store;
 export const persistor = persistStore(store);
-export type RootState = ReturnType<typeof rootReducers>;
 export type AppDispatch = typeof store.dispatch;
+export type RootState = ReturnType<typeof combinedReducer>;
