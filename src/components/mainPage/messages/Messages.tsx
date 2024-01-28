@@ -27,9 +27,12 @@ const Messages: React.FC = () => {
   const dialogueData: Array<string> | string =
     idM?.replace(":", "").split("_") ?? "";
 
-  const intoScroll = (): void => messagesEndRef.current?.scrollIntoView();
+  const intoScroll = (behavior: ScrollBehavior = "auto"): void =>
+    messagesEndRef.current?.scrollIntoView({
+      behavior: behavior,
+    });
 
-  useEffect((): void => intoScroll(), [messages]);
+  useEffect((): void => intoScroll(), [messages, idM]);
 
   const scrollHandler = (): void => {
     const positionY = messagesEndRef.current?.getBoundingClientRect().y || 0;
@@ -125,7 +128,7 @@ const Messages: React.FC = () => {
       <St.SendBox>
         <>
           {toScroll ? (
-            <St.ArrowScroll type="button" onClick={intoScroll}>
+            <St.ArrowScroll type="button" onClick={() => intoScroll("smooth")}>
               <KeyboardArrowDownIcon />
             </St.ArrowScroll>
           ) : (
