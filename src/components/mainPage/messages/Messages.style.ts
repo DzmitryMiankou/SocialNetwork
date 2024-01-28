@@ -22,7 +22,7 @@ const Butt = styled.button`
   align-items: center;
 `;
 
-export const SendBox = styled.div`
+const SendBox = styled.div`
   display: grid;
   grid-template-columns: 30px 1fr 40px;
   position: relative;
@@ -37,7 +37,7 @@ const ButtSend = styled(Butt)`
   width: auto;
 `;
 
-export const ButtAttach = styled.label`
+const ButtAttach = styled.label`
   cursor: pointer;
   transition: 0.2s;
   &:hover {
