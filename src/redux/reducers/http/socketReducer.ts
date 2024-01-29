@@ -8,20 +8,19 @@ const enum PathSocket {
   dialogues = `dialogues`,
 }
 
+type TargetAndSource = {
+  firstName: string;
+  lastName: string;
+};
+
 export interface MessageType {
   createdAt: string;
   sourceId: number;
   message: string;
   targetId: number;
   pathImg?: null | string;
-  target: {
-    firstName: string;
-    lastName: string;
-  };
-  sources: {
-    firstName: string;
-    lastName: string;
-  };
+  target: TargetAndSource;
+  sources: TargetAndSource;
 }
 
 type BigMessageData = Omit<MessageType, "target" | "sources">;
