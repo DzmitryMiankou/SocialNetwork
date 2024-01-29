@@ -82,7 +82,10 @@ export const httpReducer = createApi({
         body,
       }),
     }),
-    newContact: build.mutation<void, any | { code: number; message: string }>({
+    newContact: build.mutation<
+      void,
+      { id: number } | { code: number; message: string }
+    >({
       query: (body: { id: number }) => ({
         method: "POST",
         url: "new_contact",
@@ -90,7 +93,10 @@ export const httpReducer = createApi({
       }),
       invalidatesTags: ["PostContacts"],
     }),
-    delContact: build.mutation<void, any | { code: number; message: string }>({
+    delContact: build.mutation<
+      void,
+      { id: number } | { code: number; message: string }
+    >({
       query: (body: { id: number }) => ({
         method: "DELETE",
         url: "del_contact",

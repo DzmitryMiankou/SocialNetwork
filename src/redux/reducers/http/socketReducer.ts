@@ -62,6 +62,10 @@ const createSocketFactory = () => {
     }
 
     if (_socket.disconnected) _socket.connect();
+
+    _socket.on("rooms", (body: any) => {
+      console.log(body);
+    });
     return _socket;
   };
 };
