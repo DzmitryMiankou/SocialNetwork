@@ -62,11 +62,6 @@ const createSocketFactory = () => {
     }
 
     if (_socket.disconnected) _socket.connect();
-
-    _socket.on("connect_error", (error: Error) => {
-      console.log(error.message);
-      return setTimeout(() => _socket.connect(), 1000);
-    });
     return _socket;
   };
 };
