@@ -5,7 +5,6 @@ import SendIcon from "@mui/icons-material/Send";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import { useParams } from "react-router-dom";
 import { useOutletContext } from "react-router-dom";
-
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import {
   MessageType,

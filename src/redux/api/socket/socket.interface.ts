@@ -18,6 +18,7 @@ type SmallMessageData = Pick<
   BigMessageData,
   "targetId" | "sourceId" | "createdAt"
 >;
+export type IdUsersDialogue = Pick<SmallMessageData, "targetId" | "sourceId">;
 type SourcesAndTarget = Pick<MessageType, "target" | "sources">;
 type Target = Pick<SourcesAndTarget, "target">["target"];
 interface NewTar extends Target {

@@ -1,7 +1,11 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { baseQury, getSocket } from ".././createSocketFactory";
 import { PathSocket } from ".././socket.path";
-import { MessageType, MessagesType } from ".././socket.interface";
+import {
+  IdUsersDialogue,
+  MessageType,
+  MessagesType,
+} from ".././socket.interface";
 
 export const MessagesSocket = createApi({
   reducerPath: "MessagesSocket",
@@ -23,6 +27,20 @@ export const MessagesSocket = createApi({
             PathSocket.send,
             chatMessageContent,
             (message: MessageType) => {
+              resolve({ data: message });
+            }
+          );
+        });
+      },
+    }),
+    deleteMessage: builder.mutation<IdUsersDialogue, IdUsersDialogue>({
+      queryFn: async (deleteData: IdUsersDialogue) => {
+        const socket = await getSocket();
+        return new Promise((resolve) => {
+          socket.emit(
+            PathSocket.delete_messages,
+            deleteData,
+            (message: IdUsersDialogue) => {
               resolve({ data: message });
             }
           );
