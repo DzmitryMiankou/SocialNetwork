@@ -6,9 +6,9 @@ import Modal from "../../alert/Alert";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import Avatar from "../../avatar/Avatar";
-import { DialoguesType } from "../../../redux/api/socketReducer";
 import { SxProps } from "@mui/material";
 import { LogInitialStateType } from "../../../redux/loginReducer";
+import { DialoguesType } from "../../../redux/api/socket/socket.interface";
 
 const PosterBox = styled.div`
   display: grid;

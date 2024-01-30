@@ -1,75 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { Socket, io } from "socket.io-client";
-
-const enum PathSocket {
-  send = `send_message`,
-  get_all = `all_messages`,
-  dialogue_one = `dialogue_one`,
-  dialogues = `dialogues`,
-}
-
-type TargetAndSource = {
-  firstName: string;
-  lastName: string;
-};
-
-export interface MessageType {
-  createdAt: string;
-  sourceId: number;
-  message: string;
-  targetId: number;
-  pathImg?: null | string;
-  target: TargetAndSource;
-  sources: TargetAndSource;
-}
-
-type BigMessageData = Omit<MessageType, "target" | "sources">;
-type SmallMessageData = Pick<
-  BigMessageData,
-  "targetId" | "sourceId" | "createdAt"
->;
-type SourcesAndTarget = Pick<MessageType, "target" | "sources">;
-type Target = Pick<SourcesAndTarget, "target">["target"];
-interface NewTar extends Target {
-  id: number;
-  email: string;
-}
-export interface MessagesType extends BigMessageData {
-  id: NewTar["id"];
-  updatedAt: null | string;
-  target: NewTar;
-}
-
-export type DialoguesType = SmallMessageData & SourcesAndTarget;
-
-let store: any;
-
-export const injectStore = (_store: any) => (store = _store);
-
-const createSocketFactory = () => {
-  let _socket: Socket;
-  return async (): Promise<Socket> => {
-    if (!_socket) {
-      _socket = io(`http://localhost:5000/`, {
-        auth: async (cb) =>
-          cb({
-            Authorization: "Bearer=" + (await store.getState().login.token),
-          }),
-        transports: ["websocket"],
-        withCredentials: true,
-      });
-    }
-
-    if (_socket.disconnected) _socket.connect();
-
-    _socket.on("rooms", (body: any) => {
-      console.log(body);
-    });
-    return _socket;
-  };
-};
-
-const getSocket = createSocketFactory();
+import { getSocket } from "./createSocketFactory";
+import { PathSocket } from "./socket.path";
+import { DialoguesType, MessageType, MessagesType } from "./socket.interface";
 
 export const socketApi = createApi({
   reducerPath: "socketApi",

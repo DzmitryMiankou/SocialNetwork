@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { useAuthUserMutation } from "../../redux/api/httpReducer";
+import { useAuthUserMutation } from "../../redux/api/http/httpReducer";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../redux/store";
 import { loginActions } from "../../redux/loginReducer";

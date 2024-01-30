@@ -6,12 +6,14 @@ import AttachFileIcon from "@mui/icons-material/AttachFile";
 import { useParams } from "react-router-dom";
 import { useOutletContext } from "react-router-dom";
 import {
-  MessagesType,
   useHandlerClickKeyMutation,
   useSendMessageMutation,
-} from "../../../redux/api/socketReducer";
+} from "../../../redux/api/socket/socketReducer";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import { MessageType } from "../../../redux/api/socketReducer";
+import {
+  MessageType,
+  MessagesType,
+} from "../../../redux/api/socket/socket.interface";
 import { LogInitialStateType } from "../../../redux/loginReducer";
 
 const Messages: React.FC = () => {

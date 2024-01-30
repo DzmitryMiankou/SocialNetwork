@@ -1,0 +1,30 @@
+import { Socket, io } from "socket.io-client";
+
+let store: any;
+
+export const injectStore = (_store: any) => (store = _store);
+
+const createSocketFactory = () => {
+  let _socket: Socket;
+  return async (): Promise<Socket> => {
+    if (!_socket) {
+      _socket = io(`http://localhost:5000/`, {
+        auth: async (cb) =>
+          cb({
+            Authorization: "Bearer=" + (await store.getState().login.token),
+          }),
+        transports: ["websocket"],
+        withCredentials: true,
+      });
+    }
+
+    if (_socket.disconnected) _socket.connect();
+
+    _socket.on("rooms", (body: any) => {
+      console.log(body);
+    });
+    return _socket;
+  };
+};
+
+export const getSocket = createSocketFactory();
