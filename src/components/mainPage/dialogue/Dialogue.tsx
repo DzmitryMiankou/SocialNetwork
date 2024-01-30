@@ -7,7 +7,7 @@ import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import Avatar from "../../avatar/Avatar";
 import { SxProps } from "@mui/material";
-import { LogInitialStateType } from "../../../redux/loginReducer";
+import { LogInitialStateType } from "../../../redux/localState/loginReducer";
 import { DialoguesType } from "../../../redux/api/socket/socket.interface";
 
 const PosterBox = styled.div`

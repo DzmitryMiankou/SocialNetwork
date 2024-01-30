@@ -5,16 +5,17 @@ import SendIcon from "@mui/icons-material/Send";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import { useParams } from "react-router-dom";
 import { useOutletContext } from "react-router-dom";
-import {
-  useHandlerClickKeyMutation,
-  useSendMessageMutation,
-} from "../../../redux/api/socket/socketReducer";
+
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import {
   MessageType,
   MessagesType,
 } from "../../../redux/api/socket/socket.interface";
-import { LogInitialStateType } from "../../../redux/loginReducer";
+import { LogInitialStateType } from "../../../redux/localState/loginReducer";
+import {
+  useHandlerClickKeyMutation,
+  useSendMessageMutation,
+} from "../../../redux/api/socket/messages/messagesReducer";
 
 const Messages: React.FC = () => {
   const [toScroll, setToScroll] = useState<boolean>(false);

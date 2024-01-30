@@ -1,3 +1,4 @@
+import { fetchBaseQuery } from "@reduxjs/toolkit/query";
 import { Socket, io } from "socket.io-client";
 
 let store: any;
@@ -28,3 +29,6 @@ const createSocketFactory = () => {
 };
 
 export const getSocket = createSocketFactory();
+export const baseQury = fetchBaseQuery({
+  baseUrl: `http://localhost:5000/`,
+});

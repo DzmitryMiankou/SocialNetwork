@@ -6,7 +6,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import SearchInput from "../searchInput/SearchInput";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../redux/store";
-import { loginActions } from "../../redux/loginReducer";
+import { loginActions } from "../../redux/localState/loginReducer";
 import {
   useLazyLogOutUserQuery,
   useLazySearchUsersQuery,

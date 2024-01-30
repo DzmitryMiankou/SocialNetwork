@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useAuthUserMutation } from "../../redux/api/http/httpReducer";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../redux/store";
-import { loginActions } from "../../redux/loginReducer";
+import { loginActions } from "../../redux/localState/loginReducer";
 import { Link, useNavigate } from "react-router-dom";
 
 const FormBox = styled.form`

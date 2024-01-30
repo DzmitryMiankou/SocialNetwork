@@ -5,7 +5,7 @@ import type {
   FetchBaseQueryError,
 } from "@reduxjs/toolkit/query";
 import { RootState } from "../../store";
-import { loginActions } from "../../loginReducer";
+import { loginActions } from "../../localState/loginReducer";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: "http://localhost:5000/app/",

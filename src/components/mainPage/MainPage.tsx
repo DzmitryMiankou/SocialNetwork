@@ -11,11 +11,9 @@ import {
   useContactsQuery,
   useDataUserQuery,
 } from "../../redux/api/http/httpReducer";
-import {
-  useGetDialogueQuery,
-  useGetMessageQuery,
-} from "../../redux/api/socket/socketReducer";
-import { LogInitialStateType } from "../../redux/loginReducer";
+import { useGetDialogueQuery } from "../../redux/api/socket/socketReducer";
+import { LogInitialStateType } from "../../redux/localState/loginReducer";
+import { useGetMessageQuery } from "../../redux/api/socket/messages/messagesReducer";
 
 const Main = styled.div<{ $select: boolean }>`
   display: flex;

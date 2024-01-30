@@ -4,7 +4,7 @@ import Login from "../components/login/Login";
 import MainPage from "../components/mainPage/MainPage";
 import Messages from "../components/mainPage/messages/Messages";
 import React from "react";
-import { LogInitialStateType } from "../redux/loginReducer";
+import { LogInitialStateType } from "../redux/localState/loginReducer";
 
 const Routers: React.FC<{ user: LogInitialStateType }> = ({ user }) => {
   const arrToElem: Array<{

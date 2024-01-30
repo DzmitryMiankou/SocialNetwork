@@ -12,7 +12,7 @@ import Avatar from "../../avatar/Avatar";
 import SearchInput from "../../searchInput/SearchInput";
 import { AppDispatch } from "../../../redux/store";
 import { useDispatch } from "react-redux";
-import { setDataMoreInfAction } from "../../../redux/moreInfReducer";
+import { setDataMoreInfAction } from "../../../redux/localState/moreInfReducer";
 import LocalLibraryOutlinedIcon from "@mui/icons-material/LocalLibraryOutlined";
 import { SxProps } from "@mui/material";
 

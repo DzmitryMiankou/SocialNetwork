@@ -2,8 +2,8 @@ import React from "react";
 import styled, { keyframes } from "styled-components";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../redux/store";
-import { delDataMoreInfAction } from "../../redux/moreInfReducer";
-import { InitialStateType } from "../../redux/moreInfReducer";
+import { delDataMoreInfAction } from "../../redux/localState/moreInfReducer";
+import { InitialStateType } from "../../redux/localState/moreInfReducer";
 
 const opacity = keyframes`
   0% {
