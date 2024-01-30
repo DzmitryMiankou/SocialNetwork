@@ -4,7 +4,7 @@ import avatar from "../../../img/images.png";
 import {
   ContactsType,
   useDelContactMutation,
-} from "../../../redux/reducers/http/httpReducer";
+} from "../../../redux/api/httpReducer";
 import { NavLink } from "react-router-dom";
 import Modal from "../../alert/Alert";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";

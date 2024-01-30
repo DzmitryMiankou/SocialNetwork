@@ -6,7 +6,7 @@ import Modal from "../../alert/Alert";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import Avatar from "../../avatar/Avatar";
-import { DialoguesType } from "../../../redux/reducers/http/socketReducer";
+import { DialoguesType } from "../../../redux/api/socketReducer";
 import { SxProps } from "@mui/material";
 import { LogInitialStateType } from "../../../redux/loginReducer";
 

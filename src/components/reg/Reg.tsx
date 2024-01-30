@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { useRegUserMutation } from "../../redux/reducers/http/httpReducer";
+import { useRegUserMutation } from "../../redux/api/httpReducer";
 
 const Box = styled.div`
   display: flex;

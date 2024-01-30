@@ -10,7 +10,7 @@ import { loginActions } from "../../redux/loginReducer";
 import {
   useLazyLogOutUserQuery,
   useLazySearchUsersQuery,
-} from "../../redux/reducers/http/httpReducer";
+} from "../../redux/api/httpReducer";
 import MoadalWindow from "./modalWindow/ModalWindow";
 
 const HeaderBox = styled.header`

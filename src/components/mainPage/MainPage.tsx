@@ -10,11 +10,11 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import {
   useContactsQuery,
   useDataUserQuery,
-} from "../../redux/reducers/http/httpReducer";
+} from "../../redux/api/httpReducer";
 import {
   useGetDialogueQuery,
   useGetMessageQuery,
-} from "../../redux/reducers/http/socketReducer";
+} from "../../redux/api/socketReducer";
 import { LogInitialStateType } from "../../redux/loginReducer";
 
 const Main = styled.div<{ $select: boolean }>`

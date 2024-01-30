@@ -1,5 +1,5 @@
 import { Reducer, combineReducers, configureStore } from "@reduxjs/toolkit";
-import { httpReducer } from "./reducers/http/httpReducer";
+import { httpReducer } from "./api/httpReducer";
 import {
   persistStore,
   persistReducer,
@@ -12,7 +12,7 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import loginReducer from "./loginReducer";
-import { socketApi } from "./reducers/http/socketReducer";
+import { socketApi } from "./api/socketReducer";
 import moreInfReducer from "./moreInfReducer";
 
 const persistConfig = {

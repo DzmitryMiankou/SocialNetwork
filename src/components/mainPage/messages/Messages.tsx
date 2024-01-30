@@ -9,9 +9,9 @@ import {
   MessagesType,
   useHandlerClickKeyMutation,
   useSendMessageMutation,
-} from "../../../redux/reducers/http/socketReducer";
+} from "../../../redux/api/socketReducer";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import { MessageType } from "../../../redux/reducers/http/socketReducer";
+import { MessageType } from "../../../redux/api/socketReducer";
 import { LogInitialStateType } from "../../../redux/loginReducer";
 
 const Messages: React.FC = () => {

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import avatar from "../../../img/images.png";
-import { UserDataS } from "../../../redux/reducers/http/httpReducer";
+import { UserDataS } from "../../../redux/api/httpReducer";
 import Avatar from "../../avatar/Avatar";
 
 const AvatarBox = styled.div`
