@@ -15,12 +15,14 @@ import {
   useHandlerClickKeyMutation,
   useSendMessageMutation,
 } from "../../../redux/api/socket/messages/messagesReducer";
+import { useCreateRoomMutation } from "../../../redux/api/socket/dialogues/dialoguesReducer";
 
 const Messages: React.FC = () => {
   const [toScroll, setToScroll] = useState<boolean>(false);
   const [mouse, messages, user]: [number, MessagesType[], LogInitialStateType] =
     useOutletContext();
   const [trigger] = useSendMessageMutation();
+  const [createRoom] = useCreateRoomMutation();
   const [trigger2] = useHandlerClickKeyMutation();
   const { idM } = useParams();
   const [text, setText] = useState<string>("");
@@ -62,6 +64,10 @@ const Messages: React.FC = () => {
 
   const sendMessage = (): void => {
     if (text.trim().length === 0) return;
+    createRoom({
+      name: "room",
+      users: [{ id: +dialogueData[0] }],
+    });
     const message: MessageType = {
       targetId: +dialogueData[0],
       sourceId: user?.user?.id || 0,

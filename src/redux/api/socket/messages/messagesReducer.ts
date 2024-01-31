@@ -33,7 +33,7 @@ export const MessagesSocket = createApi({
         });
       },
     }),
-    deleteMessage: builder.mutation<IdUsersDialogue, IdUsersDialogue>({
+    deleteMessages: builder.mutation<IdUsersDialogue, IdUsersDialogue>({
       queryFn: async (deleteData: IdUsersDialogue) => {
         const socket = await getSocket();
         return new Promise((resolve) => {

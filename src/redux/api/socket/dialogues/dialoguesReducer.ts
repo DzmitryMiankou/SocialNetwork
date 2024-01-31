@@ -3,10 +3,33 @@ import { baseQury, getSocket } from "../createSocketFactory";
 import { PathSocket } from "../socket.path";
 import { DialoguesType } from "../socket.interface";
 
+export interface User {
+  id: number;
+}
+
+export interface RoomI {
+  readonly id?: number;
+  name?: string;
+  users?: User[];
+  description?: string;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
 export const socketApi = createApi({
   reducerPath: "DialoguesSocket",
   baseQuery: baseQury,
   endpoints: (builder) => ({
+    createRoom: builder.mutation<{}, RoomI>({
+      queryFn: async (deleteData: RoomI) => {
+        const socket = await getSocket();
+        return new Promise((resolve) => {
+          socket.emit("createRoom", deleteData, (message: RoomI) => {
+            resolve({ data: message });
+          });
+        });
+      },
+    }),
     getDialogue: builder.query<DialoguesType[], void>({
       queryFn: () => ({
         data: [],
@@ -59,4 +82,4 @@ export const socketApi = createApi({
   }),
 });
 
-export const { useGetDialogueQuery } = socketApi;
+export const { useGetDialogueQuery, useCreateRoomMutation } = socketApi;
