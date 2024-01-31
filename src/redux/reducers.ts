@@ -1,7 +1,7 @@
 import { Reducer, combineReducers } from "@reduxjs/toolkit";
 import { httpReducer } from "./api/http/httpReducer";
 import { MessagesSocket } from "./api/socket/messages/messagesReducer";
-import { socketApi } from "./api/socket/socketReducer";
+import { socketApi } from "./api/socket/dialogues/dialoguesReducer";
 import loginReducer from "./localState/loginReducer";
 import moreInfReducer from "./localState/moreInfReducer";
 import { RootState } from "./store";

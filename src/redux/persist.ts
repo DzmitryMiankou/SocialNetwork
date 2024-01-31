@@ -10,11 +10,18 @@ import {
   REGISTER,
 } from "redux-persist";
 
+const blackList: Array<string> = [
+  "auth",
+  "DialoguesSocket",
+  "moreInf",
+  "MessagesSocket",
+];
+
 const persistConfig = {
   key: "root",
   storage,
   version: 1,
-  blacklist: ["auth", "socketApi", "moreInf", "MessagesSocket"],
+  blacklist: [...blackList],
 };
 
 export const ignoredActions = [

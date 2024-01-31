@@ -11,7 +11,7 @@ import {
   useContactsQuery,
   useDataUserQuery,
 } from "../../redux/api/http/httpReducer";
-import { useGetDialogueQuery } from "../../redux/api/socket/socketReducer";
+import { useGetDialogueQuery } from "../../redux/api/socket/dialogues/dialoguesReducer";
 import { LogInitialStateType } from "../../redux/localState/loginReducer";
 import { useGetMessageQuery } from "../../redux/api/socket/messages/messagesReducer";
 

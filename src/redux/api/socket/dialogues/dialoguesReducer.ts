@@ -1,10 +1,10 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
-import { baseQury, getSocket } from "./createSocketFactory";
-import { PathSocket } from "./socket.path";
-import { DialoguesType } from "./socket.interface";
+import { baseQury, getSocket } from "../createSocketFactory";
+import { PathSocket } from "../socket.path";
+import { DialoguesType } from "../socket.interface";
 
 export const socketApi = createApi({
-  reducerPath: "socketApi",
+  reducerPath: "DialoguesSocket",
   baseQuery: baseQury,
   endpoints: (builder) => ({
     getDialogue: builder.query<DialoguesType[], void>({
