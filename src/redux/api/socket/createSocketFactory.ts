@@ -18,12 +18,10 @@ const createSocketFactory = () => {
         withCredentials: true,
       });
     }
-
-    if (_socket.disconnected) _socket.connect();
-
     _socket.on("rooms", (body: any) => {
       console.log(body);
     });
+    if (_socket.disconnected) _socket.connect();
     return _socket;
   };
 };

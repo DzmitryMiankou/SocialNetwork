@@ -11,7 +11,10 @@ import {
   useContactsQuery,
   useDataUserQuery,
 } from "../../redux/api/http/httpReducer";
-import { useGetDialogueQuery } from "../../redux/api/socket/dialogues/dialoguesReducer";
+import {
+  useCreateRoomsQuery,
+  useGetDialogueQuery,
+} from "../../redux/api/socket/dialogues/dialoguesReducer";
 import { LogInitialStateType } from "../../redux/localState/loginReducer";
 import { useGetMessageQuery } from "../../redux/api/socket/messages/messagesReducer";
 
@@ -85,6 +88,7 @@ const MainPage: React.FC<{ user: LogInitialStateType }> = ({ user }) => {
   });
   const { data: messages } = useGetMessageQuery();
   const { data: dialogues } = useGetDialogueQuery();
+  const { data: createRoom } = useCreateRoomsQuery();
 
   const mosePositionMirr = mousePosition.mirrPercentageX;
   const mosePosition = mousePosition.percentageX;

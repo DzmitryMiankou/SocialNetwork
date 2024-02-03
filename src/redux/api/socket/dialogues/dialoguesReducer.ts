@@ -20,16 +20,6 @@ export const socketApi = createApi({
   reducerPath: "DialoguesSocket",
   baseQuery: baseQury,
   endpoints: (builder) => ({
-    createRoom: builder.mutation<{}, RoomI>({
-      queryFn: async (deleteData: RoomI) => {
-        const socket = await getSocket();
-        return new Promise((resolve) => {
-          socket.emit("createRoom", deleteData, (message: RoomI) => {
-            resolve({ data: message });
-          });
-        });
-      },
-    }),
     getDialogue: builder.query<DialoguesType[], void>({
       queryFn: () => ({
         data: [],
@@ -79,7 +69,36 @@ export const socketApi = createApi({
         }
       },
     }),
+    createRooms: builder.query<any, void>({
+      queryFn: () => ({
+        data: [],
+      }),
+      async onCacheEntryAdded(
+        arg,
+        { cacheDataLoaded, cacheEntryRemoved, updateCachedData, getState }
+      ) {
+        try {
+          await cacheDataLoaded;
+          const socket = await getSocket();
+          const state = getState() as any;
+
+          socket.emit("createRoom", {
+            name: "room",
+            users: [{ id: +state.login?.user?.id ?? 0 }],
+          });
+
+          socket.on("createRoom", (message: any) => {
+            console.log(message);
+          });
+
+          await cacheEntryRemoved;
+          socket.off("createRoom");
+        } catch (error) {
+          console.log(error);
+        }
+      },
+    }),
   }),
 });
 
-export const { useGetDialogueQuery, useCreateRoomMutation } = socketApi;
+export const { useGetDialogueQuery, useCreateRoomsQuery } = socketApi;
