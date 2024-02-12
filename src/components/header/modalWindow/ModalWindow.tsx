@@ -16,7 +16,7 @@ const ModalBox = styled.div`
   top: 30px;
   min-width: 200px;
   width: 20vw;
-  z-index: 99;
+  z-index: 44;
 `;
 
 const UserBox = styled.li`
@@ -77,7 +77,6 @@ const MoadalWindow: React.FC<{
   ): void => {
     e.preventDefault();
     dispatch(setDataMoreInfAction(id));
-    clouseHandler();
   };
 
   return (

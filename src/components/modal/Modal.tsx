@@ -82,8 +82,8 @@ const Modal: React.FC<PropType> = (props) => {
     <>
       {props.moreInf.open ? (
         <>
-          <BG $anim={get} onClick={closeHandle} />
-          <Box $anim={get} {...switchProp()}>
+          <BG id="bluer" $anim={get} onClick={closeHandle} />
+          <Box id="bluer" $anim={get} {...switchProp()}>
             {props.component}
           </Box>
         </>
