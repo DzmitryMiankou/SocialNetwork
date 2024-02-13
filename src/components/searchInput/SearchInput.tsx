@@ -70,6 +70,7 @@ const SearchInput: React.FC<Props> = (props) => {
       $colorPl={props.colorPl ?? "rgb(0, 0, 0)"}
     >
       <Input
+        id="bluer"
         onChange={props.handleChange}
         value={props.value}
         type="text"
