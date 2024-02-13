@@ -6,7 +6,10 @@ import Messages from "../components/mainPage/messages/Messages";
 import React from "react";
 import { LogInitialStateType } from "../redux/localState/loginReducer";
 
-const Routers: React.FC<{ user: LogInitialStateType }> = ({ user }) => {
+const Routers: React.FC<{
+  user: LogInitialStateType;
+  moreInf: { id: number | null; open: boolean };
+}> = ({ user, moreInf }) => {
   const arrToElem: Array<{
     element: JSX.Element;
     path: string;

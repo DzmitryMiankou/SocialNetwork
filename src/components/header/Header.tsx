@@ -6,7 +6,10 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import SearchInput from "../searchInput/SearchInput";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../redux/store";
-import { loginActions } from "../../redux/localState/loginReducer";
+import {
+  LogInitialStateType,
+  loginActions,
+} from "../../redux/localState/loginReducer";
 import {
   useLazyLogOutUserQuery,
   useLazySearchUsersQuery,
@@ -75,7 +78,10 @@ const Search = styled.div`
   align-items: center;
 `;
 
-const Header: React.FC<{ user: any }> = ({ user }) => {
+const Header: React.FC<{
+  user: LogInitialStateType;
+  moreInf: { id: number | null; open: boolean };
+}> = ({ user, moreInf }) => {
   const navigate = useNavigate();
   const dispatch: AppDispatch = useDispatch();
   const [trigger] = useLazyLogOutUserQuery();
@@ -132,7 +138,11 @@ const Header: React.FC<{ user: any }> = ({ user }) => {
         </Search>
         <>
           {data?.length !== 0 && data && open !== false ? (
-            <MoadalWindow data={data} clouseHandler={clouseHandler} />
+            <MoadalWindow
+              data={data}
+              clouseHandler={clouseHandler}
+              moreInf={moreInf}
+            />
           ) : (
             <></>
           )}

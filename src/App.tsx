@@ -18,8 +18,8 @@ const App: React.FC = () => {
   return (
     <AppBox>
       <Modal moreInf={more} component={<MoreInf />} />
-      <Header user={user} />
-      <Routers user={user} />
+      <Header user={user} moreInf={more} />
+      <Routers user={user} moreInf={more} />
     </AppBox>
   );
 };

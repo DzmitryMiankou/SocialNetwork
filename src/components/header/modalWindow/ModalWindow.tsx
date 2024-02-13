@@ -56,8 +56,9 @@ const SX: { button: SxProps } = {
 
 const MoadalWindow: React.FC<{
   data: { id: number; firstName: string; lastName: string }[] | undefined;
+  moreInf: { id: number | null; open: boolean };
   clouseHandler: () => void;
-}> = ({ data, clouseHandler }) => {
+}> = ({ data, clouseHandler, moreInf }) => {
   const [setContact] = useNewContactMutation();
   const [open, setopen] = React.useState<number | "">("");
   const { ref } = useClouseClickOut({ clouseHandler });
@@ -80,7 +81,7 @@ const MoadalWindow: React.FC<{
   };
 
   return (
-    <ModalBox ref={ref}>
+    <ModalBox ref={!moreInf.id ? ref : null}>
       <ul>
         {data?.map(({ id, lastName, firstName }) => (
           <UserBox
