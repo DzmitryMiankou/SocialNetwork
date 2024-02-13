@@ -59,7 +59,7 @@ const MoadalWindow: React.FC<{
   clouseHandler: () => void;
 }> = ({ data, clouseHandler }) => {
   const [setContact] = useNewContactMutation();
-  const [open, setopen] = React.useState<number | string>("");
+  const [open, setopen] = React.useState<number | "">("");
   const { ref } = useClouseClickOut({ clouseHandler });
   const dispatch: AppDispatch = useDispatch();
 
