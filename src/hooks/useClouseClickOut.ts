@@ -11,6 +11,7 @@ const useClouseClickOut = ({
 
   React.useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
+      if ((event.target as HTMLElement).tagName === "INPUT") return;
       if (
         wrapperRef.current &&
         !wrapperRef.current.contains(event.target as Node)

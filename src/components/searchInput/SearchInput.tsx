@@ -31,7 +31,7 @@ const Input = styled.input`
   height: 10px;
   font-size: 14px;
   padding: 5px;
-  width: 140px;
+  width: 100%;
 `;
 
 const InputButton = styled.button`
@@ -70,7 +70,6 @@ const SearchInput: React.FC<Props> = (props) => {
       $colorPl={props.colorPl ?? "rgb(0, 0, 0)"}
     >
       <Input
-        id="bluer"
         onChange={props.handleChange}
         value={props.value}
         type="text"

@@ -18,6 +18,9 @@ const createSocketFactory = () => {
         withCredentials: true,
       });
     }
+    _socket.on("refresh", (body: string) => {
+      console.log(body);
+    });
     _socket.on("rooms", (body: any) => {
       console.log(body);
     });
