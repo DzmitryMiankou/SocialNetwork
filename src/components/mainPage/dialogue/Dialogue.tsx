@@ -158,7 +158,7 @@ const Dialogue: React.FC<PropType> = ({ mousUp, allWind, dialogues, user }) => {
     return dialDate.toLocaleTimeString("en-US", optionDate.hour);
   };
 
-  const d = (arr: DialoguesType[]) =>
+  const sortArr = (arr: DialoguesType[]) =>
     arr?.sort((a, b) => +new Date(a.createdAt) - +new Date(b.createdAt));
 
   const idUser = user?.user?.id;
@@ -171,7 +171,7 @@ const Dialogue: React.FC<PropType> = ({ mousUp, allWind, dialogues, user }) => {
       <ScrollBox>
         <Ul>
           {dialogues &&
-            d([...dialogues]).map(
+            sortArr([...dialogues]).map(
               ({ targetId, target, sourceId, sources, createdAt }) => (
                 <Li
                   key={targetId === idUser ? sourceId + "t" : targetId}
