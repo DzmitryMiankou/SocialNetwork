@@ -12,7 +12,7 @@ const ColResize = styled.div<{ $mousUp: boolean }>`
   content: '" "';
   width: 1px;
   background-color: ${(prop) =>
-    prop.$mousUp ? "var(--bg-colResize)" : "#e6c6b2"};
+    prop.$mousUp ? "var(--bg-colResize)" : "var(--bg-colResizeNoActive)"};
   padding: ${(prop) => (prop.$mousUp ? "0px 1px" : "0px 0px")};
   cursor: col-resize;
   position: absolute;

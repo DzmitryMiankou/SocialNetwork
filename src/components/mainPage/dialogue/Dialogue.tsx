@@ -28,11 +28,11 @@ const LinkFrend = styled(NavLink)<{ $mousUp: boolean; $allWind: boolean }>`
   &:hover {
     background: ${(prop) =>
       !prop.$mousUp
-        ? "linear-gradient(90deg, rgba(63, 94, 251, 0) 1%,  rgba(255, 255, 255, 0.3) 30%)"
+        ? "linear-gradient(90deg, rgba(63, 94, 251, 0) 1%,  rgba(255, 252, 250, 0.304) 30%)"
         : ""};
   }
   &.active {
-    background-color: #ffffff88;
+    background-color: #d19a6c5e;
     cursor: default;
   }
 `;

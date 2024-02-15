@@ -10,7 +10,8 @@
   --bg-messages: #ae8a66;
   --bg-dialogue: #ebc597;
   --bg-contacts: #c877148d;
-  --bg-colResize: #ff7300;
+  --bg-colResize: #ff730093;
+  --bg-colResizeNoActive: #99642778;
 }
 
 * {

@@ -111,7 +111,7 @@ const ArrowScroll = styled.button`
   position: absolute;
   border: none;
   background: #ffffff93;
-  right: 20px;
+  right: 5px;
   top: -45px;
   border-radius: 50px;
   padding: 6px 6px 3px 6px;
