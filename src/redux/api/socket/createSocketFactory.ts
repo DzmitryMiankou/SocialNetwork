@@ -1,9 +1,11 @@
 import { fetchBaseQuery } from "@reduxjs/toolkit/query";
 import { Socket, io } from "socket.io-client";
+import { loginActions } from "../../localState/loginReducer";
+import { StoreType } from "../../store";
 
-let store: any;
+let store: StoreType;
 
-export const injectStore = (_store: any) => (store = _store);
+export const injectStore = (_store: StoreType) => (store = _store);
 
 const createSocketFactory = () => {
   let _socket: Socket;
@@ -12,17 +14,18 @@ const createSocketFactory = () => {
       _socket = io(`http://localhost:5000/`, {
         auth: async (cb) =>
           cb({
-            Authorization: "Bearer=" + (await store.getState().login.token),
+            Authorization: "Bearer=" + store.getState().login.token,
           }),
         transports: ["websocket"],
         withCredentials: true,
       });
     }
     _socket.on("refresh", (body: string) => {
-      console.log(body);
+      store.dispatch(loginActions.upTokenAction({ access_token: body }));
+      _socket.connect();
     });
     _socket.on("rooms", (body: any) => {
-      console.log(body);
+      //console.log(body);
     });
     if (_socket.disconnected) _socket.connect();
     return _socket;

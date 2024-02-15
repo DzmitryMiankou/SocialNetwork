@@ -53,11 +53,13 @@ export const loginActions = {
       type: SETDATA,
       value,
     } as const),
-  upTokenAction: (value: { access_token: string }) =>
-    ({
+  upTokenAction: (value: { access_token: string }) => {
+    console.log(value);
+    return {
       type: UPDATA,
       value,
-    } as const),
+    } as const;
+  },
   logOutAction: () =>
     ({
       type: LOGAUT,

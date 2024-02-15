@@ -17,3 +17,4 @@ export default store;
 export const persistor = persistStore(store);
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof combinedReducer>;
+export type StoreType = typeof store;
