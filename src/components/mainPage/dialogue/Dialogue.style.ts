@@ -13,7 +13,11 @@ const ScrollBox = styled.div`
 
 const LinkFrend = styled(NavLink)<{ $mousUp: boolean; $allWind: boolean }>`
   padding: ${(prop) => (!prop.$allWind ? "10px 40px" : "10px 20px")};
-  display: flex;
+  display: grid;
+  grid-template-columns: 40px auto 0.2fr;
+  grid-template-areas:
+    "ava dial time"
+    "ava message time";
   align-items: center;
   font-size: 15px;
   white-space: nowrap;
@@ -27,6 +31,36 @@ const LinkFrend = styled(NavLink)<{ $mousUp: boolean; $allWind: boolean }>`
     background-color: #ffefe15e;
     cursor: default;
   }
+`;
+
+const Dial = styled.div`
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  grid-area: dial;
+`;
+
+const MessDial = styled.p`
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  grid-area: message;
+  color: var(--dial-mess-color);
+`;
+
+const DateTime = styled.div`
+  color: grey;
+  font-size: 12px;
+  height: 100%;
+  margin-left: auto;
+  grid-area: time;
+  align-items: start;
+`;
+
+const AvatarBox = styled.div`
+  grid-area: ava;
 `;
 
 const H3 = styled.h3<{ $allWind: boolean }>`
@@ -65,15 +99,6 @@ const Ul = styled.ul`
   justify-content: flex-end;
 `;
 
-const DateTime = styled.div`
-  color: grey;
-  font-size: 12px;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  margin-left: auto;
-`;
-
 const SX: { icon: SxProps } = {
   icon: {
     fontSize: "20px",
@@ -84,20 +109,13 @@ const SX: { icon: SxProps } = {
   },
 };
 
-const Dial = styled.div`
-  margin-left: 10px;
-  font-size: 14px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-`;
-
 export const St = {
   PosterBox,
   Dial,
   H3,
   Li,
   Butt,
+  AvatarBox,
   DateTime,
   AvatarImg,
   ScrollBox,
@@ -105,4 +123,5 @@ export const St = {
   ModCom,
   LinkFrend,
   SX,
+  MessDial,
 };

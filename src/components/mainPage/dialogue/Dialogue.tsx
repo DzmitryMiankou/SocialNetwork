@@ -80,7 +80,7 @@ const Dialogue: React.FC<PropType> = ({ mousUp, allWind, dialogues, user }) => {
         <St.Ul>
           {dialogues &&
             sortArr([...dialogues]).map(
-              ({ targetId, target, sourceId, sources, createdAt }) => (
+              ({ targetId, target, sourceId, sources, createdAt, message }) => (
                 <St.Li
                   key={targetId === idUser ? sourceId + "t" : targetId}
                   onContextMenu={(e) =>
@@ -96,7 +96,7 @@ const Dialogue: React.FC<PropType> = ({ mousUp, allWind, dialogues, user }) => {
                         : `/:${targetId}_${target.firstName}_${target.lastName}`
                     }
                   >
-                    <>
+                    <St.AvatarBox>
                       {(
                         <Avatar
                           size={30}
@@ -108,7 +108,7 @@ const Dialogue: React.FC<PropType> = ({ mousUp, allWind, dialogues, user }) => {
                           fontSize={16}
                         />
                       ) ?? <St.AvatarImg src={avatar} alt="avatar" />}
-                    </>
+                    </St.AvatarBox>
                     <St.Dial>
                       {`${
                         targetId === idUser
@@ -118,6 +118,7 @@ const Dialogue: React.FC<PropType> = ({ mousUp, allWind, dialogues, user }) => {
                         targetId === idUser ? sources.lastName : target.lastName
                       }`}
                     </St.Dial>
+                    <St.MessDial>{message && message}</St.MessDial>
                     <St.DateTime>{correctDate(createdAt)}</St.DateTime>
                   </St.LinkFrend>
                   <Modal

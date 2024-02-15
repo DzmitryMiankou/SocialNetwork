@@ -31,4 +31,5 @@ export interface MessagesType extends BigMessageData {
   target: NewTar;
 }
 
-export type DialoguesType = SmallMessageData & SourcesAndTarget;
+export type DialoguesType = SmallMessageData &
+  SourcesAndTarget & { message?: string };

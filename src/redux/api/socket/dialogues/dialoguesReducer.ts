@@ -51,7 +51,9 @@ export const socketApi = createApi({
                     (el.targetId !== di.sourceId ||
                       el.sourceId !== di.targetId) &&
                     +new Date(el.createdAt) < +new Date(di.createdAt)
-                  ) && (el.createdAt = di.createdAt)
+                  ) &&
+                  (el.createdAt = di.createdAt) &&
+                  (el.message = di.message)
               );
 
               !draft.find(
