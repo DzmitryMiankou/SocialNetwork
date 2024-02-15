@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import avatar from "../../../img/images.png";
 import Modal from "../../alert/Alert";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
@@ -110,6 +110,9 @@ type PropType = {
 const Dialogue: React.FC<PropType> = ({ mousUp, allWind, dialogues, user }) => {
   const [open, setOpen] = React.useState<boolean>(false);
   const [id, setId] = React.useState<number>();
+  const { idM } = useParams();
+  const dialogueData: Array<string> | string =
+    idM?.replace(":", "").split("_") ?? "";
 
   const contextHandler = (
     e: React.MouseEvent<HTMLElement>,
@@ -182,6 +185,9 @@ const Dialogue: React.FC<PropType> = ({ mousUp, allWind, dialogues, user }) => {
                   <LinkFrend
                     $allWind={allWind}
                     $mousUp={mousUp}
+                    onMouseMove={(e) =>
+                      console.log(+dialogueData[0] === targetId)
+                    }
                     to={
                       targetId === idUser
                         ? `/:${sourceId}_${sources.firstName}_${sources.lastName}`

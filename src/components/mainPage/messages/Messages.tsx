@@ -24,11 +24,11 @@ const Messages: React.FC = () => {
 
   const [trigger2] = useHandlerClickKeyMutation();
   const { idM } = useParams();
+  const dialogueData: Array<string> | string =
+    idM?.replace(":", "").split("_") ?? "";
   const [text, setText] = useState<string>("");
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
-  const dialogueData: Array<string> | string =
-    idM?.replace(":", "").split("_") ?? "";
 
   const intoScroll = (behavior: ScrollBehavior = "auto"): void =>
     messagesEndRef.current?.scrollIntoView({
