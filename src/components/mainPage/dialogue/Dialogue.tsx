@@ -1,104 +1,12 @@
 import React from "react";
-import styled from "styled-components";
-import { NavLink, useParams } from "react-router-dom";
+import { St } from "./Dialogue.style";
 import avatar from "../../../img/images.png";
 import Modal from "../../alert/Alert";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import Avatar from "../../avatar/Avatar";
-import { SxProps } from "@mui/material";
 import { LogInitialStateType } from "../../../redux/localState/loginReducer";
 import { DialoguesType } from "../../../redux/api/socket/socket.interface";
-
-const PosterBox = styled.div`
-  display: grid;
-  grid-template-rows: 44px auto;
-`;
-
-const ScrollBox = styled.div`
-  min-width: 150px;
-`;
-
-const LinkFrend = styled(NavLink)<{ $mousUp: boolean; $allWind: boolean }>`
-  padding: ${(prop) => (!prop.$allWind ? "10px 40px" : "10px 20px")};
-  display: flex;
-  align-items: center;
-  font-size: 15px;
-  white-space: nowrap;
-  &:hover {
-    background: ${(prop) =>
-      !prop.$mousUp
-        ? "linear-gradient(90deg, rgba(63, 94, 251, 0) 1%,  rgba(255, 252, 250, 0.304) 30%)"
-        : ""};
-  }
-  &.active {
-    background-color: #d19a6c5e;
-    cursor: default;
-  }
-`;
-
-const H3 = styled.h3<{ $allWind: boolean }>`
-  padding: ${(prop) => (!prop.$allWind ? "10px 40px" : "10px 20px")};
-  font-size: 18px;
-  background-color: #c69f76;
-`;
-
-const AvatarImg = styled.img`
-  max-width: 20px;
-`;
-
-const Li = styled.li`
-  position: relative;
-`;
-
-const ModCom = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  height: 100%;
-`;
-
-const Butt = styled.button`
-  background-color: transparent;
-  border: none;
-`;
-
-const Ul = styled.ul`
-  overflow-y: scroll;
-  overflow-x: hidden;
-  height: calc(var(--hight-blok-noHeader) - 44px);
-  display: flex;
-  flex-direction: column-reverse;
-  justify-content: flex-end;
-`;
-
-const DateTime = styled.div`
-  color: grey;
-  font-size: 12px;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  margin-left: auto;
-`;
-
-const SX: { icon: SxProps } = {
-  icon: {
-    fontSize: "20px",
-    transition: "0.2s",
-    "&:hover": {
-      color: "#ffffff",
-    },
-  },
-};
-
-const Dial = styled.div`
-  margin-left: 10px;
-  font-size: 14px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-`;
 
 type PropType = {
   mousUp: boolean;
@@ -110,9 +18,6 @@ type PropType = {
 const Dialogue: React.FC<PropType> = ({ mousUp, allWind, dialogues, user }) => {
   const [open, setOpen] = React.useState<boolean>(false);
   const [id, setId] = React.useState<number>();
-  const { idM } = useParams();
-  const dialogueData: Array<string> | string =
-    idM?.replace(":", "").split("_") ?? "";
 
   const contextHandler = (
     e: React.MouseEvent<HTMLElement>,
@@ -167,27 +72,24 @@ const Dialogue: React.FC<PropType> = ({ mousUp, allWind, dialogues, user }) => {
   const idUser = user?.user?.id;
 
   return (
-    <PosterBox>
+    <St.PosterBox>
       <header>
-        <H3 $allWind={allWind}>Dialogue</H3>
+        <St.H3 $allWind={allWind}>Dialogue</St.H3>
       </header>
-      <ScrollBox>
-        <Ul>
+      <St.ScrollBox>
+        <St.Ul>
           {dialogues &&
             sortArr([...dialogues]).map(
               ({ targetId, target, sourceId, sources, createdAt }) => (
-                <Li
+                <St.Li
                   key={targetId === idUser ? sourceId + "t" : targetId}
                   onContextMenu={(e) =>
                     contextHandler(e, targetId === idUser ? sourceId : targetId)
                   }
                 >
-                  <LinkFrend
+                  <St.LinkFrend
                     $allWind={allWind}
                     $mousUp={mousUp}
-                    onMouseMove={(e) =>
-                      console.log(+dialogueData[0] === targetId)
-                    }
                     to={
                       targetId === idUser
                         ? `/:${sourceId}_${sources.firstName}_${sources.lastName}`
@@ -205,9 +107,9 @@ const Dialogue: React.FC<PropType> = ({ mousUp, allWind, dialogues, user }) => {
                           }
                           fontSize={16}
                         />
-                      ) ?? <AvatarImg src={avatar} alt="avatar" />}
+                      ) ?? <St.AvatarImg src={avatar} alt="avatar" />}
                     </>
-                    <Dial>
+                    <St.Dial>
                       {`${
                         targetId === idUser
                           ? sources.firstName
@@ -215,31 +117,31 @@ const Dialogue: React.FC<PropType> = ({ mousUp, allWind, dialogues, user }) => {
                       } ${
                         targetId === idUser ? sources.lastName : target.lastName
                       }`}
-                    </Dial>
-                    <DateTime>{correctDate(createdAt)}</DateTime>
-                  </LinkFrend>
+                    </St.Dial>
+                    <St.DateTime>{correctDate(createdAt)}</St.DateTime>
+                  </St.LinkFrend>
                   <Modal
                     open={open}
                     num={id}
                     n={targetId === idUser ? sourceId : targetId}
                     clouseHandler={clouseHandler}
                     component={
-                      <ModCom>
+                      <St.ModCom>
                         {[
-                          <HighlightOffIcon sx={SX.icon} />,
-                          <DeleteOutlineIcon sx={SX.icon} />,
+                          <HighlightOffIcon sx={St.SX.icon} />,
+                          <DeleteOutlineIcon sx={St.SX.icon} />,
                         ].map((icon, i) => (
-                          <Butt key={i + "-iconDialogue"}>{icon}</Butt>
+                          <St.Butt key={i + "-iconDialogue"}>{icon}</St.Butt>
                         ))}
-                      </ModCom>
+                      </St.ModCom>
                     }
                   />
-                </Li>
+                </St.Li>
               )
             )}
-        </Ul>
-      </ScrollBox>
-    </PosterBox>
+        </St.Ul>
+      </St.ScrollBox>
+    </St.PosterBox>
   );
 };
 
