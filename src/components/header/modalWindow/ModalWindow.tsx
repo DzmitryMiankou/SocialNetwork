@@ -20,10 +20,10 @@ const ModalBox = styled.div`
 `;
 
 const UserBox = styled.li`
-  border-bottom: black solid 1px;
+  border-bottom: #00000034 solid 1px;
   transition: 0.2s;
   &:hover {
-    background-color: #ffead9;
+    background-color: #fff8f3;
   }
 `;
 const UserLink = styled.div`
