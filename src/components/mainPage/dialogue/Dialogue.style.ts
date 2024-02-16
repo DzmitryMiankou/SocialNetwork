@@ -14,13 +14,12 @@ const ScrollBox = styled.div`
 const LinkFrend = styled(NavLink)<{ $mousUp: boolean; $allWind: boolean }>`
   padding: ${(prop) => (!prop.$allWind ? "10px 40px" : "10px 20px")};
   display: grid;
-  grid-template-columns: 40px auto 0.2fr;
+  grid-template-columns: 40px auto 0.2fr min-content;
   grid-template-areas:
-    "ava dial time"
-    "ava message time";
+    "ava dial done time"
+    "ava message . .";
   align-items: center;
   font-size: 15px;
-  white-space: nowrap;
   &:hover {
     background: ${(prop) =>
       !prop.$mousUp
@@ -57,6 +56,11 @@ const DateTime = styled.div`
   margin-left: auto;
   grid-area: time;
   align-items: start;
+`;
+
+const DoneAll = styled.div`
+  grid-area: done;
+  margin-left: auto;
 `;
 
 const AvatarBox = styled.div`
@@ -110,6 +114,7 @@ const SX: { icon: SxProps } = {
 };
 
 export const St = {
+  DoneAll,
   PosterBox,
   Dial,
   H3,

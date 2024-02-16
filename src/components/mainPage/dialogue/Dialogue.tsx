@@ -7,6 +7,7 @@ import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import Avatar from "../../avatar/Avatar";
 import { LogInitialStateType } from "../../../redux/localState/loginReducer";
 import { DialoguesType } from "../../../redux/api/socket/socket.interface";
+import DoneAllIcon from "@mui/icons-material/DoneAll";
 
 type PropType = {
   mousUp: boolean;
@@ -120,6 +121,9 @@ const Dialogue: React.FC<PropType> = ({ mousUp, allWind, dialogues, user }) => {
                     </St.Dial>
                     <St.MessDial>{message && message}</St.MessDial>
                     <St.DateTime>{correctDate(createdAt)}</St.DateTime>
+                    <St.DoneAll>
+                      <DoneAllIcon sx={{ fontSize: "16px", color: "grey" }} />
+                    </St.DoneAll>
                   </St.LinkFrend>
                   <Modal
                     open={open}
