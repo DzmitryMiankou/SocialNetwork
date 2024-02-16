@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { NavLink } from "react-router-dom";
 import { SxProps } from "@mui/material";
 
@@ -82,16 +82,7 @@ const Li = styled.li`
 `;
 
 const ModCom = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  place-items: center;
-  gap: 8px;
   height: 100%;
-`;
-
-const Butt = styled.button`
-  background-color: transparent;
-  border: none;
 `;
 
 const Ul = styled.ul`
@@ -103,13 +94,36 @@ const Ul = styled.ul`
   justify-content: flex-end;
 `;
 
+const opacity = keyframes`
+  0% {
+    transform: translate(90px, 0);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+`;
+
+const Butt = styled.button<{ $bg: string; $duration: string; $indexZ: number }>`
+  position: relative;
+  background-color: transparent;
+  border: none;
+  background-color: ${(prop) => prop.$bg};
+  height: 100%;
+  width: 60px;
+  animation-name: ${opacity};
+  animation-timing-function: ease-in;
+  animation-duration: ${(prop) => prop.$duration};
+  z-index: ${(prop) => prop.$indexZ};
+  transition: 0.2s;
+  &:hover {
+    filter: contrast(150%);
+  }
+`;
+
 const SX: { icon: SxProps } = {
   icon: {
     fontSize: "20px",
-    transition: "0.2s",
-    "&:hover": {
-      color: "#ffffff",
-    },
+    color: "#ffffff",
   },
 };
 

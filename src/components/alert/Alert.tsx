@@ -4,12 +4,11 @@ import useClouseClickOut from "../../hooks/useClouseClickOut";
 
 const ModalBox = styled.div<{ $bg: string }>`
   position: absolute;
-  background-color: ${(prop) => prop.$bg};
+  background-color: transparent;
   z-index: 24;
   top: 0;
   right: 0px;
   height: 100%;
-  padding: 0px 10px;
 `;
 
 const Modal: React.FC<{

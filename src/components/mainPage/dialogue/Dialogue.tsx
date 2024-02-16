@@ -133,10 +133,30 @@ const Dialogue: React.FC<PropType> = ({ mousUp, allWind, dialogues, user }) => {
                     component={
                       <St.ModCom>
                         {[
-                          <HighlightOffIcon sx={St.SX.icon} />,
-                          <DeleteOutlineIcon sx={St.SX.icon} />,
-                        ].map((icon, i) => (
-                          <St.Butt key={i + "-iconDialogue"}>{icon}</St.Butt>
+                          {
+                            icon: <HighlightOffIcon sx={St.SX.icon} />,
+                            color: "var(--bg-clear)",
+                            title: "clear",
+                            duration: "0.4s",
+                            indexZ: 25,
+                          },
+                          {
+                            icon: <DeleteOutlineIcon sx={St.SX.icon} />,
+                            color: "var(--bg-delete)",
+                            title: "delete",
+                            duration: "0.3s",
+                            indexZ: 26,
+                          },
+                        ].map(({ icon, color, title, duration, indexZ }, i) => (
+                          <St.Butt
+                            $bg={color}
+                            key={i + "-iconDialogue"}
+                            $duration={duration}
+                            $indexZ={indexZ}
+                          >
+                            {icon}
+                            <p style={{ color: "white" }}>{title}</p>
+                          </St.Butt>
                         ))}
                       </St.ModCom>
                     }
