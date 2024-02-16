@@ -33,19 +33,19 @@ const LinkFrend = styled(NavLink)<{ $mousUp: boolean; $allWind: boolean }>`
   }
 `;
 
-const Dial = styled.div`
-  font-size: 14px;
+const Nowrap = styled.div`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+`;
+
+const Dial = styled(Nowrap)`
+  font-size: 14px;
   grid-area: dial;
 `;
 
-const MessDial = styled.p`
+const MessDial = styled(Nowrap)`
   font-size: 12px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
   grid-area: message;
   color: var(--dial-mess-color);
 `;
@@ -78,9 +78,9 @@ const Li = styled.li`
 `;
 
 const ModCom = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  place-items: center;
   gap: 8px;
   height: 100%;
 `;
