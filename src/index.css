@@ -13,9 +13,9 @@
   --bg-colResize: #ff730093;
   --bg-colResizeNoActive: #99642778;
   --dial-mess-color: rgb(143, 117, 99);
-  --bg-delete: rgb(229, 0, 0);
-  --bg-clear: rgb(224, 146, 0);
-  --bg-more-inf: rgb(0, 150, 187);
+  --bg-delete: rgb(182, 42, 42);
+  --bg-clear: rgb(194, 149, 66);
+  --bg-more-inf: rgb(87, 150, 166);
 }
 
 * {

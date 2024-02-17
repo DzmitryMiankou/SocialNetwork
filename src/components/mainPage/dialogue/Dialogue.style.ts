@@ -94,23 +94,28 @@ const Ul = styled.ul`
   justify-content: flex-end;
 `;
 
-const opacity = keyframes`
+const opacity = (n: number) => keyframes`
   0% {
-    transform: translate(90px, 0);
+    transform: translate(calc(90px * ${n + 2}), 0);
   }
   100% {
     transform: translate(0, 0);
   }
 `;
 
-const Butt = styled.button<{ $bg: string; $duration: string; $indexZ: number }>`
+const Butt = styled.button<{
+  $bg: string;
+  $duration: string;
+  $indexZ: number;
+  $countEl: number;
+}>`
   position: relative;
   background-color: transparent;
   border: none;
   background-color: ${(prop) => prop.$bg};
   height: 100%;
   width: 60px;
-  animation-name: ${opacity};
+  animation-name: ${(prop) => opacity(prop.$countEl)};
   animation-timing-function: ease;
   animation-duration: ${(prop) => prop.$duration};
   z-index: ${(prop) => prop.$indexZ};
