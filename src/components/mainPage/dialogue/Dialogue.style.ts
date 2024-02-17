@@ -111,7 +111,7 @@ const Butt = styled.button<{ $bg: string; $duration: string; $indexZ: number }>`
   height: 100%;
   width: 60px;
   animation-name: ${opacity};
-  animation-timing-function: ease-in;
+  animation-timing-function: ease;
   animation-duration: ${(prop) => prop.$duration};
   z-index: ${(prop) => prop.$indexZ};
   transition: 0.2s;

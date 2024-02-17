@@ -8,6 +8,7 @@ import Avatar from "../../avatar/Avatar";
 import { LogInitialStateType } from "../../../redux/localState/loginReducer";
 import { DialoguesType } from "../../../redux/api/socket/socket.interface";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
+import LocalLibraryOutlinedIcon from "@mui/icons-material/LocalLibraryOutlined";
 
 type PropType = {
   mousUp: boolean;
@@ -134,17 +135,24 @@ const Dialogue: React.FC<PropType> = ({ mousUp, allWind, dialogues, user }) => {
                       <St.ModCom>
                         {[
                           {
+                            icon: <LocalLibraryOutlinedIcon sx={St.SX.icon} />,
+                            color: "var(--bg-more-inf)",
+                            title: "more inf",
+                            duration: "0.5s",
+                            indexZ: 24,
+                          },
+                          {
                             icon: <HighlightOffIcon sx={St.SX.icon} />,
                             color: "var(--bg-clear)",
                             title: "clear",
-                            duration: "0.4s",
+                            duration: "0.3s",
                             indexZ: 25,
                           },
                           {
                             icon: <DeleteOutlineIcon sx={St.SX.icon} />,
                             color: "var(--bg-delete)",
                             title: "delete",
-                            duration: "0.3s",
+                            duration: "0.2s",
                             indexZ: 26,
                           },
                         ].map(({ icon, color, title, duration, indexZ }, i) => (
