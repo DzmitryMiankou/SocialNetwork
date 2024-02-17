@@ -20,6 +20,7 @@ type PropType = {
 const Dialogue: React.FC<PropType> = ({ mousUp, allWind, dialogues, user }) => {
   const [open, setOpen] = React.useState<boolean>(false);
   const [id, setId] = React.useState<number>();
+  const [an, setAn] = React.useState<boolean>(false);
 
   const contextHandler = (
     e: React.MouseEvent<HTMLElement>,
@@ -28,9 +29,13 @@ const Dialogue: React.FC<PropType> = ({ mousUp, allWind, dialogues, user }) => {
     e.preventDefault();
     setOpen(true);
     setId(id);
+    setAn(false);
   };
 
-  const clouseHandler = (): void => setOpen(false);
+  const clouseHandler = (): void => {
+    setAn(true);
+    setTimeout(() => setOpen(false), 180);
+  };
 
   const correctDate = (date: string): string => {
     const dialDate = new Date(date);
@@ -100,6 +105,7 @@ const Dialogue: React.FC<PropType> = ({ mousUp, allWind, dialogues, user }) => {
                         ? `/:${sourceId}_${sources.firstName}_${sources.lastName}`
                         : `/:${targetId}_${target.firstName}_${target.lastName}`
                     }
+                    $cl={an}
                   >
                     <St.AvatarBox>
                       {(
@@ -165,6 +171,7 @@ const Dialogue: React.FC<PropType> = ({ mousUp, allWind, dialogues, user }) => {
                             $duration={duration}
                             $indexZ={indexZ}
                             $countEl={i}
+                            $open={an}
                           >
                             {icon}
                             <p style={{ color: "white" }}>{title}</p>
