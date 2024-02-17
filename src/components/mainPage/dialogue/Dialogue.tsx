@@ -92,6 +92,9 @@ const Dialogue: React.FC<PropType> = ({ mousUp, allWind, dialogues, user }) => {
                   <St.LinkFrend
                     $allWind={allWind}
                     $mousUp={mousUp}
+                    $open={
+                      open && id === (targetId === idUser ? sourceId : targetId)
+                    }
                     to={
                       targetId === idUser
                         ? `/:${sourceId}_${sources.firstName}_${sources.lastName}`
@@ -125,55 +128,51 @@ const Dialogue: React.FC<PropType> = ({ mousUp, allWind, dialogues, user }) => {
                     <St.DoneAll>
                       <DoneAllIcon sx={{ fontSize: "16px", color: "grey" }} />
                     </St.DoneAll>
-                    <Modal
-                      open={open}
-                      num={id}
-                      n={targetId === idUser ? sourceId : targetId}
-                      clouseHandler={clouseHandler}
-                      component={
-                        <St.ModCom>
-                          {[
-                            {
-                              icon: (
-                                <LocalLibraryOutlinedIcon sx={St.SX.icon} />
-                              ),
-                              color: "var(--bg-more-inf)",
-                              title: "more inf",
-                              duration: "0.5s",
-                              indexZ: 24,
-                            },
-                            {
-                              icon: <HighlightOffIcon sx={St.SX.icon} />,
-                              color: "var(--bg-clear)",
-                              title: "clear",
-                              duration: "0.3s",
-                              indexZ: 25,
-                            },
-                            {
-                              icon: <DeleteOutlineIcon sx={St.SX.icon} />,
-                              color: "var(--bg-delete)",
-                              title: "delete",
-                              duration: "0.2s",
-                              indexZ: 26,
-                            },
-                          ].map(
-                            ({ icon, color, title, duration, indexZ }, i) => (
-                              <St.Butt
-                                $bg={color}
-                                key={i + "-iconDialogue"}
-                                $duration={duration}
-                                $indexZ={indexZ}
-                                $countEl={i}
-                              >
-                                {icon}
-                                <p style={{ color: "white" }}>{title}</p>
-                              </St.Butt>
-                            )
-                          )}
-                        </St.ModCom>
-                      }
-                    />
                   </St.LinkFrend>
+                  <Modal
+                    open={open}
+                    num={id}
+                    n={targetId === idUser ? sourceId : targetId}
+                    clouseHandler={clouseHandler}
+                    component={
+                      <St.ModCom>
+                        {[
+                          {
+                            icon: <LocalLibraryOutlinedIcon sx={St.SX.icon} />,
+                            color: "var(--bg-more-inf)",
+                            title: "more inf",
+                            duration: "0.5s",
+                            indexZ: 24,
+                          },
+                          {
+                            icon: <HighlightOffIcon sx={St.SX.icon} />,
+                            color: "var(--bg-clear)",
+                            title: "clear",
+                            duration: "0.3s",
+                            indexZ: 25,
+                          },
+                          {
+                            icon: <DeleteOutlineIcon sx={St.SX.icon} />,
+                            color: "var(--bg-delete)",
+                            title: "delete",
+                            duration: "0.2s",
+                            indexZ: 26,
+                          },
+                        ].map(({ icon, color, title, duration, indexZ }, i) => (
+                          <St.Butt
+                            $bg={color}
+                            key={i + "-iconDialogue"}
+                            $duration={duration}
+                            $indexZ={indexZ}
+                            $countEl={i}
+                          >
+                            {icon}
+                            <p style={{ color: "white" }}>{title}</p>
+                          </St.Butt>
+                        ))}
+                      </St.ModCom>
+                    }
+                  />
                 </St.Li>
               )
             )}

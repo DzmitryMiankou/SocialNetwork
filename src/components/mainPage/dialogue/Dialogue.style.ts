@@ -11,7 +11,20 @@ const ScrollBox = styled.div`
   min-width: 150px;
 `;
 
-const LinkFrend = styled(NavLink)<{ $mousUp: boolean; $allWind: boolean }>`
+const LinkAnim = keyframes`
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(-180px, 0);
+  }
+`;
+
+const LinkFrend = styled(NavLink)<{
+  $mousUp: boolean;
+  $allWind: boolean;
+  $open: boolean;
+}>`
   padding: ${(prop) => (!prop.$allWind ? "10px 40px" : "10px 20px")};
   display: grid;
   grid-template-columns: 40px auto 0.2fr min-content;
@@ -20,6 +33,11 @@ const LinkFrend = styled(NavLink)<{ $mousUp: boolean; $allWind: boolean }>`
     "ava message . .";
   align-items: center;
   font-size: 15px;
+  transform: ${(prop) =>
+    prop.$open ? "translate(-180px, 0)" : "translate(0, 0)"};
+  animation-name: ${(prop) => (prop.$open ? LinkAnim : null)};
+  animation-timing-function: ease;
+  animation-duration: 0.5s;
   &:hover {
     background: ${(prop) =>
       !prop.$mousUp
