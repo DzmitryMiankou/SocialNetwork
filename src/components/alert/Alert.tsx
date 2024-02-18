@@ -12,18 +12,17 @@ const ModalBox = styled.div<{ $bg: string }>`
 `;
 
 const Modal: React.FC<{
-  open: boolean;
   num: number | undefined;
   n: number;
   component: JSX.Element;
   bg?: string;
   clouseHandler: () => void;
-}> = ({ open, num, n, component, bg, clouseHandler }) => {
+}> = ({ num, n, component, bg, clouseHandler }) => {
   const { ref } = useClouseClickOut({ clouseHandler });
 
   return (
     <>
-      {open && num === n ? (
+      {num === n ? (
         <ModalBox ref={ref} $bg={bg ?? "#cead8f"}>
           {component}
         </ModalBox>

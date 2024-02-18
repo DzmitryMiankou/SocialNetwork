@@ -90,7 +90,6 @@ const SX: { icon: SxProps } = {
 const Contacts: React.FC<{
   contacts: ContactsType[] | undefined;
 }> = ({ contacts }) => {
-  const [get, set] = useState<boolean>(false);
   const [getid, setId] = useState<number>();
   const [setContact] = useDelContactMutation();
   const [value, setValue] = useState<string>("");
@@ -99,12 +98,11 @@ const Contacts: React.FC<{
   const openHandler = (e: React.MouseEvent<HTMLElement>, id: number): void => {
     e.preventDefault();
     setId(id);
-    set(true);
   };
 
   const clouseHandler = (): void => {
+    setId(0);
     setValue("");
-    set(false);
   };
 
   const deleteHandler = (id: number): void => {
@@ -171,7 +169,6 @@ const Contacts: React.FC<{
             </AvatarFriendBox>
             <Modal
               bg={"#bc9979"}
-              open={get}
               num={getid}
               n={id}
               clouseHandler={clouseHandler}

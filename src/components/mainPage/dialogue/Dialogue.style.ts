@@ -15,7 +15,6 @@ const LinkFrend = styled(NavLink)<{
   $mousUp: boolean;
   $allWind: boolean;
   $open: boolean;
-  $cl: boolean;
 }>`
   padding: ${(prop) => (!prop.$allWind ? "10px 40px" : "10px 20px")};
   display: grid;
@@ -26,8 +25,8 @@ const LinkFrend = styled(NavLink)<{
   align-items: center;
   font-size: 15px;
   transform: ${(prop) =>
-    !prop.$cl && prop.$open ? "translate(-180px, 0)" : "translate(0, 0)"};
-  transition: ${(prop) => (!prop.$cl ? "0.5s" : "0.3s")};
+    prop.$open ? "translate(-180px, 0)" : "translate(0, 0)"};
+  transition: ${(prop) => (prop.$open ? "0.5s" : "0.3s")};
   &:hover {
     background: ${(prop) =>
       !prop.$mousUp
@@ -134,8 +133,7 @@ const Butt = styled.button<{
   background-color: ${(prop) => prop.$bg};
   height: 100%;
   width: 60px;
-  animation-name: ${(prop) =>
-    !prop.$open ? opacity(prop.$countEl) : opacity2(prop.$countEl)};
+  animation-name: ${(prop) => opacity(prop.$countEl)};
   animation-timing-function: ease;
   animation-duration: ${(prop) => prop.$duration};
   z-index: ${(prop) => prop.$indexZ};
