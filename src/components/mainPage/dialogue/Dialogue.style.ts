@@ -2,6 +2,29 @@ import styled, { keyframes } from "styled-components";
 import { NavLink } from "react-router-dom";
 import { SxProps } from "@mui/material";
 
+const Header = styled.header<{ $allWind: boolean }>`
+  padding: ${(prop) => (!prop.$allWind ? "10px 40px" : "10px 20px")};
+  display: flex;
+  justify-content: space-between;
+  background-color: #c69f76;
+`;
+
+const DragButton = styled.button`
+  background: none;
+  user-select: none;
+  border: none;
+  color: #7e664b;
+  font-size: 12px;
+  &:hover {
+    color: #7e66499b;
+  }
+`;
+const DragIcon = styled.div<{ $drag: boolean }>`
+  display: ${(prop) => (prop.$drag ? "block" : "none")};
+  grid-area: drag;
+  height: 20px;
+  cursor: grab;
+`;
 const PosterBox = styled.div`
   display: grid;
   grid-template-rows: 44px auto;
@@ -11,25 +34,34 @@ const ScrollBox = styled.div`
   min-width: 150px;
 `;
 
-const LinkFrend = styled(NavLink)<{
-  $mousUp: boolean;
-  $allWind: boolean;
-  $open: boolean;
-}>`
-  padding: ${(prop) => (!prop.$allWind ? "10px 40px" : "10px 20px")};
+type LinkType<T> = {
+  $mousUp: T;
+  $allWind: T;
+  $open: T;
+  $drag: T;
+};
+const gridColumns = "40px auto 0.2fr min-content";
+const gridAreas = "ava dial done time";
+const gridAreasDown = "ava message . .";
+const LinkFrend = styled(NavLink)<LinkType<boolean>>`
+  padding: ${(props) => (!props.$allWind ? "10px 40px" : "10px 20px")};
   display: grid;
-  grid-template-columns: 40px auto 0.2fr min-content;
-  grid-template-areas:
-    "ava dial done time"
-    "ava message . .";
+  grid-template-columns: ${(props) =>
+    props.$drag ? gridColumns + " 10px" : gridColumns};
+  grid-template-areas: ${(props) =>
+    props.$drag
+      ? `'${gridAreas + " drag"}'
+         '${gridAreasDown + " ."}'`
+      : `'${gridAreas}'
+         '${gridAreasDown}'`};
   align-items: center;
   font-size: 15px;
-  transform: ${(prop) =>
-    prop.$open ? "translate(-180px, 0)" : "translate(0, 0)"};
-  transition: ${(prop) => (prop.$open ? "0.5s" : "0.3s")};
+  transform: ${(props) =>
+    props.$open ? "translate(-180px, 0)" : "translate(0, 0)"};
+  transition: ${(props) => (props.$open ? "0.5s" : "0.3s")};
   &:hover {
-    background: ${(prop) =>
-      !prop.$mousUp
+    background: ${(props) =>
+      !props.$mousUp
         ? "linear-gradient(90deg, rgba(63, 94, 251, 0) 1%,  rgba(255, 252, 250, 0.115) 30%)"
         : ""};
   }
@@ -74,10 +106,8 @@ const AvatarBox = styled.div`
   grid-area: ava;
 `;
 
-const H3 = styled.h3<{ $allWind: boolean }>`
-  padding: ${(prop) => (!prop.$allWind ? "10px 40px" : "10px 20px")};
+const H3 = styled.h3`
   font-size: 18px;
-  background-color: #c69f76;
 `;
 
 const AvatarImg = styled.img`
@@ -143,11 +173,12 @@ const Butt = styled.button<{
   }
 `;
 
-const SX: { icon: SxProps } = {
+const SX: { icon: SxProps; dragIcon: SxProps } = {
   icon: {
     fontSize: "20px",
     color: "#ffffff",
   },
+  dragIcon: { fontSize: "20px", color: "#000000" },
 };
 
 export const St = {
@@ -166,4 +197,7 @@ export const St = {
   LinkFrend,
   SX,
   MessDial,
+  Header,
+  DragButton,
+  DragIcon,
 };

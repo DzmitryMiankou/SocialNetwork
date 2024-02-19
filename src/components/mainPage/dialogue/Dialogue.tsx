@@ -9,6 +9,10 @@ import { LogInitialStateType } from "../../../redux/localState/loginReducer";
 import { DialoguesType } from "../../../redux/api/socket/socket.interface";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
 import LocalLibraryOutlinedIcon from "@mui/icons-material/LocalLibraryOutlined";
+import { AppDispatch } from "../../../redux/store";
+import { useDispatch } from "react-redux";
+import { setDataMoreInfAction } from "../../../redux/localState/moreInfReducer";
+import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
 
 type PropType = {
   mousUp: boolean;
@@ -19,6 +23,10 @@ type PropType = {
 
 const Dialogue: React.FC<PropType> = ({ mousUp, allWind, dialogues, user }) => {
   const [id, setId] = React.useState<number>();
+  const [drag, setDrag] = React.useState<boolean>(false);
+  const dispatch: AppDispatch = useDispatch();
+
+  const dragHandler = () => setDrag(!drag);
 
   const contextHandler = (
     e: React.MouseEvent<HTMLElement>,
@@ -26,6 +34,7 @@ const Dialogue: React.FC<PropType> = ({ mousUp, allWind, dialogues, user }) => {
   ): void => {
     e.preventDefault();
     setId(id);
+    setDrag(false);
   };
 
   const clouseHandler = () => setId(0);
@@ -71,11 +80,22 @@ const Dialogue: React.FC<PropType> = ({ mousUp, allWind, dialogues, user }) => {
 
   const idUser = user?.user?.id;
 
+  const getAllInfUser = (
+    e: React.MouseEvent<HTMLButtonElement>,
+    id: number | undefined
+  ): void => {
+    e.preventDefault();
+    dispatch(setDataMoreInfAction(id ?? 0));
+  };
+
   return (
     <St.PosterBox>
-      <header>
-        <St.H3 $allWind={allWind}>Dialogue</St.H3>
-      </header>
+      <St.Header $allWind={allWind}>
+        <St.H3>Dialogue</St.H3>
+        <St.DragButton onClick={dragHandler} type="button">
+          change
+        </St.DragButton>
+      </St.Header>
       <St.ScrollBox>
         <St.Ul>
           {dialogues &&
@@ -90,6 +110,7 @@ const Dialogue: React.FC<PropType> = ({ mousUp, allWind, dialogues, user }) => {
                   <St.LinkFrend
                     $allWind={allWind}
                     $mousUp={mousUp}
+                    $drag={drag}
                     $open={id === (targetId === idUser ? sourceId : targetId)}
                     to={
                       targetId === idUser
@@ -124,6 +145,9 @@ const Dialogue: React.FC<PropType> = ({ mousUp, allWind, dialogues, user }) => {
                     <St.DoneAll>
                       <DoneAllIcon sx={{ fontSize: "16px", color: "grey" }} />
                     </St.DoneAll>
+                    <St.DragIcon $drag={drag}>
+                      <DragIndicatorIcon sx={St.SX.dragIcon} />
+                    </St.DragIcon>
                   </St.LinkFrend>
                   <Modal
                     num={id}
@@ -138,6 +162,8 @@ const Dialogue: React.FC<PropType> = ({ mousUp, allWind, dialogues, user }) => {
                             title: "more inf",
                             duration: "0.5s",
                             indexZ: 24,
+                            onClick: (e: React.MouseEvent<HTMLButtonElement>) =>
+                              getAllInfUser(e, id),
                           },
                           {
                             icon: <HighlightOffIcon sx={St.SX.icon} />,
@@ -153,21 +179,28 @@ const Dialogue: React.FC<PropType> = ({ mousUp, allWind, dialogues, user }) => {
                             duration: "0.2s",
                             indexZ: 26,
                           },
-                        ].map(({ icon, color, title, duration, indexZ }, i) => (
-                          <St.Butt
-                            $bg={color}
-                            key={i + "-iconDialogue"}
-                            $duration={duration}
-                            $open={
-                              id === (targetId === idUser ? sourceId : targetId)
-                            }
-                            $indexZ={indexZ}
-                            $countEl={i}
-                          >
-                            {icon}
-                            <p style={{ color: "white" }}>{title}</p>
-                          </St.Butt>
-                        ))}
+                        ].map(
+                          (
+                            { icon, color, title, duration, indexZ, onClick },
+                            i
+                          ) => (
+                            <St.Butt
+                              $bg={color}
+                              key={i + "-iconDialogue"}
+                              $duration={duration}
+                              onClick={onClick}
+                              $open={
+                                id ===
+                                (targetId === idUser ? sourceId : targetId)
+                              }
+                              $indexZ={indexZ}
+                              $countEl={i}
+                            >
+                              {icon}
+                              <p style={{ color: "white" }}>{title}</p>
+                            </St.Butt>
+                          )
+                        )}
                       </St.ModCom>
                     }
                   />
