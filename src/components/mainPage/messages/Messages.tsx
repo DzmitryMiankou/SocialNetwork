@@ -18,10 +18,10 @@ import {
 
 const Messages: React.FC = () => {
   const [toScroll, setToScroll] = useState<boolean>(false);
+  const [animMessage, setAnimMessage] = useState<boolean>(false);
   const [mouse, messages, user]: [number, MessagesType[], LogInitialStateType] =
     useOutletContext();
-  const [trigger] = useSendMessageMutation();
-
+  const [trigger, { isLoading, isError }] = useSendMessageMutation();
   const [trigger2] = useHandlerClickKeyMutation();
   const { idM } = useParams();
   const dialogueData: Array<string> | string =
@@ -79,8 +79,17 @@ const Messages: React.FC = () => {
       },
     };
     trigger({ ...message });
-    setText("");
+    setAnimMessage(true);
+    setTimeout(() => {
+      setText("");
+      setAnimMessage(false);
+    }, 300);
   };
+
+  useEffect(() => {
+    if (isError) {
+    }
+  }, [isError]);
 
   const correctDate = (date: string): string => {
     const optionDate: Intl.DateTimeFormatOptions = {
@@ -130,6 +139,14 @@ const Messages: React.FC = () => {
         <div ref={messagesEndRef} />
       </St.MessagesBox>
       <St.SendBox>
+        <>
+          {animMessage && (
+            <St.AnimMessageBox $wind={window.innerWidth}>
+              {text}
+            </St.AnimMessageBox>
+          )}
+        </>
+
         <>
           {toScroll ? (
             <St.ArrowScroll type="button" onClick={() => intoScroll("smooth")}>
