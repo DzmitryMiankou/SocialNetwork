@@ -110,7 +110,7 @@ const opacity = (n: number) => keyframes`
   }
 `;
 
-const opacity2 = (n: number) => keyframes`
+/*const opacity2 = (n: number) => keyframes`
   0% {
     transform: translate(0, 0);
   }
@@ -118,7 +118,7 @@ const opacity2 = (n: number) => keyframes`
     transform: translate(280px, 0);
      opacity: 0;
   }
-`;
+`;*/
 
 const Butt = styled.button<{
   $bg: string;

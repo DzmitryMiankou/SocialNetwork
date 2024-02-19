@@ -1,5 +1,5 @@
 import { SxProps } from "@mui/material";
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 
 const PosterBox = styled.div`
   display: grid;
@@ -127,27 +127,6 @@ const Status = styled.p`
   color: #81644bd0;
 `;
 
-const opacity = (n: number) => keyframes`
-  0% {
-    transform: translate(36px, -30px);
-  }
-  100% {
-    opacity: 0;
-    transform: translate(calc(${n}px / 3) , -40px);
-    
-  }
-`;
-
-const AnimMessageBox = styled.div<{ $wind: number }>`
-  background-color: var(--red-color);
-  padding: 15px 5px;
-  min-width: 120px;
-  position: absolute;
-  animation-name: ${(prop) => opacity(prop.$wind)};
-  animation-timing-function: ease;
-  animation-duration: 0.4s;
-`;
-
 const SX: { icon: SxProps; iconSend: SxProps } = {
   icon: {
     fontSize: "24px",
@@ -170,7 +149,6 @@ export const St = {
   Header,
   H3,
   ButtAttach,
-  AnimMessageBox,
   Butt,
   ButtSend,
   Message,

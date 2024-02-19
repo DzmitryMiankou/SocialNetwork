@@ -18,10 +18,9 @@ import {
 
 const Messages: React.FC = () => {
   const [toScroll, setToScroll] = useState<boolean>(false);
-  const [animMessage, setAnimMessage] = useState<boolean>(false);
   const [mouse, messages, user]: [number, MessagesType[], LogInitialStateType] =
     useOutletContext();
-  const [trigger, { isLoading, isError }] = useSendMessageMutation();
+  const [trigger] = useSendMessageMutation();
   const [trigger2] = useHandlerClickKeyMutation();
   const { idM } = useParams();
   const dialogueData: Array<string> | string =
@@ -79,17 +78,9 @@ const Messages: React.FC = () => {
       },
     };
     trigger({ ...message });
-    setAnimMessage(true);
-    setTimeout(() => {
-      setText("");
-      setAnimMessage(false);
-    }, 300);
-  };
 
-  useEffect(() => {
-    if (isError) {
-    }
-  }, [isError]);
+    setText("");
+  };
 
   const correctDate = (date: string): string => {
     const optionDate: Intl.DateTimeFormatOptions = {
@@ -140,14 +131,6 @@ const Messages: React.FC = () => {
       </St.MessagesBox>
       <St.SendBox>
         <>
-          {animMessage && (
-            <St.AnimMessageBox $wind={window.innerWidth}>
-              {text}
-            </St.AnimMessageBox>
-          )}
-        </>
-
-        <>
           {toScroll ? (
             <St.ArrowScroll type="button" onClick={() => intoScroll("smooth")}>
               <KeyboardArrowDownIcon />
@@ -168,6 +151,7 @@ const Messages: React.FC = () => {
           ref={textareaRef}
           onChange={onChange}
           value={text}
+          autoFocus
           placeholder="send a message"
           onKeyDown={(e) => {
             if (e.code === "Enter") {
