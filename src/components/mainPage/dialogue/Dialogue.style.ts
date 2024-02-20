@@ -15,6 +15,7 @@ const DragButton = styled.button`
   border: none;
   color: #7e664b;
   font-size: 12px;
+  margin-left: 5px;
   &:hover {
     color: #7e66499b;
   }

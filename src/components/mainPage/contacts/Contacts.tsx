@@ -8,8 +8,8 @@ import {
 import { NavLink } from "react-router-dom";
 import Modal from "../../alert/Alert";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import Avatar from "../../avatar/Avatar";
-import SearchInput from "../../searchInput/SearchInput";
+import Avatar from "../../UI/atoms/Avatar/Avatar";
+import SearchInput from "../../UI/atoms/SearchInput/SearchInput";
 import { AppDispatch } from "../../../redux/store";
 import { useDispatch } from "react-redux";
 import { setDataMoreInfAction } from "../../../redux/localState/moreInfReducer";

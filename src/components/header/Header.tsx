@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { NavLink, useNavigate } from "react-router-dom";
 import LoginTwoToneIcon from "@mui/icons-material/LoginTwoTone";
 import LogoutIcon from "@mui/icons-material/Logout";
-import SearchInput from "../searchInput/SearchInput";
+import SearchInput from "../UI/atoms/SearchInput/SearchInput";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../redux/store";
 import {

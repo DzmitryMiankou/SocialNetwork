@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import avatar from "../../../img/images.png";
 import { UserDataS } from "../../../redux/api/http/httpReducer";
-import Avatar from "../../avatar/Avatar";
+import Avatar from "../../UI/atoms/Avatar/Avatar";
 
 const AvatarBox = styled.div`
   padding: 0 5px 0 0;

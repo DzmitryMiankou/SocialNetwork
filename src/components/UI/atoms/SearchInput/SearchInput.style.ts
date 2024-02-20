@@ -1,6 +1,4 @@
 import { SxProps } from "@mui/material";
-import React from "react";
-import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
 import styled, { keyframes } from "styled-components";
 
 const rotate = keyframes`
@@ -55,37 +53,9 @@ const SX = (): { icon: SxProps } => {
   };
 };
 
-type Props = {
-  handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  clouseHandler: () => void;
-  value: string;
-  bg?: string;
-  colorPl?: string;
+export const St = {
+  Input,
+  InputBox,
+  SX,
+  InputButton,
 };
-
-const SearchInput: React.FC<Props> = (props) => {
-  return (
-    <InputBox
-      $bg={props.bg ?? "rgb(255, 255, 255)"}
-      $colorPl={props.colorPl ?? "rgb(0, 0, 0)"}
-    >
-      <Input
-        onChange={props.handleChange}
-        value={props.value}
-        type="text"
-        placeholder="search"
-      />
-      <>
-        {props.value === "" ? (
-          <></>
-        ) : (
-          <InputButton onClick={props.clouseHandler} type="button">
-            <ClearRoundedIcon sx={SX().icon} />
-          </InputButton>
-        )}
-      </>
-    </InputBox>
-  );
-};
-
-export default SearchInput;

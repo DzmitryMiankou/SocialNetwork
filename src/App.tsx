@@ -4,7 +4,7 @@ import Routers from "./routers/Routers";
 import Header from "./components/header/Header";
 import { useSelector } from "react-redux";
 import { RootState } from "./redux/store";
-import Modal from "./components/modal/Modal";
+import Modal from "./components/UI/atoms/Modal/Modal";
 import MoreInf from "./components/moreInf/MoreInf";
 
 const AppBox = styled.div`

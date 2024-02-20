@@ -4,7 +4,7 @@ import avatar from "../../../img/images.png";
 import Modal from "../../alert/Alert";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
-import Avatar from "../../avatar/Avatar";
+import Avatar from "../../UI/atoms/Avatar/Avatar";
 import { LogInitialStateType } from "../../../redux/localState/loginReducer";
 import { DialoguesType } from "../../../redux/api/socket/socket.interface";
 import DoneAllIcon from "@mui/icons-material/DoneAll";

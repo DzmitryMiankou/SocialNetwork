@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import Avatar from "../avatar/Avatar";
+import Avatar from "../UI/atoms/Avatar/Avatar";
 
 const Box = styled.div`
   display: flex;
