@@ -16,6 +16,7 @@
   --bg-delete: rgb(182, 42, 42);
   --bg-clear: rgb(194, 149, 66);
   --bg-more-inf: rgb(87, 150, 166);
+  --white: #ffffff;
 }
 
 * {

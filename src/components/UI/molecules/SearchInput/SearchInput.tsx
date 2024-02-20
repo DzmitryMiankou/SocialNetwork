@@ -1,6 +1,7 @@
 import React from "react";
-import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
 import { St } from "./SearchInput.style";
+import Input from "../../atoms/Input/Input";
+import ClearButton from "../../atoms/ClearButton/ClearButton";
 
 type Props = {
   handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -16,19 +17,10 @@ const SearchInput: React.FC<Props> = (props) => {
       $bg={props.bg ?? "rgb(255, 255, 255)"}
       $colorPl={props.colorPl ?? "rgb(0, 0, 0)"}
     >
-      <St.Input
-        onChange={props.handleChange}
-        value={props.value}
-        type="text"
-        placeholder="search"
-      />
+      <Input handleChange={props.handleChange} value={props.value} />
       <>
-        {props.value === "" ? (
-          <></>
-        ) : (
-          <St.InputButton onClick={props.clouseHandler} type="button">
-            <ClearRoundedIcon sx={St.SX().icon} />
-          </St.InputButton>
+        {props.value !== "" && (
+          <ClearButton clouseHandler={props.clouseHandler} />
         )}
       </>
     </St.InputBox>

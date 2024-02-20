@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { NavLink, useNavigate } from "react-router-dom";
 import LoginTwoToneIcon from "@mui/icons-material/LoginTwoTone";
 import LogoutIcon from "@mui/icons-material/Logout";
-import SearchInput from "../UI/atoms/SearchInput/SearchInput";
+import SearchInput from "../UI/molecules/SearchInput/SearchInput";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../redux/store";
 import {
@@ -14,7 +14,7 @@ import {
   useLazyLogOutUserQuery,
   useLazySearchUsersQuery,
 } from "../../redux/api/http/httpReducer";
-import MoadalWindow from "./modalWindow/ModalWindow";
+import MoadalWindow from "../UI/molecules/modalWindow/ModalWindow";
 
 const HeaderBox = styled.header`
   display: flex;

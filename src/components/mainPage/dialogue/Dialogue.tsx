@@ -1,7 +1,7 @@
 import React from "react";
 import { St } from "./Dialogue.style";
 import avatar from "../../../img/images.png";
-import Modal from "../../alert/Alert";
+import Modal from "../../UI/organisms/alert/Alert";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import Avatar from "../../UI/atoms/Avatar/Avatar";

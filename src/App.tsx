@@ -5,7 +5,7 @@ import Header from "./components/header/Header";
 import { useSelector } from "react-redux";
 import { RootState } from "./redux/store";
 import Modal from "./components/UI/atoms/Modal/Modal";
-import MoreInf from "./components/moreInf/MoreInf";
+import MoreInf from "./components/UI/molecules/moreInf/MoreInf";
 
 const AppBox = styled.div`
   height: 100vh;

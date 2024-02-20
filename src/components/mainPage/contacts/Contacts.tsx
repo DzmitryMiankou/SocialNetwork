@@ -6,10 +6,10 @@ import {
   useDelContactMutation,
 } from "../../../redux/api/http/httpReducer";
 import { NavLink } from "react-router-dom";
-import Modal from "../../alert/Alert";
+import Modal from "../../UI/organisms/alert/Alert";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import Avatar from "../../UI/atoms/Avatar/Avatar";
-import SearchInput from "../../UI/atoms/SearchInput/SearchInput";
+import SearchInput from "../../UI/molecules/SearchInput/SearchInput";
 import { AppDispatch } from "../../../redux/store";
 import { useDispatch } from "react-redux";
 import { setDataMoreInfAction } from "../../../redux/localState/moreInfReducer";

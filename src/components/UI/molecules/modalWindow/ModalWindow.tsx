@@ -3,11 +3,11 @@ import styled from "styled-components";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import LocalLibraryIcon from "@mui/icons-material/LocalLibrary";
 import { SxProps } from "@mui/material";
-import { useNewContactMutation } from "../../../redux/api/http/httpReducer";
-import useClouseClickOut from "../../../hooks/useClouseClickOut";
+import { useNewContactMutation } from "../../../../redux/api/http/httpReducer";
+import useClouseClickOut from "../../../../hooks/useClouseClickOut";
 import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../../redux/store";
-import { setDataMoreInfAction } from "../../../redux/localState/moreInfReducer";
+import { AppDispatch } from "../../../../redux/store";
+import { setDataMoreInfAction } from "../../../../redux/localState/moreInfReducer";
 
 const ModalBox = styled.div`
   position: absolute;

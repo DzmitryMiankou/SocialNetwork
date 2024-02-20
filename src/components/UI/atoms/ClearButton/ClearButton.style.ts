@@ -11,27 +11,6 @@ const rotate = keyframes`
   }
 `;
 
-const InputBox = styled.div<{ $bg: string; $colorPl: string }>`
-  display: flex;
-  width: 170px;
-  align-items: center;
-  background: ${(prop) => prop.$bg};
-  ::placeholder {
-    color: ${(prop) => prop.$colorPl};
-  }
-`;
-
-const Input = styled.input`
-  border: none;
-  background: transparent;
-  outline: none;
-  color: #ffffff;
-  height: 10px;
-  font-size: 14px;
-  padding: 5px;
-  width: 100%;
-`;
-
 const InputButton = styled.button`
   display: flex;
   align-items: center;
@@ -54,8 +33,6 @@ const SX = (): { icon: SxProps } => {
 };
 
 export const St = {
-  Input,
-  InputBox,
   SX,
   InputButton,
 };

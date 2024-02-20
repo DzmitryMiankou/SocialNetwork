@@ -1,13 +1,13 @@
 import React from "react";
 import styled from "styled-components";
-import useClouseClickOut from "../../hooks/useClouseClickOut";
+import useClouseClickOut from "../../../../hooks/useClouseClickOut";
 
 const ModalBox = styled.div<{ $bg: string }>`
   position: absolute;
   background-color: transparent;
-  z-index: 24;
+  z-index: 90;
   top: 0;
-  right: 0px;
+  right: 0;
   height: 100%;
 `;
 
@@ -23,7 +23,7 @@ const Modal: React.FC<{
   return (
     <>
       {num === n ? (
-        <ModalBox ref={ref} $bg={bg ?? "#cead8f"}>
+        <ModalBox ref={ref} $bg={bg ?? "#3e2a17"}>
           {component}
         </ModalBox>
       ) : (
