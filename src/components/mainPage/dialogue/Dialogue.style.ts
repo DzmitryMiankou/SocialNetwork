@@ -1,4 +1,4 @@
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 import { SxProps } from "@mui/material";
 
@@ -20,12 +20,14 @@ const DragButton = styled.button`
     color: #7e66499b;
   }
 `;
+
 const DragIcon = styled.div<{ $drag: boolean }>`
   display: ${(prop) => (prop.$drag ? "block" : "none")};
   grid-area: drag;
   height: 20px;
   cursor: grab;
 `;
+
 const PosterBox = styled.div`
   display: grid;
   grid-template-rows: 44px auto;
@@ -119,10 +121,6 @@ const Li = styled.li`
   position: relative;
 `;
 
-const ModCom = styled.div`
-  height: 100%;
-`;
-
 const Ul = styled.ul`
   overflow-y: scroll;
   overflow-x: hidden;
@@ -130,48 +128,6 @@ const Ul = styled.ul`
   display: flex;
   flex-direction: column-reverse;
   justify-content: flex-end;
-`;
-
-const opacity = (n: number) => keyframes`
-  0% {
-    transform: translate(calc(90px * ${n + 2}), 0);
-  }
-  100% {
-    transform: translate(0, 0);
-  }
-`;
-
-/*const opacity2 = (n: number) => keyframes`
-  0% {
-    transform: translate(0, 0);
-  }
-  100% {
-    transform: translate(280px, 0);
-     opacity: 0;
-  }
-`;*/
-
-const Butt = styled.button<{
-  $bg: string;
-  $duration: string;
-  $indexZ: number;
-  $countEl: number;
-  $open: boolean;
-}>`
-  position: relative;
-  background-color: transparent;
-  border: none;
-  background-color: ${(prop) => prop.$bg};
-  height: 100%;
-  width: 60px;
-  animation-name: ${(prop) => opacity(prop.$countEl)};
-  animation-timing-function: ease;
-  animation-duration: ${(prop) => prop.$duration};
-  z-index: ${(prop) => prop.$indexZ};
-  transition: 0.2s;
-  &:hover {
-    filter: contrast(150%);
-  }
 `;
 
 const SX: { icon: SxProps; dragIcon: SxProps } = {
@@ -188,13 +144,11 @@ export const St = {
   Dial,
   H3,
   Li,
-  Butt,
   AvatarBox,
   DateTime,
   AvatarImg,
   ScrollBox,
   Ul,
-  ModCom,
   LinkFrend,
   SX,
   MessDial,

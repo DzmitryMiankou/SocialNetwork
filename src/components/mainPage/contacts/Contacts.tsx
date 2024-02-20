@@ -6,7 +6,7 @@ import {
   useDelContactMutation,
 } from "../../../redux/api/http/httpReducer";
 import { NavLink } from "react-router-dom";
-import Modal from "../../UI/organisms/alert/Alert";
+import Modal from "../../UI/atoms/ContextMenuBox/ContextMenuBox";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import Avatar from "../../UI/atoms/Avatar/Avatar";
 import SearchInput from "../../UI/molecules/SearchInput/SearchInput";

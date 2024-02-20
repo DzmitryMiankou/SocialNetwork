@@ -11,7 +11,7 @@ const ModalBox = styled.div<{ $bg: string }>`
   height: 100%;
 `;
 
-const Modal: React.FC<{
+const ContextMenuBox: React.FC<{
   num: number | undefined;
   n: number;
   component: JSX.Element;
@@ -22,15 +22,13 @@ const Modal: React.FC<{
 
   return (
     <>
-      {num === n ? (
+      {num === n && (
         <ModalBox ref={ref} $bg={bg ?? "#3e2a17"}>
           {component}
         </ModalBox>
-      ) : (
-        <></>
       )}
     </>
   );
 };
 
-export default Modal;
+export default ContextMenuBox;

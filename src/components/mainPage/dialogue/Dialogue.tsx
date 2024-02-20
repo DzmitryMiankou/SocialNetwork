@@ -1,18 +1,16 @@
 import React from "react";
 import { St } from "./Dialogue.style";
 import avatar from "../../../img/images.png";
-import Modal from "../../UI/organisms/alert/Alert";
-import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import Avatar from "../../UI/atoms/Avatar/Avatar";
 import { LogInitialStateType } from "../../../redux/localState/loginReducer";
 import { DialoguesType } from "../../../redux/api/socket/socket.interface";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
-import LocalLibraryOutlinedIcon from "@mui/icons-material/LocalLibraryOutlined";
 import { AppDispatch } from "../../../redux/store";
 import { useDispatch } from "react-redux";
 import { setDataMoreInfAction } from "../../../redux/localState/moreInfReducer";
 import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
+import Buttons from "../../UI/atoms/Buttons/Buttons";
+import ContextMenu from "../../UI/molecules/ContextMenu/ContextMenu";
 
 type PropType = {
   mousUp: boolean;
@@ -149,60 +147,21 @@ const Dialogue: React.FC<PropType> = ({ mousUp, allWind, dialogues, user }) => {
                       <DragIndicatorIcon sx={St.SX.dragIcon} />
                     </St.DragIcon>
                   </St.LinkFrend>
-                  <Modal
-                    num={id}
-                    n={targetId === idUser ? sourceId : targetId}
+                  <ContextMenu
                     clouseHandler={clouseHandler}
-                    component={
-                      <St.ModCom>
-                        {[
-                          {
-                            icon: <LocalLibraryOutlinedIcon sx={St.SX.icon} />,
-                            color: "var(--bg-more-inf)",
-                            title: "more inf",
-                            duration: "0.5s",
-                            indexZ: 24,
-                            onClick: (e: React.MouseEvent<HTMLButtonElement>) =>
-                              getAllInfUser(e, id),
-                          },
-                          {
-                            icon: <HighlightOffIcon sx={St.SX.icon} />,
-                            color: "var(--bg-clear)",
-                            title: "clear",
-                            duration: "0.3s",
-                            indexZ: 25,
-                          },
-                          {
-                            icon: <DeleteOutlineIcon sx={St.SX.icon} />,
-                            color: "var(--bg-delete)",
-                            title: "delete",
-                            duration: "0.2s",
-                            indexZ: 26,
-                          },
-                        ].map(
-                          (
-                            { icon, color, title, duration, indexZ, onClick },
-                            i
-                          ) => (
-                            <St.Butt
-                              $bg={color}
-                              key={i + "-iconDialogue"}
-                              $duration={duration}
-                              onClick={onClick}
-                              $open={
-                                id ===
-                                (targetId === idUser ? sourceId : targetId)
-                              }
-                              $indexZ={indexZ}
-                              $countEl={i}
-                            >
-                              {icon}
-                              <p style={{ color: "white" }}>{title}</p>
-                            </St.Butt>
-                          )
-                        )}
-                      </St.ModCom>
-                    }
+                    user={id ?? 0}
+                    open={targetId === idUser ? sourceId : targetId}
+                    arrayChild={[
+                      Buttons((e: React.MouseEvent<HTMLButtonElement>) =>
+                        getAllInfUser(e, id)
+                      ).LocalLibrary,
+                      Buttons((e: React.MouseEvent<HTMLButtonElement>) =>
+                        getAllInfUser(e, id)
+                      ).HighlightOff,
+                      Buttons((e: React.MouseEvent<HTMLButtonElement>) =>
+                        getAllInfUser(e, id)
+                      ).DeleteOutline,
+                    ]}
                   />
                 </St.Li>
               )
