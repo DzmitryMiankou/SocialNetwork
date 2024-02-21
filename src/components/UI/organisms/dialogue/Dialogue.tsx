@@ -11,6 +11,7 @@ import { setDataMoreInfAction } from "../../../../redux/localState/moreInfReduce
 import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
 import Buttons from "../../atoms/Buttons/Buttons";
 import ContextMenu from "../../molecules/ContextMenu/ContextMenu";
+import TitleBlock from "../../atoms/TitleBlock/TitleBlock";
 
 type PropType = {
   mousUp: boolean;
@@ -87,9 +88,9 @@ const Dialogue: React.FC<PropType> = ({ mousUp, allWind, dialogues, user }) => {
   };
 
   return (
-    <St.PosterBox>
+    <St.DialoguesBox>
       <St.Header $allWind={allWind}>
-        <St.H3>Dialogue</St.H3>
+        <TitleBlock text="Dialogue" />
         <St.DragButton onClick={dragHandler} type="button">
           change
         </St.DragButton>
@@ -168,7 +169,7 @@ const Dialogue: React.FC<PropType> = ({ mousUp, allWind, dialogues, user }) => {
             )}
         </St.Ul>
       </St.ScrollBox>
-    </St.PosterBox>
+    </St.DialoguesBox>
   );
 };
 

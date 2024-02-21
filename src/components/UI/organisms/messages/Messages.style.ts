@@ -93,10 +93,6 @@ const Message = styled.div<{
     ". . time";
 `;
 
-const H3 = styled.h3`
-  font-size: 18px;
-`;
-
 const P = styled.p`
   grid-area: mess;
 `;
@@ -147,7 +143,6 @@ const SX: { icon: SxProps; iconSend: SxProps } = {
 export const St = {
   PosterBox,
   Header,
-  H3,
   ButtAttach,
   Butt,
   ButtSend,

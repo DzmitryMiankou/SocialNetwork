@@ -15,6 +15,7 @@ import {
   useHandlerClickKeyMutation,
   useSendMessageMutation,
 } from "../../../../redux/api/socket/messages/messagesReducer";
+import TitleBlock from "../../atoms/TitleBlock/TitleBlock";
 
 const Messages: React.FC = () => {
   const [toScroll, setToScroll] = useState<boolean>(false);
@@ -98,9 +99,7 @@ const Messages: React.FC = () => {
     <St.PosterBox>
       <St.Header>
         <div>
-          <St.H3>
-            <span>{dialogueData[1]}</span> <span>{dialogueData[2]}</span>
-          </St.H3>
+          <TitleBlock text={`${dialogueData[1]} ${dialogueData[2]}`} />
           <St.Status>ofline</St.Status>
         </div>
         <St.Butt type="button">

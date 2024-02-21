@@ -28,7 +28,7 @@ const DragIcon = styled.div<{ $drag: boolean }>`
   cursor: grab;
 `;
 
-const PosterBox = styled.div`
+const DialoguesBox = styled.div`
   display: grid;
   grid-template-rows: 44px auto;
 `;
@@ -109,10 +109,6 @@ const AvatarBox = styled.div`
   grid-area: ava;
 `;
 
-const H3 = styled.h3`
-  font-size: 18px;
-`;
-
 const AvatarImg = styled.img`
   max-width: 20px;
 `;
@@ -140,9 +136,8 @@ const SX: { icon: SxProps; dragIcon: SxProps } = {
 
 export const St = {
   DoneAll,
-  PosterBox,
+  DialoguesBox,
   Dial,
-  H3,
   Li,
   AvatarBox,
   DateTime,

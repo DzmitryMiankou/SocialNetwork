@@ -15,15 +15,11 @@ import { useDispatch } from "react-redux";
 import { setDataMoreInfAction } from "../../../../redux/localState/moreInfReducer";
 import LocalLibraryOutlinedIcon from "@mui/icons-material/LocalLibraryOutlined";
 import { SxProps } from "@mui/material";
+import TitleBlock from "../../atoms/TitleBlock/TitleBlock";
 
 const Friends = styled.div`
   margin-top: 5px;
   width: 100%;
-`;
-
-const FriendsText = styled.h3`
-  font-size: 18px;
-  padding: 20px 0px 10px 0px;
 `;
 
 const Friend = styled.p`
@@ -140,7 +136,7 @@ const Contacts: React.FC<{
   return (
     <Friends>
       <SearchBox>
-        <FriendsText>Contacts</FriendsText>
+        <TitleBlock text="Contacts" />
         <SearchInput
           handleChange={handleChange}
           value={value}
