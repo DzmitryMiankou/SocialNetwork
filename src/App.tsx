@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Routers from "./routers/Routers";
-import Header from "./components/header/Header";
+import Header from "./components/UI/organisms/header/Header";
 import { useSelector } from "react-redux";
 import { RootState } from "./redux/store";
 import Modal from "./components/UI/atoms/Modal/Modal";

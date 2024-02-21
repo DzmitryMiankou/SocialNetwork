@@ -1,19 +1,19 @@
-import { St } from "./Main.style";
+import { St } from "./Network.style";
 import React, { useState } from "react";
-import UserData from "./userData/UserData";
-import Dialogue from "./dialogue/Dialogue";
-import useMousePosition from "../../hooks/useMousePosition";
+import UserData from "../../UI/molecules/userData/UserData";
+import Dialogue from "../../UI/organisms/dialogue/Dialogue";
+import useMousePosition from "../../../hooks/useMousePosition";
 import { Outlet } from "react-router-dom";
-import Contacts from "./contacts/Contacts";
+import Contacts from "../../UI/organisms/contacts/Contacts";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import {
   useContactsQuery,
   useDataUserQuery,
-} from "../../redux/api/http/httpReducer";
-import { useGetDialogueQuery } from "../../redux/api/socket/dialogues/dialoguesReducer";
-import { LogInitialStateType } from "../../redux/localState/loginReducer";
-import { useGetMessageQuery } from "../../redux/api/socket/messages/messagesReducer";
+} from "../../../redux/api/http/httpReducer";
+import { useGetDialogueQuery } from "../../../redux/api/socket/dialogues/dialoguesReducer";
+import { LogInitialStateType } from "../../../redux/localState/loginReducer";
+import { useGetMessageQuery } from "../../../redux/api/socket/messages/messagesReducer";
 
 const MainPage: React.FC<{ user: LogInitialStateType }> = ({ user }) => {
   const max = 100;

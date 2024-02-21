@@ -3,18 +3,18 @@ import styled from "styled-components";
 import { NavLink, useNavigate } from "react-router-dom";
 import LoginTwoToneIcon from "@mui/icons-material/LoginTwoTone";
 import LogoutIcon from "@mui/icons-material/Logout";
-import SearchInput from "../UI/molecules/SearchInput/SearchInput";
+import SearchInput from "../../molecules/SearchInput/SearchInput";
 import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../redux/store";
+import { AppDispatch } from "../../../../redux/store";
 import {
   LogInitialStateType,
   loginActions,
-} from "../../redux/localState/loginReducer";
+} from "../../../../redux/localState/loginReducer";
 import {
   useLazyLogOutUserQuery,
   useLazySearchUsersQuery,
-} from "../../redux/api/http/httpReducer";
-import MoadalWindow from "../UI/molecules/modalWindow/ModalWindow";
+} from "../../../../redux/api/http/httpReducer";
+import MoadalWindow from "../../molecules/modalWindow/ModalWindow";
 
 const HeaderBox = styled.header`
   display: flex;

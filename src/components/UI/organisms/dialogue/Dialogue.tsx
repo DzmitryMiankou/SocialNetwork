@@ -1,16 +1,16 @@
 import React from "react";
 import { St } from "./Dialogue.style";
-import avatar from "../../../img/images.png";
-import Avatar from "../../UI/atoms/Avatar/Avatar";
-import { LogInitialStateType } from "../../../redux/localState/loginReducer";
-import { DialoguesType } from "../../../redux/api/socket/socket.interface";
+import avatar from "../../../../img/images.png";
+import Avatar from "../../atoms/Avatar/Avatar";
+import { LogInitialStateType } from "../../../../redux/localState/loginReducer";
+import { DialoguesType } from "../../../../redux/api/socket/socket.interface";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
-import { AppDispatch } from "../../../redux/store";
+import { AppDispatch } from "../../../../redux/store";
 import { useDispatch } from "react-redux";
-import { setDataMoreInfAction } from "../../../redux/localState/moreInfReducer";
+import { setDataMoreInfAction } from "../../../../redux/localState/moreInfReducer";
 import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
-import Buttons from "../../UI/atoms/Buttons/Buttons";
-import ContextMenu from "../../UI/molecules/ContextMenu/ContextMenu";
+import Buttons from "../../atoms/Buttons/Buttons";
+import ContextMenu from "../../molecules/ContextMenu/ContextMenu";
 
 type PropType = {
   mousUp: boolean;

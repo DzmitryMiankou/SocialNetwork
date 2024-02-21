@@ -1,18 +1,18 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import avatar from "../../../img/images.png";
+import avatar from "../../../../img/images.png";
 import {
   ContactsType,
   useDelContactMutation,
-} from "../../../redux/api/http/httpReducer";
+} from "../../../../redux/api/http/httpReducer";
 import { NavLink } from "react-router-dom";
-import Modal from "../../UI/atoms/ContextMenuBox/ContextMenuBox";
+import Modal from "../../atoms/ContextMenuBox/ContextMenuBox";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import Avatar from "../../UI/atoms/Avatar/Avatar";
-import SearchInput from "../../UI/molecules/SearchInput/SearchInput";
-import { AppDispatch } from "../../../redux/store";
+import Avatar from "../../atoms/Avatar/Avatar";
+import SearchInput from "../../molecules/SearchInput/SearchInput";
+import { AppDispatch } from "../../../../redux/store";
 import { useDispatch } from "react-redux";
-import { setDataMoreInfAction } from "../../../redux/localState/moreInfReducer";
+import { setDataMoreInfAction } from "../../../../redux/localState/moreInfReducer";
 import LocalLibraryOutlinedIcon from "@mui/icons-material/LocalLibraryOutlined";
 import { SxProps } from "@mui/material";
 

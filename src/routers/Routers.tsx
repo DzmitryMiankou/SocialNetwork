@@ -1,8 +1,8 @@
 import { Routes, Route } from "react-router-dom";
-import Reg from "../components/reg/Reg";
-import Login from "../components/login/Login";
-import MainPage from "../components/mainPage/MainPage";
-import Messages from "../components/mainPage/messages/Messages";
+import Reg from "../components/UI/molecules/reg/Reg";
+import Login from "../components/UI/molecules/login/Login";
+import MainPage from "../components/templates/Network/Network";
+import Messages from "../components/UI/organisms/messages/Messages";
 import React from "react";
 import { LogInitialStateType } from "../redux/localState/loginReducer";
 

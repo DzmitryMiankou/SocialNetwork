@@ -9,12 +9,12 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import {
   MessageType,
   MessagesType,
-} from "../../../redux/api/socket/socket.interface";
-import { LogInitialStateType } from "../../../redux/localState/loginReducer";
+} from "../../../../redux/api/socket/socket.interface";
+import { LogInitialStateType } from "../../../../redux/localState/loginReducer";
 import {
   useHandlerClickKeyMutation,
   useSendMessageMutation,
-} from "../../../redux/api/socket/messages/messagesReducer";
+} from "../../../../redux/api/socket/messages/messagesReducer";
 
 const Messages: React.FC = () => {
   const [toScroll, setToScroll] = useState<boolean>(false);
