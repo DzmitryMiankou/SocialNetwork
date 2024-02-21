@@ -20,14 +20,6 @@ const DragButton = styled.button`
     color: #7e66499b;
   }
 `;
-
-const DragIcon = styled.div<{ $drag: boolean }>`
-  display: ${(prop) => (prop.$drag ? "block" : "none")};
-  grid-area: drag;
-  height: 20px;
-  cursor: grab;
-`;
-
 const DialoguesBox = styled.div`
   display: grid;
   grid-template-rows: 44px auto;
@@ -46,7 +38,7 @@ type LinkType<T> = {
 const gridColumns = "40px auto 0.2fr min-content";
 const gridAreas = "ava dial done time";
 const gridAreasDown = "ava message . .";
-const LinkFrend = styled(NavLink)<LinkType<boolean>>`
+const LinkFriend = styled(NavLink)<LinkType<boolean>>`
   padding: ${(props) => (!props.$allWind ? "10px 40px" : "10px 20px")};
   display: grid;
   grid-template-columns: ${(props) =>
@@ -105,14 +97,6 @@ const DoneAll = styled.div`
   margin-left: auto;
 `;
 
-const AvatarBox = styled.div`
-  grid-area: ava;
-`;
-
-const AvatarImg = styled.img`
-  max-width: 20px;
-`;
-
 const Li = styled.li`
   position: relative;
 `;
@@ -139,15 +123,12 @@ export const St = {
   DialoguesBox,
   Dial,
   Li,
-  AvatarBox,
   DateTime,
-  AvatarImg,
   ScrollBox,
   Ul,
-  LinkFrend,
+  LinkFriend,
   SX,
   MessDial,
   Header,
   DragButton,
-  DragIcon,
 };

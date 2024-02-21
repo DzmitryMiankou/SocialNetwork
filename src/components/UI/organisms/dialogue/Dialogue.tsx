@@ -1,17 +1,17 @@
 import React from "react";
 import { St } from "./Dialogue.style";
 import avatar from "../../../../img/images.png";
-import Avatar from "../../atoms/Avatar/Avatar";
 import { LogInitialStateType } from "../../../../redux/localState/loginReducer";
 import { DialoguesType } from "../../../../redux/api/socket/socket.interface";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
 import { AppDispatch } from "../../../../redux/store";
 import { useDispatch } from "react-redux";
 import { setDataMoreInfAction } from "../../../../redux/localState/moreInfReducer";
-import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
 import Buttons from "../../atoms/Buttons/Buttons";
 import ContextMenu from "../../molecules/ContextMenu/ContextMenu";
 import TitleBlock from "../../atoms/TitleBlock/TitleBlock";
+import DragIcon from "../../atoms/DragIcon/DragIcon";
+import AvatarBox from "../../molecules/AvatarBox/AvatarBox";
 
 type PropType = {
   mousUp: boolean;
@@ -106,7 +106,7 @@ const Dialogue: React.FC<PropType> = ({ mousUp, allWind, dialogues, user }) => {
                     contextHandler(e, targetId === idUser ? sourceId : targetId)
                   }
                 >
-                  <St.LinkFrend
+                  <St.LinkFriend
                     $allWind={allWind}
                     $mousUp={mousUp}
                     $drag={drag}
@@ -117,19 +117,17 @@ const Dialogue: React.FC<PropType> = ({ mousUp, allWind, dialogues, user }) => {
                         : `/:${targetId}_${target.firstName}_${target.lastName}`
                     }
                   >
-                    <St.AvatarBox>
-                      {(
-                        <Avatar
-                          size={30}
-                          letter={
-                            targetId === idUser
-                              ? sources.firstName[0] + sources.lastName[0]
-                              : target.firstName[0] + target.lastName[0]
-                          }
-                          fontSize={16}
-                        />
-                      ) ?? <St.AvatarImg src={avatar} alt="avatar" />}
-                    </St.AvatarBox>
+                    <AvatarBox
+                      size={30}
+                      letter={
+                        targetId === idUser
+                          ? sources.firstName[0] + sources.lastName[0]
+                          : target.firstName[0] + target.lastName[0]
+                      }
+                      fontSize={16}
+                      src={avatar}
+                    />
+
                     <St.Dial>
                       {`${
                         targetId === idUser
@@ -144,10 +142,8 @@ const Dialogue: React.FC<PropType> = ({ mousUp, allWind, dialogues, user }) => {
                     <St.DoneAll>
                       <DoneAllIcon sx={{ fontSize: "16px", color: "grey" }} />
                     </St.DoneAll>
-                    <St.DragIcon $drag={drag}>
-                      <DragIndicatorIcon sx={St.SX.dragIcon} />
-                    </St.DragIcon>
-                  </St.LinkFrend>
+                    <DragIcon drag={drag} />
+                  </St.LinkFriend>
                   <ContextMenu
                     clouseHandler={clouseHandler}
                     user={id ?? 0}

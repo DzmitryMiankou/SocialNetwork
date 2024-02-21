@@ -8,7 +8,6 @@ import {
 import { NavLink } from "react-router-dom";
 import Modal from "../../atoms/ContextMenuBox/ContextMenuBox";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import Avatar from "../../atoms/Avatar/Avatar";
 import SearchInput from "../../molecules/SearchInput/SearchInput";
 import { AppDispatch } from "../../../../redux/store";
 import { useDispatch } from "react-redux";
@@ -16,6 +15,7 @@ import { setDataMoreInfAction } from "../../../../redux/localState/moreInfReduce
 import LocalLibraryOutlinedIcon from "@mui/icons-material/LocalLibraryOutlined";
 import { SxProps } from "@mui/material";
 import TitleBlock from "../../atoms/TitleBlock/TitleBlock";
+import AvatarBox from "../../molecules/AvatarBox/AvatarBox";
 
 const Friends = styled.div`
   margin-top: 5px;
@@ -40,11 +40,6 @@ const AvatarFriendBox = styled(NavLink)`
       rgba(255, 255, 255, 0.3) 71%
     );
   }
-`;
-
-const AvatarFriend = styled.img`
-  width: 30px;
-  height: 30px;
 `;
 
 const Ul = styled.ul`
@@ -152,15 +147,12 @@ const Contacts: React.FC<{
               onContextMenu={(e) => openHandler(e, id)}
               to={`/:${contact?.id}_${contact?.firstName}_${contact?.lastName}`}
             >
-              <>
-                {(
-                  <Avatar
-                    size={30}
-                    letter={contact?.firstName[0] + contact?.lastName[0]}
-                    fontSize={16}
-                  />
-                ) ?? <AvatarFriend src={avatar} alt="avatar" />}
-              </>
+              <AvatarBox
+                size={30}
+                letter={contact?.firstName[0] + contact?.lastName[0]}
+                fontSize={16}
+                src={avatar}
+              />
               <Friend>{`${contact?.firstName} ${contact?.lastName}`}</Friend>
             </AvatarFriendBox>
             <Modal
