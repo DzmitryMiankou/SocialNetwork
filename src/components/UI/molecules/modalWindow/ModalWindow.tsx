@@ -97,7 +97,7 @@ const MoadalWindow: React.FC<{
                   <PersonAddIcon sx={SX.button} />,
                 ].map((data, i) => (
                   <React.Fragment key={`button_header_${i}`}>
-                    {open === id ? (
+                    {open === id && (
                       <Button
                         onClick={(e) =>
                           i === 1 ? setNewContact(e, id) : getAllInfUser(e, id)
@@ -105,8 +105,6 @@ const MoadalWindow: React.FC<{
                       >
                         {data}
                       </Button>
-                    ) : (
-                      <></>
                     )}
                   </React.Fragment>
                 ))}

@@ -1,17 +1,14 @@
 import React from "react";
 import { St } from "./Dialogue.style";
-import avatar from "../../../../img/images.png";
 import { LogInitialStateType } from "../../../../redux/localState/loginReducer";
 import { DialoguesType } from "../../../../redux/api/socket/socket.interface";
-import DoneAllIcon from "@mui/icons-material/DoneAll";
 import { AppDispatch } from "../../../../redux/store";
 import { useDispatch } from "react-redux";
 import { setDataMoreInfAction } from "../../../../redux/localState/moreInfReducer";
 import Buttons from "../../atoms/Buttons/Buttons";
 import ContextMenu from "../../molecules/ContextMenu/ContextMenu";
 import TitleBlock from "../../atoms/TitleBlock/TitleBlock";
-import DragIcon from "../../atoms/DragIcon/DragIcon";
-import AvatarBox from "../../molecules/AvatarBox/AvatarBox";
+import LinkUsers from "../../molecules/LinkUsers/LinkUsers";
 
 type PropType = {
   mousUp: boolean;
@@ -106,44 +103,31 @@ const Dialogue: React.FC<PropType> = ({ mousUp, allWind, dialogues, user }) => {
                     contextHandler(e, targetId === idUser ? sourceId : targetId)
                   }
                 >
-                  <St.LinkFriend
-                    $allWind={allWind}
-                    $mousUp={mousUp}
-                    $drag={drag}
-                    $open={id === (targetId === idUser ? sourceId : targetId)}
+                  <LinkUsers
+                    letter={
+                      targetId === idUser
+                        ? sources.firstName[0] + sources.lastName[0]
+                        : target.firstName[0] + target.lastName[0]
+                    }
+                    allWind={allWind}
+                    sizeImg={30}
+                    fontSize={16}
+                    mousUp={mousUp}
+                    drag={drag}
+                    message={message && message}
+                    date={correctDate(createdAt)}
+                    open={id === (targetId === idUser ? sourceId : targetId)}
                     to={
                       targetId === idUser
                         ? `/:${sourceId}_${sources.firstName}_${sources.lastName}`
                         : `/:${targetId}_${target.firstName}_${target.lastName}`
                     }
-                  >
-                    <AvatarBox
-                      size={30}
-                      letter={
-                        targetId === idUser
-                          ? sources.firstName[0] + sources.lastName[0]
-                          : target.firstName[0] + target.lastName[0]
-                      }
-                      fontSize={16}
-                      src={avatar}
-                    />
-
-                    <St.Dial>
-                      {`${
-                        targetId === idUser
-                          ? sources.firstName
-                          : target.firstName
-                      } ${
-                        targetId === idUser ? sources.lastName : target.lastName
-                      }`}
-                    </St.Dial>
-                    <St.MessDial>{message && message}</St.MessDial>
-                    <St.DateTime>{correctDate(createdAt)}</St.DateTime>
-                    <St.DoneAll>
-                      <DoneAllIcon sx={{ fontSize: "16px", color: "grey" }} />
-                    </St.DoneAll>
-                    <DragIcon drag={drag} />
-                  </St.LinkFriend>
+                    title={`${
+                      targetId === idUser ? sources.firstName : target.firstName
+                    } ${
+                      targetId === idUser ? sources.lastName : target.lastName
+                    }`}
+                  />
                   <ContextMenu
                     clouseHandler={clouseHandler}
                     user={id ?? 0}
