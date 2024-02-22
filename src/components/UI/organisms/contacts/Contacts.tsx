@@ -1,45 +1,21 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import avatar from "../../../../img/images.png";
 import {
   ContactsType,
   useDelContactMutation,
 } from "../../../../redux/api/http/httpReducer";
-import { NavLink } from "react-router-dom";
-import Modal from "../../atoms/ContextMenuBox/ContextMenuBox";
-import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import SearchInput from "../../molecules/SearchInput/SearchInput";
 import { AppDispatch } from "../../../../redux/store";
 import { useDispatch } from "react-redux";
 import { setDataMoreInfAction } from "../../../../redux/localState/moreInfReducer";
-import LocalLibraryOutlinedIcon from "@mui/icons-material/LocalLibraryOutlined";
-import { SxProps } from "@mui/material";
 import TitleBlock from "../../atoms/TitleBlock/TitleBlock";
-import AvatarBox from "../../molecules/AvatarBox/AvatarBox";
+import LinkUsers from "../../molecules/LinkUsers/LinkUsers";
+import ContextMenu from "../../molecules/ContextMenu/ContextMenu";
+import Buttons from "../../atoms/Buttons/Buttons";
 
 const Friends = styled.div`
   margin-top: 5px;
   width: 100%;
-`;
-
-const Friend = styled.p`
-  font-size: 14px;
-`;
-
-const AvatarFriendBox = styled(NavLink)`
-  position: relative;
-  display: flex;
-  padding: 10px 0px;
-  gap: 10px;
-  align-items: center;
-  cursor: pointer;
-  &:hover {
-    background: linear-gradient(
-      90deg,
-      rgba(63, 94, 251, 0) 1%,
-      rgba(255, 255, 255, 0.3) 71%
-    );
-  }
 `;
 
 const Ul = styled.ul`
@@ -49,34 +25,12 @@ const Ul = styled.ul`
 
 const Li = styled.li`
   position: relative;
-`;
-
-const Butt = styled.button`
-  background-color: transparent;
-  border: none;
-`;
-
-const ButtBoxs = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  height: 100%;
+  overflow-x: hidden;
 `;
 
 const SearchBox = styled.div`
   width: fit-content;
 `;
-
-const SX: { icon: SxProps } = {
-  icon: {
-    fontSize: "20px",
-    transition: "0.2s",
-    "&:hover": {
-      color: "#ffffff",
-    },
-  },
-};
 
 const Contacts: React.FC<{
   contacts: ContactsType[] | undefined;
@@ -141,35 +95,29 @@ const Contacts: React.FC<{
         />
       </SearchBox>
       <Ul>
-        {filterContacts()?.map(({ id, contact }) => (
-          <Li key={id}>
-            <AvatarFriendBox
-              onContextMenu={(e) => openHandler(e, id)}
+        {filterContacts()?.map(({ id, contact }, i) => (
+          <Li key={id} onContextMenu={(e) => openHandler(e, id)}>
+            <LinkUsers
+              countEl={2}
+              title={`${contact?.firstName} ${contact?.lastName}`}
+              sizeImg={30}
+              open={id === getid}
+              fontSize={16}
+              letter={contact?.firstName[0] + contact?.lastName[0]}
               to={`/:${contact?.id}_${contact?.firstName}_${contact?.lastName}`}
-            >
-              <AvatarBox
-                size={30}
-                letter={contact?.firstName[0] + contact?.lastName[0]}
-                fontSize={16}
-                src={avatar}
-              />
-              <Friend>{`${contact?.firstName} ${contact?.lastName}`}</Friend>
-            </AvatarFriendBox>
-            <Modal
-              bg={"#bc9979"}
-              num={getid}
-              n={id}
+            />
+            <ContextMenu
               clouseHandler={clouseHandler}
-              component={
-                <ButtBoxs>
-                  <Butt onClick={(e) => getAllInfUser(e, contact?.id)}>
-                    <LocalLibraryOutlinedIcon sx={SX.icon} />
-                  </Butt>
-                  <Butt onClick={() => deleteHandler(id)}>
-                    <DeleteOutlineIcon sx={SX.icon} />
-                  </Butt>
-                </ButtBoxs>
-              }
+              user={id ?? 0}
+              open={id === getid ? getid : 0}
+              arrayChild={[
+                Buttons((e: React.MouseEvent<HTMLButtonElement>) =>
+                  getAllInfUser(e, contact?.id)
+                ).LocalLibrary,
+                Buttons((e: React.MouseEvent<HTMLButtonElement>) =>
+                  deleteHandler(id)
+                ).DeleteOutline,
+              ]}
             />
           </Li>
         ))}

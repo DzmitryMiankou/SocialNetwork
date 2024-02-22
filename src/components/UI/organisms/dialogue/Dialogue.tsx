@@ -96,7 +96,10 @@ const Dialogue: React.FC<PropType> = ({ mousUp, allWind, dialogues, user }) => {
         <St.Ul>
           {dialogues &&
             sortArr([...dialogues]).map(
-              ({ targetId, target, sourceId, sources, createdAt, message }) => (
+              (
+                { targetId, target, sourceId, sources, createdAt, message },
+                i
+              ) => (
                 <St.Li
                   key={targetId === idUser ? sourceId + "t" : targetId}
                   onContextMenu={(e) =>
@@ -111,6 +114,7 @@ const Dialogue: React.FC<PropType> = ({ mousUp, allWind, dialogues, user }) => {
                     }
                     allWind={allWind}
                     sizeImg={30}
+                    countEl={3}
                     fontSize={16}
                     mousUp={mousUp}
                     drag={drag}

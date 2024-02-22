@@ -2,11 +2,12 @@ import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 import { SxProps } from "@mui/material";
 
-type LinkType<T> = {
+type LinkType<T extends boolean> = {
   $mousUp: T;
   $allWind: T;
   $open: T;
   $drag: T;
+  $countEl: number;
 };
 const gridColumns = "40px auto 0.2fr min-content";
 const gridAreas = "ava dial done time";
@@ -25,7 +26,9 @@ const LinkFriend = styled(NavLink)<LinkType<boolean>>`
   align-items: center;
   font-size: 15px;
   transform: ${(props) =>
-    props.$open ? "translate(-180px, 0)" : "translate(0, 0)"};
+    props.$open
+      ? `translate(-${58 * props.$countEl}px, 0)`
+      : "translate(0, 0)"};
   transition: ${(props) => (props.$open ? "0.5s" : "0.3s")};
   &:hover {
     background: ${(props) =>
