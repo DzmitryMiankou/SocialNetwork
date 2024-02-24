@@ -4,32 +4,25 @@ import { SxProps } from "@mui/material";
 
 type LinkType<T extends boolean> = {
   $mousUp: T;
-  $allWind: T;
+  $padding: string;
   $open: T;
   $drag: T;
   $countEl: number;
+  $gridArea: string;
+  $gridColumns: string;
 };
-const gridColumns = "40px auto 0.2fr min-content";
-const gridAreas = "ava dial done time";
-const gridAreasDown = "ava message . .";
 const LinkFriend = styled(NavLink)<LinkType<boolean>>`
-  padding: ${(props) => (!props.$allWind ? "10px 40px" : "10px 20px")};
+  padding: ${(props) => props.$padding};
   display: grid;
-  grid-template-columns: ${(props) =>
-    props.$drag ? gridColumns + " 10px" : gridColumns};
-  grid-template-areas: ${(props) =>
-    props.$drag
-      ? `'${gridAreas + " drag"}'
-         '${gridAreasDown + " ."}'`
-      : `'${gridAreas}'
-         '${gridAreasDown}'`};
+  grid-template-columns: ${(props) => props.$gridColumns};
+  grid-template-areas: ${(props) => props.$gridArea};
   align-items: center;
   font-size: 15px;
   transform: ${(props) =>
     props.$open
       ? `translate(-${58 * props.$countEl}px, 0)`
       : "translate(0, 0)"};
-  transition: ${(props) => (props.$open ? "0.5s" : "0.3s")};
+  transition: ${(props) => (props.$open ? "0.6s" : "0.3s")};
   &:hover {
     background: ${(props) =>
       !props.$mousUp

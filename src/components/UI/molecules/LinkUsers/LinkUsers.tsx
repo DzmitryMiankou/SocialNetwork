@@ -7,7 +7,7 @@ import AvatarBox from "../../molecules/AvatarBox/AvatarBox";
 
 type PropType = {
   mousUp?: boolean;
-  allWind?: boolean;
+  padding?: string;
   title: string;
   letter: string;
   message?: string | undefined;
@@ -18,18 +18,31 @@ type PropType = {
   sizeImg: number;
   fontSize: number;
   countEl: number;
+  gridArea: string;
 };
 
 const LinkUsers: React.FC<PropType> = (props) => {
+  const gridColumns = "40px auto 0.2fr min-content";
+
+  const LinkProps = {
+    $countEl: props.countEl,
+    $mousUp: props.mousUp,
+    $gridColumns: props.drag ? gridColumns + " 10px" : gridColumns,
+    $gridArea: props.gridArea,
+    $drag: props.drag,
+    $open: props.open,
+    to: props.to,
+  };
   const Props = {
-    LinkProps: {
-      $countEl: props.countEl,
-      $allWind: props.allWind ? props.allWind : true,
-      $mousUp: props.mousUp,
-      $drag: props.drag,
-      $open: props.open,
-      to: props.to,
-    },
+    LinkProps: props.padding
+      ? {
+          $padding: props.padding,
+          ...LinkProps,
+        }
+      : {
+          ...LinkProps,
+          $padding: "10px 0px",
+        },
     AvatarProps: {
       size: props.sizeImg,
       letter: props.letter,

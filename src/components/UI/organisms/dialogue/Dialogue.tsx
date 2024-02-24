@@ -84,6 +84,9 @@ const Dialogue: React.FC<PropType> = ({ mousUp, allWind, dialogues, user }) => {
     dispatch(setDataMoreInfAction(id ?? 0));
   };
 
+  const gridAreas = "ava dial done time";
+  const gridAreasDown = "ava message . .";
+
   return (
     <St.DialoguesBox>
       <St.Header $allWind={allWind}>
@@ -112,11 +115,18 @@ const Dialogue: React.FC<PropType> = ({ mousUp, allWind, dialogues, user }) => {
                         ? sources.firstName[0] + sources.lastName[0]
                         : target.firstName[0] + target.lastName[0]
                     }
-                    allWind={allWind}
+                    padding={allWind ? "10px 20px" : "10px 40px"}
                     sizeImg={30}
                     countEl={3}
                     fontSize={16}
                     mousUp={mousUp}
+                    gridArea={
+                      drag
+                        ? `'${gridAreas + " drag"}'
+         '${gridAreasDown + " ."}'`
+                        : `'${gridAreas}'
+         '${gridAreasDown}'`
+                    }
                     drag={drag}
                     message={message && message}
                     date={correctDate(createdAt)}

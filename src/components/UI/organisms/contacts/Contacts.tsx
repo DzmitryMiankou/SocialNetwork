@@ -98,6 +98,8 @@ const Contacts: React.FC<{
         {filterContacts()?.map(({ id, contact }, i) => (
           <Li key={id} onContextMenu={(e) => openHandler(e, id)}>
             <LinkUsers
+              gridArea={`'ava dial'
+                         'ava dial'`}
               countEl={2}
               title={`${contact?.firstName} ${contact?.lastName}`}
               sizeImg={30}
