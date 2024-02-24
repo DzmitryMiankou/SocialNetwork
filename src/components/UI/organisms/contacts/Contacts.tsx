@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styled from "styled-components";
+import { St } from "./Contacts.style";
 import {
   ContactsType,
   useDelContactMutation,
@@ -13,28 +13,25 @@ import LinkUsers from "../../molecules/LinkUsers/LinkUsers";
 import ContextMenu from "../../molecules/ContextMenu/ContextMenu";
 import Buttons from "../../atoms/Buttons/Buttons";
 
-const Friends = styled.div`
-  margin-top: 5px;
-  width: 100%;
-`;
-
-const Ul = styled.ul`
-  height: calc(var(--hight-blok-noHeader) - 360px);
-  overflow-y: scroll;
-`;
-
-const Li = styled.li`
-  position: relative;
-  overflow-x: hidden;
-`;
-
-const SearchBox = styled.div`
-  width: fit-content;
-`;
+const filterContacts = (
+  value: string,
+  contacts: ContactsType[]
+): ContactsType[] => {
+  if (value.trim().length >= 1) {
+    const contact = contacts?.filter((el) =>
+      (el.contact.firstName + el.contact.lastName)
+        .toLowerCase()
+        .replaceAll(" ", "")
+        .includes(value.replaceAll(" ", "").toLowerCase())
+    );
+    return contact;
+  }
+  return contacts;
+};
 
 const Contacts: React.FC<{
   contacts: ContactsType[] | undefined;
-}> = ({ contacts }) => {
+}> = ({ contacts = [] }) => {
   const [getid, setId] = useState<number>();
   const [setContact] = useDelContactMutation();
   const [value, setValue] = useState<string>("");
@@ -62,29 +59,14 @@ const Contacts: React.FC<{
     dispatch(setDataMoreInfAction(id));
   };
 
-  const filterContacts = (): ContactsType[] | void => {
-    if (value.trim().length >= 1) {
-      const contact = contacts?.filter((el) =>
-        (el.contact.firstName + el.contact.lastName)
-          .toLowerCase()
-          .replaceAll(" ", "")
-          .includes(value.replaceAll(" ", "").toLowerCase())
-      );
-      if (contact === undefined) return;
-      return contact;
-    }
-    if (contacts === undefined) return;
-    return contacts;
-  };
-
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setValue(event.target.value);
-    filterContacts();
+    filterContacts(value, contacts);
   };
 
   return (
-    <Friends>
-      <SearchBox>
+    <St.Friends>
+      <St.SearchBox>
         <TitleBlock text="Contacts" />
         <SearchInput
           handleChange={handleChange}
@@ -93,10 +75,10 @@ const Contacts: React.FC<{
           bg="rgba(138, 90, 45, 0.454)"
           colorPl="#e1b47d"
         />
-      </SearchBox>
-      <Ul>
-        {filterContacts()?.map(({ id, contact }, i) => (
-          <Li key={id} onContextMenu={(e) => openHandler(e, id)}>
+      </St.SearchBox>
+      <St.Ul>
+        {filterContacts(value, contacts)?.map(({ id, contact }, i) => (
+          <St.Li key={id} onContextMenu={(e) => openHandler(e, id)}>
             <LinkUsers
               gridArea={`'ava dial'
                          'ava dial'`}
@@ -121,10 +103,10 @@ const Contacts: React.FC<{
                 ).DeleteOutline,
               ]}
             />
-          </Li>
+          </St.Li>
         ))}
-      </Ul>
-    </Friends>
+      </St.Ul>
+    </St.Friends>
   );
 };
 

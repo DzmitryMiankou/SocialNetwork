@@ -15,38 +15,30 @@ type PropType = {
   drag?: boolean;
   open: boolean;
   date?: string;
-  sizeImg: number;
-  fontSize: number;
+  sizeImg?: number;
+  fontSize?: number;
   countEl: number;
-  gridArea: string;
+  gridArea?: string;
 };
 
 const LinkUsers: React.FC<PropType> = (props) => {
   const gridColumns = "40px auto 0.2fr min-content";
 
-  const LinkProps = {
-    $countEl: props.countEl,
-    $mousUp: props.mousUp,
-    $gridColumns: props.drag ? gridColumns + " 10px" : gridColumns,
-    $gridArea: props.gridArea,
-    $drag: props.drag,
-    $open: props.open,
-    to: props.to,
-  };
   const Props = {
-    LinkProps: props.padding
-      ? {
-          $padding: props.padding,
-          ...LinkProps,
-        }
-      : {
-          ...LinkProps,
-          $padding: "10px 0px",
-        },
+    LinkProps: {
+      $countEl: props.countEl,
+      $mousUp: props.mousUp,
+      $gridColumns: props.drag ? gridColumns + " 10px" : gridColumns,
+      $gridArea: props.gridArea,
+      $drag: props.drag,
+      $open: props.open,
+      to: props.to,
+      $padding: props.padding || "10px 0px",
+    },
     AvatarProps: {
-      size: props.sizeImg,
+      size: props.sizeImg || 30,
       letter: props.letter,
-      fontSize: props.fontSize,
+      fontSize: props.fontSize || 14,
       src: avatar,
     },
   };

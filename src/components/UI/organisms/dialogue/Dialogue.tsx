@@ -17,6 +17,48 @@ type PropType = {
   user: LogInitialStateType;
 };
 
+type DateOptionType = Intl.DateTimeFormatOptions;
+
+type OptionDateType<T extends Intl.DateTimeFormatOptions> = {
+  year: T;
+  hour: T;
+  weekday: T;
+  yearDayMonth: T;
+};
+
+const gridAreas = "ava dial done time";
+const gridAreasDown = "ava message . .";
+
+const optionDate: OptionDateType<DateOptionType> = {
+  year: { year: "numeric" },
+  hour: { hour: "2-digit", minute: "2-digit", hour12: false },
+  weekday: { weekday: "short" },
+  yearDayMonth: { year: "numeric", day: "numeric", month: "numeric" },
+};
+
+const correctDate = (date: string): string => {
+  const dialDate = new Date(date);
+  const nowDate = new Date();
+
+  const getDate = (date: Date, option: DateOptionType): string =>
+    date.toLocaleDateString("en-US", option);
+
+  const dialYear = getDate(dialDate, optionDate.year);
+  const nowYear = getDate(nowDate, optionDate.year);
+  const nowWeek = getDate(nowDate, optionDate.weekday);
+  const dialWeek = getDate(dialDate, optionDate.weekday);
+  const nowDay = getDate(nowDate, optionDate.yearDayMonth);
+  const dialDay = getDate(dialDate, optionDate.yearDayMonth);
+
+  if (nowYear !== dialYear) return dialYear;
+  if (nowWeek !== dialWeek || nowDay !== dialDay) return dialWeek;
+
+  return dialDate.toLocaleTimeString("en-US", optionDate.hour);
+};
+
+const sortArr = (arr: DialoguesType[]) =>
+  arr?.sort((a, b) => +new Date(a.createdAt) - +new Date(b.createdAt));
+
 const Dialogue: React.FC<PropType> = ({ mousUp, allWind, dialogues, user }) => {
   const [id, setId] = React.useState<number>();
   const [drag, setDrag] = React.useState<boolean>(false);
@@ -35,45 +77,6 @@ const Dialogue: React.FC<PropType> = ({ mousUp, allWind, dialogues, user }) => {
 
   const clouseHandler = () => setId(0);
 
-  const correctDate = (date: string): string => {
-    const dialDate = new Date(date);
-    const nowDate = new Date();
-
-    type DateOptionType = Intl.DateTimeFormatOptions;
-
-    type OptionDateType<T extends Intl.DateTimeFormatOptions> = {
-      year: T;
-      hour: T;
-      weekday: T;
-      yearDayMonth: T;
-    };
-
-    const optionDate: OptionDateType<DateOptionType> = {
-      year: { year: "numeric" },
-      hour: { hour: "2-digit", minute: "2-digit", hour12: false },
-      weekday: { weekday: "short" },
-      yearDayMonth: { year: "numeric", day: "numeric", month: "numeric" },
-    };
-
-    const getDate = (date: Date, option: DateOptionType): string =>
-      date.toLocaleDateString("en-US", option);
-
-    const dialYear = getDate(dialDate, optionDate.year);
-    const nowYear = getDate(nowDate, optionDate.year);
-    const nowWeek = getDate(nowDate, optionDate.weekday);
-    const dialWeek = getDate(dialDate, optionDate.weekday);
-    const nowDay = getDate(nowDate, optionDate.yearDayMonth);
-    const dialDay = getDate(dialDate, optionDate.yearDayMonth);
-
-    if (nowYear !== dialYear) return dialYear;
-    if (nowWeek !== dialWeek || nowDay !== dialDay) return dialWeek;
-
-    return dialDate.toLocaleTimeString("en-US", optionDate.hour);
-  };
-
-  const sortArr = (arr: DialoguesType[]) =>
-    arr?.sort((a, b) => +new Date(a.createdAt) - +new Date(b.createdAt));
-
   const idUser = user?.user?.id;
 
   const getAllInfUser = (
@@ -83,9 +86,6 @@ const Dialogue: React.FC<PropType> = ({ mousUp, allWind, dialogues, user }) => {
     e.preventDefault();
     dispatch(setDataMoreInfAction(id ?? 0));
   };
-
-  const gridAreas = "ava dial done time";
-  const gridAreasDown = "ava message . .";
 
   return (
     <St.DialoguesBox>
