@@ -80,13 +80,17 @@ const Contacts: React.FC<{
         {filterContacts(value, contacts)?.map(({ id, contact }, i) => (
           <St.Li key={id} onContextMenu={(e) => openHandler(e, id)}>
             <LinkUsers
-              gridArea={`'ava dial'
-                         'ava dial'`}
+              style={{
+                gridColumns: "40px auto",
+                padding: "10px 0px",
+                fontSize: 16,
+                sizeImg: 30,
+                gridArea: `'ava dial'
+                         'ava dial'`,
+              }}
               countEl={2}
               title={`${contact?.firstName} ${contact?.lastName}`}
-              sizeImg={30}
               open={id === getid}
-              fontSize={16}
               letter={contact?.firstName[0] + contact?.lastName[0]}
               to={`/:${contact?.id}_${contact?.firstName}_${contact?.lastName}`}
             />

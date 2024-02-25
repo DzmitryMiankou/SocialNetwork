@@ -2,6 +2,14 @@ import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 import { SxProps } from "@mui/material";
 
+const DefStyle = {
+  padding: "10px 0px",
+  gridArea: "40px auto",
+  sizeImg: 30,
+  fontSize: 16,
+  gridColumns: "40px auto",
+};
+
 type LinkType<T extends boolean> = {
   $mousUp: T;
   $padding: string;
@@ -64,12 +72,13 @@ const DateTime = styled.div`
 const DoneAll = styled.div`
   grid-area: done;
   margin-left: auto;
+  margin-right: 4px;
 `;
 
 const SX: { icon: SxProps } = {
   icon: {
     fontSize: "16px",
-    color: "#000000",
+    color: "#808080",
   },
 };
 
@@ -80,4 +89,5 @@ export const St = {
   LinkFriend,
   SX,
   MessDial,
+  DefStyle,
 };

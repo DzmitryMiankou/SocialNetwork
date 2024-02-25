@@ -74,7 +74,7 @@ const Dialogue: React.FC<PropType> = ({ mousUp, allWind, dialogues, user }) => {
     setId(id);
     setDrag(false);
   };
-
+  const gridColumns = "40px auto 0.2fr min-content";
   const clouseHandler = () => setId(0);
 
   const idUser = user?.user?.id;
@@ -91,7 +91,12 @@ const Dialogue: React.FC<PropType> = ({ mousUp, allWind, dialogues, user }) => {
     <St.DialoguesBox>
       <St.Header $allWind={allWind}>
         <TitleBlock text="Dialogue" />
-        <St.DragButton onClick={dragHandler} type="button">
+        <St.DragButton
+          $color={drag ? "#107900" : "#7e664b"}
+          $hoverColor={!drag ? "#107900" : "#7e664b"}
+          onClick={dragHandler}
+          type="button"
+        >
           change
         </St.DragButton>
       </St.Header>
@@ -110,23 +115,24 @@ const Dialogue: React.FC<PropType> = ({ mousUp, allWind, dialogues, user }) => {
                   }
                 >
                   <LinkUsers
+                    style={{
+                      gridColumns: drag ? gridColumns + " 10px" : gridColumns,
+                      padding: allWind ? "10px 20px" : "10px 40px",
+                      fontSize: 16,
+                      sizeImg: 30,
+                      gridArea: drag
+                        ? `'${gridAreas + " drag"}'
+                          '${gridAreasDown + " ."}'`
+                        : `'${gridAreas}'
+                          '${gridAreasDown}'`,
+                    }}
                     letter={
                       targetId === idUser
                         ? sources.firstName[0] + sources.lastName[0]
                         : target.firstName[0] + target.lastName[0]
                     }
-                    padding={allWind ? "10px 20px" : "10px 40px"}
-                    sizeImg={30}
                     countEl={3}
-                    fontSize={16}
                     mousUp={mousUp}
-                    gridArea={
-                      drag
-                        ? `'${gridAreas + " drag"}'
-         '${gridAreasDown + " ."}'`
-                        : `'${gridAreas}'
-         '${gridAreasDown}'`
-                    }
                     drag={drag}
                     message={message && message}
                     date={correctDate(createdAt)}

@@ -65,9 +65,9 @@ const MainPage: React.FC<{ user: LogInitialStateType }> = ({ user }) => {
       >
         <St.But type="button" onClick={() => setOpen(!open)}>
           {open ? (
-            <ArrowBackIosIcon sx={{ fontSize: "10px" }} />
-          ) : (
             <ArrowForwardIosIcon sx={{ fontSize: "10px" }} />
+          ) : (
+            <ArrowBackIosIcon sx={{ fontSize: "10px" }} />
           )}
         </St.But>
         <Dialogue

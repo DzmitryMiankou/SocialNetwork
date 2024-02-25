@@ -6,39 +6,34 @@ import DragIcon from "../../atoms/DragIcon/DragIcon";
 import AvatarBox from "../../molecules/AvatarBox/AvatarBox";
 
 type PropType = {
+  style: typeof St.DefStyle;
   mousUp?: boolean;
-  padding?: string;
   title: string;
   letter: string;
-  message?: string | undefined;
+  message?: string;
   to: string;
   drag?: boolean;
   open: boolean;
   date?: string;
-  sizeImg?: number;
-  fontSize?: number;
   countEl: number;
-  gridArea?: string;
 };
 
 const LinkUsers: React.FC<PropType> = (props) => {
-  const gridColumns = "40px auto 0.2fr min-content";
-
   const Props = {
     LinkProps: {
       $countEl: props.countEl,
       $mousUp: props.mousUp,
-      $gridColumns: props.drag ? gridColumns + " 10px" : gridColumns,
-      $gridArea: props.gridArea,
+      $gridColumns: props.style.gridColumns,
+      $gridArea: props.style.gridArea,
       $drag: props.drag,
       $open: props.open,
       to: props.to,
-      $padding: props.padding || "10px 0px",
+      $padding: props.style.padding || St.DefStyle.padding,
     },
     AvatarProps: {
-      size: props.sizeImg || 30,
+      size: props.style.sizeImg || St.DefStyle.sizeImg,
       letter: props.letter,
-      fontSize: props.fontSize || 14,
+      fontSize: props.style.fontSize || St.DefStyle.fontSize,
       src: avatar,
     },
   };
@@ -48,15 +43,17 @@ const LinkUsers: React.FC<PropType> = (props) => {
       <AvatarBox {...Props.AvatarProps} />
       <St.Dial>{props.title}</St.Dial>
       <St.MessDial>{props.message}</St.MessDial>
-      <>{props.date && <St.DateTime>{props.date}</St.DateTime>}</>
+      <>{props.date ? <St.DateTime>{props.date}</St.DateTime> : <></>}</>
       <>
-        {props.message && (
+        {props.message ? (
           <St.DoneAll>
             <DoneAllIcon sx={St.SX.icon} />
           </St.DoneAll>
+        ) : (
+          <></>
         )}
       </>
-      <>{props.drag && <DragIcon drag={props.drag} />}</>
+      <>{props.drag ? <DragIcon drag={props.drag} /> : <></>}</>
     </St.LinkFriend>
   );
 };

@@ -7,15 +7,15 @@ const Header = styled.header<{ $allWind: boolean }>`
   background-color: #c69f76;
 `;
 
-const DragButton = styled.button`
+const DragButton = styled.button<{ $color: string; $hoverColor: string }>`
   background: none;
   user-select: none;
   border: none;
-  color: #7e664b;
+  color: ${(props) => props.$color};
   font-size: 12px;
   margin-left: 5px;
   &:hover {
-    color: #7e66499b;
+    color: ${(props) => props.$hoverColor};
   }
 `;
 const DialoguesBox = styled.div`
