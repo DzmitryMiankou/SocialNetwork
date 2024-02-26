@@ -9,6 +9,7 @@ import Buttons from "../../atoms/Buttons/Buttons";
 import ContextMenu from "../../molecules/ContextMenu/ContextMenu";
 import TitleBlock from "../../atoms/TitleBlock/TitleBlock";
 import LinkUsers from "../../molecules/LinkUsers/LinkUsers";
+import { useDeleteMessagesMutation } from "../../../../redux/api/socket/messages/messagesReducer";
 
 type PropType = {
   mousUp: boolean;
@@ -60,6 +61,7 @@ const sortArr = (arr: DialoguesType[]) =>
   arr?.sort((a, b) => +new Date(a.createdAt) - +new Date(b.createdAt));
 
 const Dialogue: React.FC<PropType> = ({ mousUp, allWind, dialogues, user }) => {
+  const [setContact] = useDeleteMessagesMutation();
   const [id, setId] = React.useState<number>();
   const [drag, setDrag] = React.useState<boolean>(false);
   const dispatch: AppDispatch = useDispatch();
@@ -85,6 +87,10 @@ const Dialogue: React.FC<PropType> = ({ mousUp, allWind, dialogues, user }) => {
   ): void => {
     e.preventDefault();
     dispatch(setDataMoreInfAction(id ?? 0));
+  };
+
+  const deleteMessages = (targetId: number, sourceId: number) => {
+    setContact({ targetId: targetId, sourceId: sourceId });
   };
 
   return (
@@ -160,7 +166,7 @@ const Dialogue: React.FC<PropType> = ({ mousUp, allWind, dialogues, user }) => {
                         getAllInfUser(e, id)
                       ).HighlightOff,
                       Buttons((e: React.MouseEvent<HTMLButtonElement>) =>
-                        getAllInfUser(e, id)
+                        deleteMessages(targetId, sourceId)
                       ).DeleteOutline,
                     ]}
                   />

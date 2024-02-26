@@ -2,6 +2,7 @@ import { createApi } from "@reduxjs/toolkit/query/react";
 import { baseQury, getSocket } from "../createSocketFactory";
 import { PathSocket } from "../socket.path";
 import { DialoguesType } from "../socket.interface";
+import { RootState } from "../../../store";
 
 export interface User {
   id: number;
@@ -31,7 +32,7 @@ export const socketApi = createApi({
         try {
           await cacheDataLoaded;
           const socket = await getSocket();
-          const state = getState() as any;
+          const state = getState() as RootState;
 
           socket.emit(PathSocket.dialogues, state.login?.user?.id as number);
 

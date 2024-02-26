@@ -6,6 +6,7 @@ import {
   MessageType,
   MessagesType,
 } from ".././socket.interface";
+import { RootState } from "../../../store";
 
 export const MessagesSocket = createApi({
   reducerPath: "MessagesSocket",
@@ -58,9 +59,9 @@ export const MessagesSocket = createApi({
         try {
           await cacheDataLoaded;
           const socket = await getSocket();
-          const state = getState() as any;
+          const state = getState() as RootState;
 
-          socket.emit(PathSocket.get_all, +state.login?.user?.id as number);
+          socket.emit(PathSocket.get_all, state.login?.user?.id);
 
           socket.on(PathSocket.get_all, (message: MessagesType[]) => {
             updateCachedData((draft) => {
@@ -74,9 +75,16 @@ export const MessagesSocket = createApi({
             });
           });
 
+          socket.on("delete_messages", (messages: MessagesType) => {
+            updateCachedData((draft) => {
+              draft = [];
+            });
+          });
+
           await cacheEntryRemoved;
           socket.off(PathSocket.get_all);
           socket.off(PathSocket.send);
+          socket.off("delete_messages");
         } catch (error) {
           console.log(error);
         }
@@ -89,4 +97,5 @@ export const {
   useGetMessageQuery,
   useSendMessageMutation,
   useHandlerClickKeyMutation,
+  useDeleteMessagesMutation,
 } = MessagesSocket;
