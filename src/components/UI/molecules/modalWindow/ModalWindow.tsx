@@ -29,7 +29,7 @@ const ModalBox = styled.div`
   width: 20vw;
   z-index: 44;
   animation-name: ${anim};
-  animation-timing-function: ease-in;
+  animation-timing-function: ease-out;
   animation-duration: 300ms;
 `;
 

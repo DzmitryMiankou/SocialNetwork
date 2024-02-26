@@ -53,7 +53,7 @@ const LinkUsers: React.FC<PropType> = (props) => {
           <></>
         )}
       </>
-      <>{props.drag ? <DragIcon drag={props.drag} /> : <></>}</>
+      <DragIcon drag={props.drag ?? false} />
     </St.LinkFriend>
   );
 };
