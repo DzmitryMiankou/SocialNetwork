@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import LocalLibraryIcon from "@mui/icons-material/LocalLibrary";
 import { SxProps } from "@mui/material";
@@ -9,6 +9,17 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../../../redux/store";
 import { setDataMoreInfAction } from "../../../../redux/localState/moreInfReducer";
 
+const anim = () => keyframes`
+  0% {
+    opacity: 0.7;
+    transform: translate(250px, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+`;
+
 const ModalBox = styled.div`
   position: absolute;
   right: 10px;
@@ -17,6 +28,9 @@ const ModalBox = styled.div`
   min-width: 200px;
   width: 20vw;
   z-index: 44;
+  animation-name: ${anim};
+  animation-timing-function: ease-out;
+  animation-duration: 300ms;
 `;
 
 const UserBox = styled.li`

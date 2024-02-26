@@ -24,10 +24,15 @@ const Nav = styled(Link)`
   color: black;
 `;
 
+const ErrorText = styled.p`
+  color: #ff0000;
+`;
+
 const Login: React.FC = () => {
   const navigate = useNavigate();
   const dispatch: AppDispatch = useDispatch();
   const [post] = useAuthUserMutation();
+  const [error, setError] = React.useState<string | undefined>(undefined);
   const [value, setValue] = React.useState<{ email: string; password: string }>(
     {
       email: "",
@@ -37,12 +42,18 @@ const Login: React.FC = () => {
 
   const handlerClick = async (e: React.MouseEvent): Promise<void> => {
     e.preventDefault();
+    if (value.email.length === 0 || value.password.length === 0)
+      return setError("Fill in all the fields!");
     const data = await post({
       email: value.email,
       password: value.password,
     });
-    if ("data" in data) dispatch(loginActions.setDataAction(data.data));
-    navigate("/");
+    if ("data" in data) {
+      setError(undefined);
+      dispatch(loginActions.setDataAction(data.data));
+      return navigate("/");
+    }
+    setError("Incorrect password or email!");
   };
 
   const handleInputChange = (
@@ -83,6 +94,7 @@ const Login: React.FC = () => {
           <InputBox>
             <label htmlFor={idName}>{label}</label>
             <input
+              id={idName}
               value={value}
               name={idName}
               type={type}
@@ -91,6 +103,7 @@ const Login: React.FC = () => {
           </InputBox>
         </React.Fragment>
       ))}
+      <>{error ? <ErrorText>{error}</ErrorText> : <></>}</>
       <button type={"button"} onClick={handlerClick}>
         sign in
       </button>
