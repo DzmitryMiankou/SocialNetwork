@@ -77,7 +77,8 @@ export const MessagesSocket = createApi({
 
           socket.on("delete_messages", (messages: MessagesType) => {
             updateCachedData((draft) => {
-              draft = [];
+              draft.length = 0;
+              draft.push(messages);
             });
           });
 

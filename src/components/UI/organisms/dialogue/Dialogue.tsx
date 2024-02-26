@@ -163,10 +163,10 @@ const Dialogue: React.FC<PropType> = ({ mousUp, allWind, dialogues, user }) => {
                         getAllInfUser(e, id)
                       ).LocalLibrary,
                       Buttons((e: React.MouseEvent<HTMLButtonElement>) =>
-                        getAllInfUser(e, id)
+                        deleteMessages(targetId, sourceId)
                       ).HighlightOff,
                       Buttons((e: React.MouseEvent<HTMLButtonElement>) =>
-                        deleteMessages(targetId, sourceId)
+                        getAllInfUser(e, id)
                       ).DeleteOutline,
                     ]}
                   />
