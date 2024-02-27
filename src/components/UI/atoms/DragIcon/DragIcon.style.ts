@@ -16,11 +16,13 @@ const anim = () => keyframes`
 const anim2 = () => keyframes`
   0% {
     opacity: 1;
+    transform: translate(-10px, 0);
   }
-  50% {
+  20% {
     opacity: 0;
   }
   100% {
+    opacity: 0;
     transform: translate(20px, 0);
   }
 `;
