@@ -9,8 +9,7 @@ const DragIcon: React.FC<{ drag: boolean | undefined }> = ({
 
   React.useEffect(() => {
     let timer: NodeJS.Timeout;
-    if (drag) return setOpen(true);
-    if (!drag && open) timer = setTimeout(() => setOpen(false), 500);
+    drag ? setOpen(true) : (timer = setTimeout(() => setOpen(false), 500));
 
     return () => clearTimeout(timer);
   }, [drag, open]);
