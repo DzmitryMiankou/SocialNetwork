@@ -15,19 +15,18 @@ const anim = () => keyframes`
 
 const anim2 = () => keyframes`
   0% {
-    opacity: 0;
-    transform: translate(0, 0);
-  }
-  20% {
-    transform: translate(120px, 0);
+    opacity: 1;
   }
   100% {
-    opacity: 1;
+    opacity: 0;
+     transform: translate(30px, 0);
   }
 `;
 
 const DragIcon = styled.div<{ $drag: boolean }>`
   position: absolute;
+  right: -10px;
+  top: ${(prop) => (prop.$drag ? "0" : "10px")};
   grid-area: drag;
   height: 20px;
   cursor: grab;
