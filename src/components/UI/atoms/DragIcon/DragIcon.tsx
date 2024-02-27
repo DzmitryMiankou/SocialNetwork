@@ -1,18 +1,12 @@
 import React from "react";
 import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
 import { St } from "./DragIcon.style";
+import useBooleanTimer from "../../../../hooks/useBooleanTimer";
 
 const DragIcon: React.FC<{ drag: boolean | undefined }> = ({
   drag = false,
 }) => {
-  const [open, setOpen] = React.useState<boolean>(false);
-
-  React.useEffect(() => {
-    let timer: NodeJS.Timeout;
-    drag ? setOpen(true) : (timer = setTimeout(() => setOpen(false), 500));
-
-    return () => clearTimeout(timer);
-  }, [drag, open]);
+  const open = useBooleanTimer({ bool: drag, time: 500 });
 
   return (
     <>
