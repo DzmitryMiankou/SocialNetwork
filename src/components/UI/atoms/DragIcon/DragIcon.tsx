@@ -9,9 +9,9 @@ const DragIcon: React.FC<{ drag: boolean | undefined }> = ({ drag }) => {
     if (drag) return setOpen(true);
 
     if (!drag && open)
-      new Promise((resolve) => setTimeout(() => resolve(false), 500)).then(
-        (res) => setOpen(res)
-      );
+      new Promise((resolve) => {
+        setTimeout(() => resolve(false), 500);
+      }).then((res) => setOpen(res));
   }, [drag, open]);
 
   return (

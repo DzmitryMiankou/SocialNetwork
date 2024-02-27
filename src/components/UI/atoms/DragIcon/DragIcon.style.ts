@@ -17,9 +17,11 @@ const anim2 = () => keyframes`
   0% {
     opacity: 1;
   }
-  100% {
+  50% {
     opacity: 0;
-     transform: translate(30px, 0);
+  }
+  100% {
+    transform: translate(20px, 0);
   }
 `;
 
