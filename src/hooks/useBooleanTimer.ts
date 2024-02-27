@@ -1,19 +1,19 @@
 import React from "react";
 
-type initialProps = { bool: boolean; time?: number };
+type initialProps = { bool: boolean; delay?: number };
 
 const useBooleanTimer = ({
   bool = false,
-  time = 500,
+  delay = 500,
 }: initialProps): boolean => {
   const [open, setOpen] = React.useState<boolean>(false);
 
   React.useEffect(() => {
     let timer: NodeJS.Timeout;
-    bool ? setOpen(true) : (timer = setTimeout(() => setOpen(false), time));
+    bool ? setOpen(true) : (timer = setTimeout(() => setOpen(false), delay));
 
     return () => clearTimeout(timer);
-  }, [bool, time]);
+  }, [bool, delay]);
 
   return open;
 };

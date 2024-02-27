@@ -6,7 +6,7 @@ import useBooleanTimer from "../../../../hooks/useBooleanTimer";
 const DragIcon: React.FC<{ drag: boolean | undefined }> = ({
   drag = false,
 }) => {
-  const open = useBooleanTimer({ bool: drag, time: 500 });
+  const open = useBooleanTimer({ bool: drag, delay: 500 });
 
   return (
     <>
