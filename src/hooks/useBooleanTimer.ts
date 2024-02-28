@@ -8,9 +8,11 @@ const useBooleanTimer = ({
 }: initialProps): boolean => {
   const [open, setOpen] = React.useState<boolean>(false);
 
-  React.useEffect(() => {
+  React.useEffect((): (() => void) => {
     let timer: NodeJS.Timeout;
-    bool ? setOpen(true) : (timer = setTimeout(() => setOpen(false), delay));
+    bool
+      ? setOpen(true)
+      : (timer = setTimeout((): void => setOpen(false), delay));
 
     return () => clearTimeout(timer);
   }, [bool, delay]);

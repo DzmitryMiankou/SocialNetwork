@@ -20,7 +20,19 @@ const anim = () => keyframes`
   }
 `;
 
-const ModalBox = styled.div`
+const anim2 = () => keyframes`
+  0% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+  100% {
+    opacity: 0;
+     transform: translate(250px, 0);
+  }
+`;
+
+const ModalBox = styled.div<{ $anima: boolean }>`
+  min-height: 200px;
   position: absolute;
   right: 10px;
   background-color: white;
@@ -28,7 +40,7 @@ const ModalBox = styled.div`
   min-width: 200px;
   width: 20vw;
   z-index: 44;
-  animation-name: ${anim};
+  animation-name: ${(props) => (props.$anima ? anim : anim2)};
   animation-timing-function: ease-out;
   animation-duration: 300ms;
 `;
@@ -72,7 +84,8 @@ const MoadalWindow: React.FC<{
   data: { id: number; firstName: string; lastName: string }[] | undefined;
   moreInf: { id: number | null; open: boolean };
   clouseHandler: () => void;
-}> = ({ data, clouseHandler, moreInf }) => {
+  anima: boolean;
+}> = ({ data, clouseHandler, moreInf, anima }) => {
   const [setContact] = useNewContactMutation();
   const [open, setopen] = React.useState<number | "">("");
   const { ref } = useClouseClickOut({ clouseHandler });
@@ -95,7 +108,7 @@ const MoadalWindow: React.FC<{
   };
 
   return (
-    <ModalBox ref={!moreInf.id ? ref : null}>
+    <ModalBox ref={!moreInf.id ? ref : null} $anima={anima}>
       <ul>
         {data?.map(({ id, lastName, firstName }) => (
           <UserBox

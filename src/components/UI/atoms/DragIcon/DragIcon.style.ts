@@ -27,14 +27,14 @@ const anim2 = () => keyframes`
   }
 `;
 
-const DragIcon = styled.div<{ $drag: boolean }>`
+const DragIcon = styled.div<{ $open: boolean; $cursor: boolean }>`
   position: absolute;
   right: -10px;
-  top: ${(prop) => (prop.$drag ? "0" : "10px")};
+  top: ${(prop) => (prop.$open ? "0" : "10px")};
   grid-area: drag;
   height: 20px;
-  cursor: grab;
-  animation-name: ${(prop) => (prop.$drag ? anim : anim2)};
+  cursor: ${(prop) => (prop.$cursor ? "grabbing" : "grab")};
+  animation-name: ${(prop) => (prop.$open ? anim : anim2)};
   animation-timing-function: ease-out;
   animation-duration: 800ms;
 `;

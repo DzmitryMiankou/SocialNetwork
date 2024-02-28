@@ -27,12 +27,13 @@ const Modal: React.FC<PropType> = (props) => {
     }
   };
 
-  const closeHandle = (): void => {
+  const closeHandle = (): (() => void) => {
     set(false);
-    setTimeout((): void => {
+    const timer = setTimeout((): void => {
       dispatch(delDataMoreInfAction());
       set(true);
     }, 70);
+    return (): void => clearTimeout(timer);
   };
 
   return (

@@ -15,6 +15,7 @@ import {
   useLazySearchUsersQuery,
 } from "../../../../redux/api/http/httpReducer";
 import MoadalWindow from "../../molecules/modalWindow/ModalWindow";
+import useBooleanTimer from "../../../../hooks/useBooleanTimer";
 
 const HeaderBox = styled.header`
   display: flex;
@@ -85,9 +86,13 @@ const Header: React.FC<{
   const navigate = useNavigate();
   const dispatch: AppDispatch = useDispatch();
   const [trigger] = useLazyLogOutUserQuery();
-  const [search, { data }] = useLazySearchUsersQuery();
+  const [search, { data = [] }] = useLazySearchUsersQuery();
   const [value, setValue] = useState<string>("");
-  const [open, setOpen] = useState<boolean>();
+  const [open, setOpen] = useState<boolean>(false);
+  const ergt = useBooleanTimer({
+    bool: data?.length !== 0 && data && open !== false,
+    delay: 200,
+  });
 
   const handle = (value: string, hand: boolean): void => {
     setValue(value);
@@ -137,11 +142,12 @@ const Header: React.FC<{
           </Ul>
         </Search>
         <>
-          {data?.length !== 0 && data && open !== false ? (
+          {ergt ? (
             <MoadalWindow
               data={data}
               clouseHandler={clouseHandler}
               moreInf={moreInf}
+              anima={data?.length !== 0 && data && open !== false}
             />
           ) : (
             <></>
