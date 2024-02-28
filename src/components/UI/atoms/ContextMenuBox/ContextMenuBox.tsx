@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import useClouseClickOut from "../../../../hooks/useClouseClickOut";
+import useBooleanTimer from "../../../../hooks/useBooleanTimer";
 
 const ModalBox = styled.div<{ $bg: string }>`
   position: absolute;
@@ -19,10 +20,10 @@ const ContextMenuBox: React.FC<{
   clouseHandler: () => void;
 }> = ({ num, n, component, bg, clouseHandler }) => {
   const { ref } = useClouseClickOut({ clouseHandler });
-
+  const open = useBooleanTimer({ bool: num === n, delay: 150 });
   return (
     <>
-      {num === n && (
+      {open && (
         <ModalBox ref={ref} $bg={bg ?? "#3e2a17"}>
           {component}
         </ModalBox>
