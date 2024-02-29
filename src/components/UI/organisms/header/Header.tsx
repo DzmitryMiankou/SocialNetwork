@@ -91,7 +91,7 @@ const Header: React.FC<{
   const [open, setOpen] = useState<boolean>(false);
   const ergt = useBooleanTimer({
     bool: data?.length !== 0 && data && open !== false,
-    delay: 200,
+    delay: 190,
   });
 
   const handle = (value: string, hand: boolean): void => {

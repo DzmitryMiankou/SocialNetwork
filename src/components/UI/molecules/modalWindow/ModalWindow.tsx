@@ -9,25 +9,26 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../../../redux/store";
 import { setDataMoreInfAction } from "../../../../redux/localState/moreInfReducer";
 
-const anim = () => keyframes`
-  0% {
-    opacity: 0.7;
-    transform: translate(250px, 0);
-  }
-  100% {
-    opacity: 1;
-    transform: translate(0, 0);
-  }
-`;
+type AnimType<N extends number> = {
+  o1?: N;
+  o2?: N;
+  t1?: N;
+  t2?: N;
+};
 
-const anim2 = () => keyframes`
+const anim = ({
+  o1 = 0,
+  o2 = 0,
+  t1 = 0,
+  t2 = 0,
+}: AnimType<number>) => keyframes`
   0% {
-    opacity: 1;
-    transform: translate(0, 0);
+    opacity: o1;
+    transform: translate(${t1}px, 0);
   }
   100% {
-    opacity: 0;
-     transform: translate(250px, 0);
+    opacity: o2;
+    transform: translate(${t2}px, 0);
   }
 `;
 
@@ -40,7 +41,10 @@ const ModalBox = styled.div<{ $anima: boolean }>`
   min-width: 200px;
   width: 20vw;
   z-index: 44;
-  animation-name: ${(props) => (props.$anima ? anim : anim2)};
+  animation-name: ${(props) =>
+    props.$anima
+      ? anim({ o1: 0.7, o2: 1, t1: 250 })
+      : anim({ o1: 1, o2: 0, t2: 250 })};
   animation-timing-function: ease-out;
   animation-duration: 300ms;
 `;
@@ -52,6 +56,7 @@ const UserBox = styled.li`
     background-color: #fff8f3;
   }
 `;
+
 const UserLink = styled.div`
   display: flex;
   justify-content: space-between;
@@ -80,30 +85,29 @@ const SX: { button: SxProps } = {
   },
 };
 
-const MoadalWindow: React.FC<{
+type Props = {
   data: { id: number; firstName: string; lastName: string }[] | undefined;
   moreInf: { id: number | null; open: boolean };
   clouseHandler: () => void;
   anima: boolean;
-}> = ({ data, clouseHandler, moreInf, anima }) => {
+};
+
+const MoadalWindow: React.FC<Props> = ({
+  data,
+  clouseHandler,
+  moreInf,
+  anima,
+}) => {
   const [setContact] = useNewContactMutation();
   const [open, setopen] = React.useState<number | "">("");
   const { ref } = useClouseClickOut({ clouseHandler });
   const dispatch: AppDispatch = useDispatch();
 
-  const setNewContact = (
-    e: React.MouseEvent<HTMLButtonElement>,
-    id: number
-  ): void => {
-    e.preventDefault();
+  const setNewContact = (id: number): void => {
     setContact({ id: id });
   };
 
-  const getAllInfUser = (
-    e: React.MouseEvent<HTMLButtonElement>,
-    id: number
-  ): void => {
-    e.preventDefault();
+  const getAllInfUser = (id: number): void => {
     dispatch(setDataMoreInfAction(id));
   };
 
@@ -126,8 +130,9 @@ const MoadalWindow: React.FC<{
                   <React.Fragment key={`button_header_${i}`}>
                     {open === id && (
                       <Button
+                        type="button"
                         onClick={(e) =>
-                          i === 1 ? setNewContact(e, id) : getAllInfUser(e, id)
+                          i === 1 ? setNewContact(id) : getAllInfUser(id)
                         }
                       >
                         {data}
