@@ -23,11 +23,11 @@ const anim = ({
   t2 = 0,
 }: AnimType<number>) => keyframes`
   0% {
-    opacity: o1;
+    opacity: ${o1};
     transform: translate(${t1}px, 0);
   }
   100% {
-    opacity: o2;
+    opacity: ${o2};
     transform: translate(${t2}px, 0);
   }
 `;
